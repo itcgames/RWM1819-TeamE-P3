@@ -1,0 +1,12 @@
+[submodule "submodules/Input-A"]
+	path = submodules/Input-A
+	url = https://github.com/itcgames/RWM1819-Input-A.git
+[submodule "submodules/RWM1819-Sprite-B"]
+	path = submodules/RWM1819-Sprite-B
+	url = https://github.com/itcgames/RWM1819-Sprite-B.git
+[submodule "submodules/RWM1819-Gesture-A"]
+	path = submodules/RWM1819-Gesture-A
+	url = https://github.com/itcgames/RWM1819-Gesture-A.git
+[submodule "submodules/RWM1819-Tutorial-A"]
+	path = submodules/RWM1819-Tutorial-A
+	url = https://github.com/itcgames/RWM1819-Tutorial-A.git
