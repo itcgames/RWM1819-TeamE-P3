@@ -4,7 +4,8 @@ class Game {
 
   init() {
     this.car = new Car(100, 100);
-    this.worldTile = new WorldTile(0, -54000);
+    this.level = new Level();
+    this.motorCycle = new MotorCycle(200, 100);
     this.input = new Input();
     this.input.bind(this.car.moveUp, "ArrowUp");
   	this.input.bind(this.car.moveDown, "ArrowDown");
@@ -14,12 +15,13 @@ class Game {
 
   update() {
     this.car.update();
-    this.worldTile.update();
+    this.level.update();
   }
 
   draw() {
-    gameNs.game.ctx.clearRect(0,0,1800,1800);
-    this.worldTile.draw();
+    //gameNs.game.ctx.clearRect(0,0,1800,1800);
+    this.level.draw();
     this.car.draw();
+    this.motorCycle.draw();
   }
 }
