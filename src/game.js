@@ -4,7 +4,7 @@ class Game {
 
   init() {
     this.car = new Car(100, 100);
-    this.worldTile = new WorldTile(0, -1200);
+    this.worldTile = new WorldTile(0, -54000);
     this.input = new Input();
     this.input.bind(this.car.moveUp, "ArrowUp");
   	this.input.bind(this.car.moveDown, "ArrowDown");

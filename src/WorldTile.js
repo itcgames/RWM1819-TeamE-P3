@@ -10,14 +10,16 @@ class WorldTile
         this.x = x;
         this.y = y;
 
-        this.sprite = new Sprite(gameNs.game.assetManager.getAsset("../assets/roadTileStraight.png"),
-                                600,
-                                1200,
+        this.sprite = new Sprite(gameNs.game.assetManager.getAsset("../assets/SpyHunterArea01.png"),
+                                768,
+                                18049,
                                 0,
                                 0,
                                 this.x,
                                 this.y,
                                 gameNs.game.ctx);
+
+        this.sprite.setScale(3.0, 3.0);
     }
 
     update()
