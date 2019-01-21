@@ -12,30 +12,41 @@ class TitleScene
   */
   constructor(title)
   {
-    this.title = title
-    this.timeOne = new Date().getTime()
-    this.currentTime = null
-    this.newTime = null
+    this.title = title;
+    this.timeOne = new Date().getTime();
+    this.currentTime = null;
+    this.newTime = null;
+    this.x = 0;
+    this.y = 0;
+    this.sprite = new Sprite(gameNs.game.assetManager.getAsset("../assets/spyHunterSplash.jpg"),
+                            768,
+                            800,
+                            0,
+                            0,
+                            this.x,
+                            this.y,
+                            gameNs.game.ctx);
 
+    this.sprite.setScale(1.8, 1.5);
 
   }
 
   update()
   {
-    this.newTime = new Date().getTime()
-    this.currentTime = this.newTime - this.timeOne
+    this.newTime = new Date().getTime();
+    this.currentTime = this.newTime - this.timeOne;
 
 
     if(this.currentTime > 5000)
     {
-        this.ChangeScene()
+        this.ChangeScene();
     }
 
   }
 
   ChangeScene()
   {
-    gameNs.sceneManager.goToScene(gameNs.menuScene.title)
+    gameNs.sceneManager.goToScene(gameNs.menuScene.title);
   }
 
 
@@ -43,7 +54,7 @@ class TitleScene
   {
 
     document.body.style.background = "#ffffff";
-
+    this.sprite.draw();
 
 
   }

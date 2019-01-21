@@ -1,4 +1,4 @@
-class PlayScene {
+class Game {
   constructor(title)
   {
     this.title = title;
@@ -28,6 +28,7 @@ class PlayScene {
   }
 
   render() {
+    document.body.style.background = "#ffffff";
     this.level.draw();
     this.car.draw();
     this.motorCycle.draw();
