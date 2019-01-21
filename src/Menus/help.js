@@ -32,7 +32,6 @@ class Help
   {
     document.body.style.background = "#66F9FF";
 
-    gameNs.game.ctx.font = "30px Arial";
 
     //ctx.fillText(this.title, 100,100);
   }

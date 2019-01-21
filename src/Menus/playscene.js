@@ -18,7 +18,7 @@ class Game
     gameNs.sceneManager.addScene(gameNs.gameScene);
     gameNs.sceneManager.addScene(gameNs.helpScene)
 
-    gameNs.sceneManager.goToScene(gameNs.menuScene.title);
+    gameNs.sceneManager.goToScene(gameNs.gameScene.title);
     this.update = this.update.bind(this);
   }
 

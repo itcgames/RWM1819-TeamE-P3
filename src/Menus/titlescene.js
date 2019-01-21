@@ -43,7 +43,6 @@ class TitleScene
   {
 
     document.body.style.background = "#ffffff";
-    gameNs.game.ctx.font = '100px serif'; //48
 
 
 
