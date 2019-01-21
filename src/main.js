@@ -15,7 +15,8 @@ function main() {
   const game = new Game();
   gameNs.game = game;
   gameNs.game.assetManager = new AssetManager();
-  gameNs.game.assetManager.queueDownload("../assets/spyhuntersheet.png")
+  gameNs.game.assetManager.queueDownload("../assets/spyhuntersheet.png");
+  gameNs.game.assetManager.queueDownload("../assets/roadTileStraight.png");
   gameNs.game.assetManager.downloadAll(function()
   {
     initCanvas();
