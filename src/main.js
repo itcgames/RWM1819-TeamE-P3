@@ -20,7 +20,7 @@ function main() {
   gameNs.game.assetManager.downloadAll(function()
   {
     initCanvas();
-    gameNs.game.init();
+    gameNs.game.initWorld();
     gameNs.game.update();
   });
 
@@ -48,7 +48,7 @@ function main() {
              break;
          }
      }
-     gameNs.game.draw();
+     gameNs.game.render();
 
      requestAnimationFrame(mainLoop);
  }

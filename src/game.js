@@ -1,8 +1,11 @@
-class Game {
-  constructor() {
+class PlayScene {
+  constructor(title)
+  {
+    this.title = title;
+    this.initWorld();
   }
 
-  init() {
+  initWorld() {
     this.car = new Car(100, 100);
     this.worldTile = new WorldTile(0, -54000);
     this.input = new Input();
@@ -17,7 +20,7 @@ class Game {
     this.worldTile.update();
   }
 
-  draw() {
+  render() {
     gameNs.game.ctx.clearRect(0,0,1800,1800);
     this.worldTile.draw();
     this.car.draw();
