@@ -10,3 +10,6 @@
 [submodule "submodules/RWM1819-Tutorial-A"]
 	path = submodules/RWM1819-Tutorial-A
 	url = https://github.com/itcgames/RWM1819-Tutorial-A.git
+[submodule "submodules/RWM1819-Collision-A"]
+	path = submodules/RWM1819-Collision-A
+	url = https://github.com/itcgames/RWM1819-Collision-A

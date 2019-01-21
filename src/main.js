@@ -14,6 +14,7 @@ function main() {
   document.title = "Team E";
   const game = new Game();
   gameNs.game = game;
+  gameNs.game.collisionManager = new CollisionManager();
   gameNs.game.assetManager = new AssetManager();
   gameNs.game.assetManager.queueDownload("../assets/spyhuntersheet.png");
   gameNs.game.assetManager.queueDownload("../assets/SpyHunterArea01.png");
@@ -44,7 +45,7 @@ function main() {
          gameNs.game.update(timestep);
          delta -= timestep;
          if (++numUpdateSteps >= 240) {
-             panic();
+             
              break;
          }
      }
