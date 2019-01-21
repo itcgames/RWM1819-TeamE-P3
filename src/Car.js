@@ -19,11 +19,13 @@ class Car {
   }
 
   moveUp() {
-    this.y -= 4;
+    if(this.y > 10)
+      this.y -= 4;
   }
 
   moveDown() {
-    this.y += 4;
+    if(this.y < 800)
+      this.y += 4;
   }
 
   moveLeft() {
