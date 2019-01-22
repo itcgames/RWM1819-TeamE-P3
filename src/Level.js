@@ -40,31 +40,31 @@ class Level
                                                  new Vector2(0 * this.worldScale, this.worldOffsetY + 16125 * this.worldScale),
                                                  new Vector2(33 * this.worldScale, this.worldOffsetY + 16125 * this.worldScale),
                                                  new Vector2(33 * this.worldScale, this.worldOffsetY + 18000  * this.worldScale)],
-                                                 ["bounds"]
-                                                ));
+                                                 ["bounds"],
+                                                 ["bounds"]));
         //R
         this.colliders.push(new PolygonCollider([new Vector2(222 * this.worldScale, this.worldOffsetY + 18000 * this.worldScale),
                                                  new Vector2(222 * this.worldScale, this.worldOffsetY + 16125 * this.worldScale),
                                                  new Vector2(255 * this.worldScale, this.worldOffsetY + 16125 * this.worldScale),
                                                  new Vector2(255 * this.worldScale, this.worldOffsetY + 18000  * this.worldScale)],
-                                                 ["bounds"]
-                                                 ));
+                                                 ["bounds"],
+                                                 ["bounds"]));
 
         //L
         this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 16125 * this.worldScale),
                                                  new Vector2(0 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale),
                                                  new Vector2(75 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale),
                                                  new Vector2(33 * this.worldScale, this.worldOffsetY + 16125  * this.worldScale)],
-                                                 ["bounds"]
-                                                 ));
+                                                 ["bounds"],
+                                                 ["bounds"]));
 
         //R
         this.colliders.push(new PolygonCollider([new Vector2(225 * this.worldScale, this.worldOffsetY + 16125 * this.worldScale),
                                                  new Vector2(175 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale),
                                                  new Vector2(256 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale),
                                                  new Vector2(256 * this.worldScale, this.worldOffsetY + 16125  * this.worldScale)],
-                                                 ["bounds"]
-                                                 ));
+                                                 ["bounds"],
+                                                 ["bounds"]));
 
         //L
         this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale), 
