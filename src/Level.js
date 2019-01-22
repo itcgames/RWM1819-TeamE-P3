@@ -4,6 +4,11 @@ class Level
     //Level2 = -106000;
     constructor(YOffset)
     {
+
+    }
+
+    init(YOffset)
+    {
         this.scrollSpeed = 0;
         this.worldScale = 3;
         //this.worldOffsetY = -53000;
@@ -282,23 +287,23 @@ class Level
 
         //L
         this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 640 * this.worldScale),
-                            new Vector2(45 * this.worldScale, this.worldOffsetY + 640 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(45 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
                             new Vector2(45 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
 
         //R
         this.colliders.push(new PolygonCollider([new Vector2(210 * this.worldScale, this.worldOffsetY + 1807 * this.worldScale),
-                            new Vector2(210 * this.worldScale, this.worldOffsetY + 640 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 640 * this.worldScale),
+                            new Vector2(210 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //FORK
         this.colliders.push(new PolygonCollider([new Vector2(97 * this.worldScale, this.worldOffsetY + 1807 * this.worldScale),
-                            new Vector2(97 * this.worldScale, this.worldOffsetY + 640 * this.worldScale),
-                            new Vector2(157 * this.worldScale, this.worldOffsetY + 640 * this.worldScale),
+                            new Vector2(97 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(157 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
                             new Vector2(157 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
@@ -307,6 +312,11 @@ class Level
         {
             gameNs.game.collisionManager.addPolygonCollider(this.colliders[i]);
         }
+    }
+
+    getYPosition()
+    {
+        return this.worldTile.getYPosition();
     }
 
 }
