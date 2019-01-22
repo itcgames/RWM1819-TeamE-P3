@@ -51,7 +51,7 @@ class MotorCycle extends EnemyVehicle
       if(this.saved === true)
       {
         this.savedCount = this.savedCount + 1;
-        if(this.savedCount >= 5)
+        if(this.savedCount >= 50)
         {
           this.savedCount = 0;
           this.saved = false;
@@ -65,8 +65,26 @@ class MotorCycle extends EnemyVehicle
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBig), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
       {
         if(this.saved === false){
-        this.xVelocity = this.xVelocity * -1;
+        if(this.xVelocity < 0)
+        {
+          console.log("Left hit");
+          this.x += 5;
+          this.sprite.move(+5, 0);
+          this.collider.shape.move(+5, 0);
+          this.colliderBig.shape.move(+5, 0);
+          this.xVelocity = 3;
+          this.saved = true;
+          this.count = 0;  // Wont change straight after
+      }else{
+        console.log("Right hit");
+        this.x -= 5;
+        this.sprite.move(-5, 0);
+        this.collider.shape.move(-5, 0);
+        this.colliderBig.shape.move(-5, 0);
+        this.xVelocity = -3;
         this.saved = true;
+        this.count = 0;  // Wont change straight after
+      }
       }
       }
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'Player'))
@@ -93,8 +111,8 @@ class MotorCycle extends EnemyVehicle
       this.count = this.count + 1;
       if(this.count >= 50)
       {
-      this.xVelocity = Math.random() * 4 - 2;
-      this.yVelocity = Math.random() * 4 - 2;
+      this.xVelocity = Math.random() * 6 - 3;
+      this.yVelocity = Math.random() * 6 - 3;
       this.count = 0;
     }
       this.sprite.move(this.xVelocity,this.yVelocity);
