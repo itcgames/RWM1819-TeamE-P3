@@ -20,7 +20,7 @@ class Play
     gameNs.sceneManager.addScene(gameNs.gameScene);
     gameNs.sceneManager.addScene(gameNs.helpScene)
 
-    gameNs.sceneManager.goToScene(gameNs.titleScene.title);
+    gameNs.sceneManager.goToScene(gameNs.gameScene.title);
     this.update = this.update.bind(this);
   }
 
@@ -28,13 +28,13 @@ class Play
   {
 
     gameNs.sceneManager.update();
-    gameNs.sceneManager.render();
+    gameNs.sceneManager.draw();
   }
 
-  render()
+  draw()
   {
 
-    gameNs.sceneManager.render()
+    gameNs.sceneManager.draw()
 
   }
 }

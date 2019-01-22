@@ -14,6 +14,7 @@ class Game {
   	this.input.bind(this.car.moveDown, "ArrowDown");
   	this.input.bind(this.car.moveLeft, "ArrowLeft");
   	this.input.bind(this.car.moveRight, "ArrowRight");
+    this.input.bind(this.car.shoot, " ");
     this.score_text = new scoreText(100,900);
     this.time_text = new timeText(500,900);
   }
@@ -27,7 +28,7 @@ class Game {
     this.time_text.minusTime(1);
   }
 
-  render() {
+  draw() {
     document.body.style.background = "#ffffff";
     this.level.draw();
     this.car.draw();

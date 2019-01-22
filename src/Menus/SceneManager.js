@@ -95,10 +95,10 @@ class SceneManager
    *  logs the current scene
    * draws the current scene
    */
-  render()
+  draw()
   {
   //  var curScene = this.dictionary[this.index];
-      this.currentScene.render();
+      this.currentScene.draw();
   }
 
   getScene()

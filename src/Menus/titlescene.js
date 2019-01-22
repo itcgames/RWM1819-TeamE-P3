@@ -50,7 +50,7 @@ class TitleScene
   }
 
 
-  render()
+  draw()
   {
 
     document.body.style.background = "#ffffff";

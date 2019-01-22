@@ -18,12 +18,13 @@ function main() {
   gameNs.game.assetManager.queueDownload("../assets/spyhuntersheet.png");
   gameNs.game.assetManager.queueDownload("../assets/SpyHunterArea01.png");
   gameNs.game.assetManager.queueDownload("../assets/spyHunterSplash.jpg");
-
+  gameNs.game.assetManager.queueDownload("../assets/bullet.png");
   gameNs.game.assetManager.downloadAll(function()
   {
     initCanvas();
     gameNs.game.initWorld();
     gameNs.game.update();
+    mainLoop();
   });
 
 }
@@ -45,17 +46,12 @@ function main() {
      while (delta >= timestep) {
          gameNs.game.update(timestep);
          delta -= timestep;
-         if (++numUpdateSteps >= 240) {
-             panic();
-             break;
-         }
      }
-     gameNs.game.render();
-
+     gameNs.game.update(timestep);
+     gameNs.game.draw();
      requestAnimationFrame(mainLoop);
  }
 
- requestAnimationFrame(mainLoop);
 
  /**
   * Initialises the canvas - the drawing surface. The canvas

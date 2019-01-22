@@ -32,7 +32,7 @@ class MenuScene
   * changes the color of the background to green
   * changes the font and the font size
   */
-  render()
+  draw()
   {
 
 

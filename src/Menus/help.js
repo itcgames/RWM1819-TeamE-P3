@@ -28,7 +28,7 @@ class Help
   * changes the color of the background to green
   * changes the font and the font size
   */
-  render()
+  draw()
   {
     document.body.style.background = "#66F9FF";
 
