@@ -81,7 +81,7 @@ class Car {
   update() {
     var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
     if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds')) {
-      console.log("HITTTTT");
+      //console.log("HITTTTT");
     }
     this.bulletTimer++;
     this.sprite.setPosition(this.x, this.y);
