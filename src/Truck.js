@@ -21,13 +21,13 @@ class Truck extends EnemyVehicle
 
         this. randX = Math.random() * (800 - 200) + 200;
         this. randY = Math.random() * (800 - 10) + 10;
-        this.collider =  new PolygonCollider([new Vector2(this.x,this.y), 
+        this.collider =  new PolygonCollider([new Vector2(this.x,this.y),
             new Vector2(this.x + 32,this.y) ,
             new Vector2(this.x + 32,this.y + 64),
             new Vector2(this.x,this.y + 64)
         ], ["truck"]);
         gameNs.game.collisionManager.addPolygonCollider(
-           this.collider 
+           this.collider
             );
     }
 
@@ -59,7 +59,7 @@ class Truck extends EnemyVehicle
                 gameNs.game.collisionManager.removePolygonCollider(this.collider);
             }
         }
-        this.collider.position.y = this.y;
+        //this.collider.position.y = this.y;
         this.sprite.setPosition(this.x, this.y);
     }
 
