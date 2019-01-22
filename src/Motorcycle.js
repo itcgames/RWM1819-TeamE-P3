@@ -48,7 +48,6 @@ class MotorCycle extends EnemyVehicle
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBig), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds')) {
         this.xVelocity = this.xVelocity * -1;
         this.yVelocity = this.yVelocity * -1;
-        console.log("HITTTTT");
       }
       this.count = this.count + 1;
       if(this.count >= 50)

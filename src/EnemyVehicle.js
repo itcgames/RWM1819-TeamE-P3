@@ -20,7 +20,7 @@ class EnemyVehicle
     }
 
     mag(x) {
-        if(x > -5 && x < 5) {
+        if(x > -20 && x < 20) {
             return false;
         }
         return true;
