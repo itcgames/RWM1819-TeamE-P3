@@ -4,6 +4,11 @@ class Level
     //Level2 = -106000;
     constructor(YOffset)
     {
+
+    }
+
+    init(YOffset)
+    {
         this.scrollSpeed = 0;
         this.worldScale = 3;
         //this.worldOffsetY = -53000;
@@ -20,6 +25,10 @@ class Level
         this.worldTile.update(this.scrollSpeed);
         //Update collider positions
         this.updateColliders(this.scrollSpeed);
+    }
+    getScrollSpeed()
+    {
+      return this.scrollSpeed;
     }
 
     draw()
@@ -70,239 +79,244 @@ class Level
                                                  ["bounds"]));
 
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 12280 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 12280 * this.worldScale),
                             new Vector2(79 * this.worldScale, this.worldOffsetY + 12280 * this.worldScale),
-                            new Vector2(79 * this.worldScale, this.worldOffsetY + 15675  * this.worldScale)], 
+                            new Vector2(79 * this.worldScale, this.worldOffsetY + 15675  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale), 
-                            new Vector2(175 * this.worldScale, this.worldOffsetY + 12280 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale),
+                            new Vector2(175 * this.worldScale, this.worldOffsetY + 12280 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 12280 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 15675  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 15675  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 12280 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 11805 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 12280 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 11805 * this.worldScale),
                             new Vector2(125 * this.worldScale, this.worldOffsetY + 11805 * this.worldScale),
-                            new Vector2(79 * this.worldScale, this.worldOffsetY + 12280  * this.worldScale)], 
+                            new Vector2(79 * this.worldScale, this.worldOffsetY + 12280  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 12280 * this.worldScale), 
-                            new Vector2(222 * this.worldScale, this.worldOffsetY + 11805 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 12280 * this.worldScale),
+                            new Vector2(222 * this.worldScale, this.worldOffsetY + 11805 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 11805 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 12280  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 12280  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"])); 
+                            ["bounds"]));
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 11805 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 10370 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 11805 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 10370 * this.worldScale),
                             new Vector2(128 * this.worldScale, this.worldOffsetY + 10370 * this.worldScale),
-                            new Vector2(128 * this.worldScale, this.worldOffsetY + 11805  * this.worldScale)], 
+                            new Vector2(128 * this.worldScale, this.worldOffsetY + 11805  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(222 * this.worldScale, this.worldOffsetY + 11805 * this.worldScale), 
-                            new Vector2(222 * this.worldScale, this.worldOffsetY + 10370 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(222 * this.worldScale, this.worldOffsetY + 11805 * this.worldScale),
+                            new Vector2(222 * this.worldScale, this.worldOffsetY + 10370 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 10370 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 11805  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 11805  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 10370 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 9920 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 10370 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 9920 * this.worldScale),
                             new Vector2(80 * this.worldScale, this.worldOffsetY + 9920 * this.worldScale),
-                            new Vector2(128 * this.worldScale, this.worldOffsetY + 10370  * this.worldScale)], 
+                            new Vector2(128 * this.worldScale, this.worldOffsetY + 10370  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(222 * this.worldScale, this.worldOffsetY + 10370 * this.worldScale), 
-                            new Vector2(175 * this.worldScale, this.worldOffsetY + 9920 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(222 * this.worldScale, this.worldOffsetY + 10370 * this.worldScale),
+                            new Vector2(175 * this.worldScale, this.worldOffsetY + 9920 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 9920 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 10370  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 10370  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 9920 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 9650 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 9920 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 9650 * this.worldScale),
                             new Vector2(80 * this.worldScale, this.worldOffsetY + 9650 * this.worldScale),
-                            new Vector2(80 * this.worldScale, this.worldOffsetY + 9920  * this.worldScale)], 
+                            new Vector2(80 * this.worldScale, this.worldOffsetY + 9920  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 9920 * this.worldScale), 
-                            new Vector2(175 * this.worldScale, this.worldOffsetY + 9650 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 9920 * this.worldScale),
+                            new Vector2(175 * this.worldScale, this.worldOffsetY + 9650 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 9650 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 9920  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 9920  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 9650 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 9185 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 9650 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 9185 * this.worldScale),
                             new Vector2(35 * this.worldScale, this.worldOffsetY + 9185 * this.worldScale),
-                            new Vector2(80 * this.worldScale, this.worldOffsetY + 9650  * this.worldScale)], 
+                            new Vector2(80 * this.worldScale, this.worldOffsetY + 9650  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 9650 * this.worldScale), 
-                            new Vector2(128 * this.worldScale, this.worldOffsetY + 9185 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 9650 * this.worldScale),
+                            new Vector2(128 * this.worldScale, this.worldOffsetY + 9185 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 9185 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 9650  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 9650  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
 
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 9185 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 6760 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 9185 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 6760 * this.worldScale),
                             new Vector2(33 * this.worldScale, this.worldOffsetY + 6760 * this.worldScale),
-                            new Vector2(33 * this.worldScale, this.worldOffsetY + 9185  * this.worldScale)], 
+                            new Vector2(33 * this.worldScale, this.worldOffsetY + 9185  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(128 * this.worldScale, this.worldOffsetY + 9185 * this.worldScale), 
-                            new Vector2(128 * this.worldScale, this.worldOffsetY + 6760 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(128 * this.worldScale, this.worldOffsetY + 9185 * this.worldScale),
+                            new Vector2(128 * this.worldScale, this.worldOffsetY + 6760 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 6760 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 9185  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 9185  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"])); 
+                            ["bounds"]));
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 6760 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 6315 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 6760 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 6315 * this.worldScale),
                             new Vector2(76 * this.worldScale, this.worldOffsetY + 6315 * this.worldScale),
-                            new Vector2(32 * this.worldScale, this.worldOffsetY + 6760  * this.worldScale)], 
+                            new Vector2(32 * this.worldScale, this.worldOffsetY + 6760  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(125 * this.worldScale, this.worldOffsetY + 6760 * this.worldScale), 
-                            new Vector2(175 * this.worldScale, this.worldOffsetY + 6315 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(125 * this.worldScale, this.worldOffsetY + 6760 * this.worldScale),
+                            new Vector2(175 * this.worldScale, this.worldOffsetY + 6315 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 6315 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 6760  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 6760  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"])); 
+                            ["bounds"]));
 
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 6315 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 3890 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 6315 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 3890 * this.worldScale),
                             new Vector2(79 * this.worldScale, this.worldOffsetY + 3890 * this.worldScale),
-                            new Vector2(79 * this.worldScale, this.worldOffsetY + 6315  * this.worldScale)], 
+                            new Vector2(79 * this.worldScale, this.worldOffsetY + 6315  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 6315 * this.worldScale), 
-                            new Vector2(175 * this.worldScale, this.worldOffsetY + 3890 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 6315 * this.worldScale),
+                            new Vector2(175 * this.worldScale, this.worldOffsetY + 3890 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 3890 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 6315  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 6315  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 3890 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 3440 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 3890 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 3440 * this.worldScale),
                             new Vector2(32 * this.worldScale, this.worldOffsetY + 3440 * this.worldScale),
-                            new Vector2(79 * this.worldScale, this.worldOffsetY + 3890  * this.worldScale)], 
+                            new Vector2(79 * this.worldScale, this.worldOffsetY + 3890  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 3890 * this.worldScale), 
-                            new Vector2(222 * this.worldScale, this.worldOffsetY + 3440 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(175 * this.worldScale, this.worldOffsetY + 3890 * this.worldScale),
+                            new Vector2(222 * this.worldScale, this.worldOffsetY + 3440 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 3440 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 3890  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 3890  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 3440 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 3440 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale),
                             new Vector2(16 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale),
-                            new Vector2(32 * this.worldScale, this.worldOffsetY + 3440  * this.worldScale)], 
+                            new Vector2(32 * this.worldScale, this.worldOffsetY + 3440  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(222 * this.worldScale, this.worldOffsetY + 3440 * this.worldScale), 
-                            new Vector2(240 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(222 * this.worldScale, this.worldOffsetY + 3440 * this.worldScale),
+                            new Vector2(240 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 3440  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 3440  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
 
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale),
                             new Vector2(16 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale),
-                            new Vector2(16 * this.worldScale, this.worldOffsetY + 3200  * this.worldScale)], 
+                            new Vector2(16 * this.worldScale, this.worldOffsetY + 3200  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(238 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale), 
-                            new Vector2(238 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(238 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale),
+                            new Vector2(238 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 3200  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 3200  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //FORK
-        this.colliders.push(new PolygonCollider([new Vector2(111 * this.worldScale, this.worldOffsetY + 3150 * this.worldScale), 
-                            new Vector2(111 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(111 * this.worldScale, this.worldOffsetY + 3150 * this.worldScale),
+                            new Vector2(111 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
                             new Vector2(143 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
                             new Vector2(143 * this.worldScale, this.worldOffsetY + 3150 * this.worldScale),
-                            new Vector2(127 * this.worldScale, this.worldOffsetY + 3300 * this.worldScale)], 
+                            new Vector2(127 * this.worldScale, this.worldOffsetY + 3300 * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));   
+                            ["bounds"]));
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
                             new Vector2(30 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
-                            new Vector2(16 * this.worldScale, this.worldOffsetY + 1960  * this.worldScale)], 
+                            new Vector2(16 * this.worldScale, this.worldOffsetY + 1960  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(238 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale), 
-                            new Vector2(222 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale), 
+        this.colliders.push(new PolygonCollider([new Vector2(238 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale),
+                            new Vector2(222 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
                             new Vector2(256 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 1960  * this.worldScale)], 
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 1960  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
 
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale), 
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 640 * this.worldScale), 
-                            new Vector2(45 * this.worldScale, this.worldOffsetY + 640 * this.worldScale),
-                            new Vector2(45 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)], 
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(45 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(45 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));    
+                            ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(210 * this.worldScale, this.worldOffsetY + 1807 * this.worldScale), 
-                            new Vector2(210 * this.worldScale, this.worldOffsetY + 640 * this.worldScale), 
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 640 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)], 
+        this.colliders.push(new PolygonCollider([new Vector2(210 * this.worldScale, this.worldOffsetY + 1807 * this.worldScale),
+                            new Vector2(210 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //FORK
-        this.colliders.push(new PolygonCollider([new Vector2(97 * this.worldScale, this.worldOffsetY + 1807 * this.worldScale), 
-                            new Vector2(97 * this.worldScale, this.worldOffsetY + 640 * this.worldScale), 
-                            new Vector2(157 * this.worldScale, this.worldOffsetY + 640 * this.worldScale),
-                            new Vector2(157 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)], 
+        this.colliders.push(new PolygonCollider([new Vector2(97 * this.worldScale, this.worldOffsetY + 1807 * this.worldScale),
+                            new Vector2(97 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(157 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(157 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)],
                             ["bounds"],
-                            ["bounds"]));   
-                            
+                            ["bounds"]));
+
         for(var i = 0; i < this.colliders.length; i++)
         {
             gameNs.game.collisionManager.addPolygonCollider(this.colliders[i]);
         }
+    }
+
+    getYPosition()
+    {
+        return this.worldTile.getYPosition();
     }
 
 }

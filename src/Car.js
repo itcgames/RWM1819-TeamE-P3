@@ -17,8 +17,8 @@ class Car {
                                                           x,
                                                           y,
                                                           gameNs.game.ctx);
-    this.animation = new Animation("explosion", 0, 565, 42, 42, 5);
-    this.animation.setFrameRate(250);
+    this.animation = new Animation("explosion", 0, 565, 42, 42, 6);
+    this.animation.setFrameRate(150);
     this.animation.setLooped(true);
     this.spriteAnimation.setAnimation(this.animation);
     this.spriteAnimation.setScale(1.5,1.5)
@@ -52,7 +52,9 @@ class Car {
 
       gameNs.game.collisionManager.addPolygonCollider(this.collider);
   }
-
+  getPositionX(){
+    return this.x;
+  }
   moveUp() {
     if(this.y > 10)
     {
@@ -93,9 +95,9 @@ class Car {
     return this.clamp(this.y + this.limitOffset, 800, 1600);
   }
 
-  update() {
+  update(scrollSpeed) {
     var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
-    if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds')) {
+    if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds') && this.alive) {
       console.log("HITTTTT");
       this.alive = false;
       this.explosionTime = true;
@@ -113,10 +115,31 @@ class Car {
     });
 
     if (this.explosionTime){
+      this.y += (scrollSpeed / 2);
+      this.collider.shape.move(0, (scrollSpeed / 2))
       this.spriteAnimation.setPosition(this.x - (this.width / 2), this.y - (this.height / 2));
       this.spriteAnimation.playAnimation();
-
+      if (this.animation.getCurFrame() >= 167)
+      {
+        this.explosionTime = false;
+      }
     }
+    if (!this.explosionTime && !this.getAlive())
+    {
+      this.reset()
+    }
+  }
+
+  reset()
+  {
+    this.x = 300;
+    this.y = 600;
+    this.alive = true;
+    this.collider.position = Vector2(this.x, this.y)
+  }
+
+  getAlive(){
+    return this.alive;
   }
 
   draw() {
