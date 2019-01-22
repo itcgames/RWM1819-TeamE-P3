@@ -26,18 +26,16 @@ class Car {
     this.upperYLimit = 10;
     this.lowerYLimit = 800;
     this.limitOffset = 400;
-  }
 
-  moveUp() {
-    if(this.y > this.upperYLimit)
     this.collider = new PolygonCollider([new Vector2(this.x, this.y),
-                                             new Vector2(this.x + 25, this.y),
-                                             new Vector2(this.x + 25, this.y + 45),
-                                             new Vector2(this.x, this.y + 45)],
-                                             ["Player"],
-                                             ["bullet"]
-                                             );
-    gameNs.game.collisionManager.addPolygonCollider(this.collider);
+      new Vector2(this.x + 25, this.y),
+      new Vector2(this.x + 25, this.y + 45),
+      new Vector2(this.x, this.y + 45)],
+      ["Player"],
+      ["bullet"]
+      );
+
+      gameNs.game.collisionManager.addPolygonCollider(this.collider);
   }
 
   moveUp() {

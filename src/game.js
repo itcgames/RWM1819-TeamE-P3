@@ -6,7 +6,8 @@ class Game {
   }
   initWorld() {
     this.car = new Car(100, 100);
-    this.level = new Level();
+    this.levelPart1 = new Level(-53000);
+    this.levelPart2 = new Level(-106000);
     this.motorCycle = new MotorCycle(400, 600);
     this.truck = new Truck(400, 100);
     this.input = new Input();
@@ -21,7 +22,8 @@ class Game {
 
   update(time) {
     this.car.update();
-    this.level.update(this.car.getScrollScalar());
+    this.levelPart1.update(this.car.getScrollScalar());
+    this.levelPart2.update(this.car.getScrollScalar());
     this.input.update();
     this.motorCycle.update();
     this.truck.update();
@@ -32,7 +34,8 @@ class Game {
 
   draw() {
     document.body.style.background = "#ffffff";
-    this.level.draw();
+    this.levelPart1.draw();
+    this.levelPart2.draw();
     this.car.draw();
     this.motorCycle.draw();
     this.truck.draw();

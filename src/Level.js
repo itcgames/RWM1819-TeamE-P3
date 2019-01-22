@@ -1,10 +1,13 @@
 class Level
 {
-    constructor()
+    //Level1 = -53000
+    //Level2 = -106000;
+    constructor(YOffset)
     {
         this.scrollSpeed = 0;
         this.worldScale = 3;
-        this.worldOffsetY = -53000;
+        //this.worldOffsetY = -53000;
+        this.worldOffsetY = YOffset;
         this.worldTile = new WorldTile(0, this.worldOffsetY);
         this.colliders = [];
 
