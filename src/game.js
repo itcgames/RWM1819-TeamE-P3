@@ -24,7 +24,8 @@ class Game {
   }
 
   update(time) {
-    this.car.update();
+
+    this.car.update(this.levelPart1.getScrollSpeed());
     this.levelPart1.update(this.car.getScrollScalar());
     //this.levelPart2.update(this.car.getScrollScalar());
 
@@ -37,8 +38,10 @@ class Game {
     // {
     //   this.levelPart2.init(-106000);
     // }
+    if (this.car.getAlive()){
+      this.input.update();
+    }
 
-    this.input.update();
     this.motorCycle.update(this.car.getPositionX(),this.levelPart1.getScrollSpeed());
     this.truck.update();
     this.score_text.addScore(1);
@@ -50,12 +53,13 @@ class Game {
     document.body.style.background = "#ffffff";
     this.levelPart1.draw();
     //this.levelPart2.draw();
+    gameNs.game.collisionManager.render(gameNs.game.ctx);
     this.car.draw();
     this.motorCycle.draw();
     this.truck.draw();
     this.score_text.drawText();
     this.time_text.drawText();
-    gameNs.game.collisionManager.render(gameNs.game.ctx);
+
     this.motorCycle.draw();
   }
 }

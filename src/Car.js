@@ -9,11 +9,26 @@ class Car {
                                                           y,
                                                           gameNs.game.ctx);
 
+    this.spriteAnimation = new AnimatedSprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
+                                                          42,
+                                                          42,
+                                                          0,
+                                                          565,
+                                                          x,
+                                                          y,
+                                                          gameNs.game.ctx);
+    this.animation = new Animation("explosion", 0, 565, 42, 42, 6);
+    this.animation.setFrameRate(150);
+    this.animation.setLooped(true);
+    this.spriteAnimation.setAnimation(this.animation);
+    this.spriteAnimation.setScale(1.5,1.5)
     this.x = x;
     this.y = y;
-
+    this.width = 26
+    this.height = 44
+    this.alive = true;
     this.bullets = [];
-
+    this.explosionTime = false;
     this.bulletTimer = 0;
     this.bulletTime = 6;
 
@@ -80,13 +95,17 @@ class Car {
     return this.clamp(this.y + this.limitOffset, 800, 1600);
   }
 
-  update() {
+  update(scrollSpeed) {
     var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
-    if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds')) {
-      //console.log("HITTTTT");
+    if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds') && this.alive) {
+      console.log("HITTTTT");
+      this.alive = false;
+      this.explosionTime = true;
     }
     this.bulletTimer++;
     this.sprite.setPosition(this.x, this.y);
+
+
     var that = this;
     this.bullets.forEach(function(element) {
       element.update();
@@ -94,10 +113,45 @@ class Car {
         that.bullets.splice( that.bullets.indexOf(element), 1 );
       }
     });
+
+    if (this.explosionTime){
+      this.y += (scrollSpeed / 2);
+      this.collider.shape.move(0, (scrollSpeed / 2))
+      this.spriteAnimation.setPosition(this.x - (this.width / 2), this.y - (this.height / 2));
+      this.spriteAnimation.playAnimation();
+      if (this.animation.getCurFrame() >= 167)
+      {
+        this.explosionTime = false;
+      }
+    }
+    if (!this.explosionTime && !this.getAlive())
+    {
+      this.reset()
+    }
+  }
+
+  reset()
+  {
+    this.x = 300;
+    this.y = 600;
+    this.alive = true;
+    this.collider.position.x = this.x
+    this.collider.position.y = this.y
+  }
+
+  getAlive(){
+    return this.alive;
   }
 
   draw() {
-    this.sprite.draw();
+    if (this.alive){
+      this.sprite.draw();
+    }
+
+    if (this.explosionTime){
+      this.spriteAnimation.draw();
+    }
+
     this.bullets.forEach(function(element) {
       element.draw();
     });
