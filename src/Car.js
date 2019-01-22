@@ -37,7 +37,9 @@ class Car {
 
       gameNs.game.collisionManager.addPolygonCollider(this.collider);
   }
-
+  getPositionX(){
+    return this.x;
+  }
   moveUp() {
     if(this.y > 10)
     {
@@ -102,7 +104,7 @@ class Car {
 
   }
   /**
-   * 
+   *
    * @param {*} val The value to clamp
    * @param {*} min The minimum value of val
    * @param {*} max The maximum value of val

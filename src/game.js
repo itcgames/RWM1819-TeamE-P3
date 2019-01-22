@@ -25,7 +25,7 @@ class Game {
     this.levelPart1.update(this.car.getScrollScalar());
     this.levelPart2.update(this.car.getScrollScalar());
     this.input.update();
-    this.motorCycle.update();
+    this.motorCycle.update(this.car.getPositionX(),this.levelPart1.getScrollSpeed());
     this.truck.update();
     this.score_text.addScore(1);
     this.time_text.minusTime(1);
