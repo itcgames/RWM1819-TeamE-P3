@@ -33,4 +33,9 @@ class WorldTile
     {
         this.sprite.draw();
     }
+
+    getYPosition()
+    {
+        return this.y;
+    }
 }

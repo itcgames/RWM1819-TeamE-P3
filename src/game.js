@@ -6,8 +6,8 @@ class Game {
   }
   initWorld() {
     this.car = new Car(100, 100);
-    this.levelPart1 = new Level(-53000);
-    this.levelPart2 = new Level(-106000);
+    this.levelPart1 = new Level();
+    this.levelPart2 = new Level();
     this.motorCycle = new MotorCycle(400, 600);
     this.truck = new Truck(400, 100);
     this.input = new Input();
@@ -18,12 +18,26 @@ class Game {
     this.input.bind(this.car.shoot, " ");
     this.score_text = new scoreText(100, 900);
     this.time_text = new timeText(500, 900);
+
+    this.levelPart1.init(-53000);
+    //this.levelPart2.init(-106000);
   }
 
   update(time) {
     this.car.update();
     this.levelPart1.update(this.car.getScrollScalar());
-    this.levelPart2.update(this.car.getScrollScalar());
+    //this.levelPart2.update(this.car.getScrollScalar());
+
+    if(this.levelPart1.getYPosition() > 1080)
+    {
+      this.levelPart1.init(-53000);
+    }
+
+    // if(this.levelPart2.getYPosition() > 1080)
+    // {
+    //   this.levelPart2.init(-106000);
+    // }
+
     this.input.update();
     this.motorCycle.update();
     this.truck.update();
@@ -35,7 +49,7 @@ class Game {
   draw() {
     document.body.style.background = "#ffffff";
     this.levelPart1.draw();
-    this.levelPart2.draw();
+    //this.levelPart2.draw();
     this.car.draw();
     this.motorCycle.draw();
     this.truck.draw();
