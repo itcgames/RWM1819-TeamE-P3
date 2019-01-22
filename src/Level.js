@@ -238,7 +238,7 @@ class Level
                             new Vector2(16 * this.worldScale, this.worldOffsetY + 1960 * this.worldScale),
                             new Vector2(16 * this.worldScale, this.worldOffsetY + 3200  * this.worldScale)], 
                             "bounds",
-                            ""));    
+                            "bounds"));    
 
         //R
         this.colliders.push(new PolygonCollider([new Vector2(238 * this.worldScale, this.worldOffsetY + 3200 * this.worldScale), 
