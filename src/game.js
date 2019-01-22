@@ -7,7 +7,7 @@ class Game {
   initWorld() {
     this.car = new Car(100, 100);
     this.level = new Level();
-    this.motorCycle = new MotorCycle(200, 100);
+    this.motorCycle = new MotorCycle(400, 600);
     this.input = new Input();
     this.input.bind(this.car.moveUp, "ArrowUp");
   	this.input.bind(this.car.moveDown, "ArrowDown");
@@ -29,6 +29,7 @@ class Game {
     this.car.update();
     this.level.update();
     this.input.update();
+    this.motorCycle.update();
 
     this.score_text.addScore(1);
     this.time_text.minusTime(1);
@@ -39,9 +40,9 @@ class Game {
     document.body.style.background = "#ffffff";
     this.level.draw();
     this.car.draw();
-    this.motorCycle.draw();
     this.score_text.drawText();
     this.time_text.drawText();
     gameNs.game.collisionManager.render(gameNs.game.ctx);
+    this.motorCycle.draw();
   }
 }
