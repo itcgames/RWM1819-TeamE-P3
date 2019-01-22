@@ -12,13 +12,23 @@ class Bullet {
     this.x = x;
     this.y = y;
     this.dead = false;
+    this.collider =  new PolygonCollider([new Vector2(this.x,this.y), 
+      new Vector2(this.x + 4,this.y) ,
+      new Vector2(this.x + 4,this.y + 8),
+      new Vector2(this.x,this.y + 8)
+    ], ["bullet"]);
+    gameNs.game.collisionManager.addPolygonCollider(
+      this.collider 
+     );
   }
 
   update() {
     this.y -= 6;
     this.sprite.setPosition(this.x, this.y);
-    if(this.y < 0) {
+    this.collider.shape.move(0, -6);
+    if(this.y < 0 || this.collider.colliding) {
       this.dead = true;
+      gameNs.game.collisionManager.removePolygonCollider(this.collider);
     }
   }
 
