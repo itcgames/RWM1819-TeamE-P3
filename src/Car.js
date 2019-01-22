@@ -135,7 +135,8 @@ class Car {
     this.x = 300;
     this.y = 600;
     this.alive = true;
-    this.collider.position = Vector2(this.x, this.y)
+    this.collider.position.x = this.x
+    this.collider.position.y = this.y
   }
 
   getAlive(){
