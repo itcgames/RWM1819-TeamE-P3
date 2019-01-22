@@ -19,7 +19,6 @@ class Car {
                                                           gameNs.game.ctx);
     this.animation = new Animation("explosion", 0, 565, 42, 42, 6);
     this.animation.setFrameRate(150);
-    this.animation.setLooped(true);
     this.spriteAnimation.setAnimation(this.animation);
     this.spriteAnimation.setScale(1.5,1.5)
     this.x = x;
@@ -29,6 +28,7 @@ class Car {
     this.alive = true;
     this.bullets = [];
     this.explosionTime = false;
+    this.count = 0;
     this.bulletTimer = 0;
     this.bulletTime = 6;
 
@@ -99,6 +99,7 @@ class Car {
     var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
     if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds') && this.alive) {
       console.log("HITTTTT");
+      this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
     }
@@ -119,7 +120,9 @@ class Car {
       this.collider.shape.move(0, (scrollSpeed / 2))
       this.spriteAnimation.setPosition(this.x - (this.width / 2), this.y - (this.height / 2));
       this.spriteAnimation.playAnimation();
-      if (this.animation.getCurFrame() >= 167)
+      this.count+= 1;
+      console.log(this.count)
+      if (this.count >= 32)
       {
         this.explosionTime = false;
       }
@@ -127,6 +130,7 @@ class Car {
     if (!this.explosionTime && !this.getAlive())
     {
       this.reset()
+
     }
   }
 
@@ -134,9 +138,11 @@ class Car {
   {
     this.x = 300;
     this.y = 600;
+    this.collider.position = new Vector2(this.x, this.y)
+    this.sprite.setPosition(this.x, this.y);
+    this.count = 0;
+    this.animation.setLooped(false)
     this.alive = true;
-    this.collider.position.x = this.x
-    this.collider.position.y = this.y
   }
 
   getAlive(){
