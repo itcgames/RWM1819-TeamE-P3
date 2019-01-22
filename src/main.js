@@ -12,17 +12,20 @@
 
 function main() {
   document.title = "Team E";
-  const game = new Game();
+  const game = new Play();
   gameNs.game = game;
   gameNs.game.collisionManager = new CollisionManager();
   gameNs.game.assetManager = new AssetManager();
   gameNs.game.assetManager.queueDownload("../assets/spyhuntersheet.png");
   gameNs.game.assetManager.queueDownload("../assets/SpyHunterArea01.png");
+  gameNs.game.assetManager.queueDownload("../assets/spyHunterSplash.jpg");
+  gameNs.game.assetManager.queueDownload("../assets/bullet.png");
   gameNs.game.assetManager.downloadAll(function()
   {
     initCanvas();
-    gameNs.game.init();
+    gameNs.game.initWorld();
     gameNs.game.update();
+    mainLoop();
   });
 
 }
@@ -49,12 +52,11 @@ function main() {
              break;
          }
      }
+     gameNs.game.update(timestep);
      gameNs.game.draw();
-
      requestAnimationFrame(mainLoop);
  }
 
- requestAnimationFrame(mainLoop);
 
  /**
   * Initialises the canvas - the drawing surface. The canvas
@@ -66,15 +68,15 @@ function main() {
 
  function initCanvas() {
  	// Use the document object to create a new element canvas.
- 	var canvas = document.createElement('canvas');
+ 	gameNs.game.canvas = document.createElement('canvas');
  	// Assign the canvas an id so we can reference it elsewhere.
- 	canvas.id = 'canvas';
- 	canvas.width = window.innerWidth;
- 	canvas.height = window.innerHeight;
+ 	gameNs.game.canvas.id = 'canvas';
+ 	gameNs.game.canvas.width = window.innerWidth;
+ 	gameNs.game.canvas.height = window.innerHeight;
  	// We want this to be a 2D canvas.
- 	gameNs.game.ctx = canvas.getContext("2d");
+ 	gameNs.game.ctx = gameNs.game.canvas.getContext("2d");
  	// Adds the canvas element to the document.
- 	document.body.appendChild(canvas);
+ 	document.body.appendChild(gameNs.game.canvas);
 
 	window.addEventListener("keydown", function(e) {
     // Space and arrow keys

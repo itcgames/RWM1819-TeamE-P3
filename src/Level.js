@@ -27,18 +27,18 @@ class Level
         this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 16125 * this.worldScale), 
                                                  new Vector2(0 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale), 
                                                  new Vector2(75 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale),
-                                                 new Vector2(33 * this.worldScale, this.worldOffsetY + 18000  * this.worldScale)], 
+                                                 new Vector2(33 * this.worldScale, this.worldOffsetY + 16125  * this.worldScale)], 
                                                  "bounds",
                                                  ""));    
             
         //R
+        this.colliders.push(new PolygonCollider([new Vector2(225 * this.worldScale, this.worldOffsetY + 16125 * this.worldScale), 
+                                                 new Vector2(175 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale), 
+                                                 new Vector2(256 * this.worldScale, this.worldOffsetY + 15675 * this.worldScale),
+                                                 new Vector2(256 * this.worldScale, this.worldOffsetY + 16125  * this.worldScale)], 
+                                                 "bounds",
+                                                 ""));    
 
-        // this.colliders.push(new PolygonCollider([new Vector2(100, 500), 
-        //                                          new Vector2(100, 200), 
-        //                                          new Vector2(300, 200),
-        //                                          new Vector2(300, 500)], 
-        // "bounds",
-        // ""));
 
         for(var i = 0; i < this.colliders.length; i++)
         {
@@ -62,8 +62,8 @@ class Level
     {
         for(var i = 0; i < this.colliders.length; i++)
         {
-            //TODO: move the y position by
-            this.colliders[i].shape.move(0, 1);
+            //TODO: move the y position by a function of the player's relative y position
+            this.colliders[i].shape.move(0, 4);
         }
     }
 
