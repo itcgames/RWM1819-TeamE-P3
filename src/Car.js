@@ -37,7 +37,9 @@ class Car {
 
       gameNs.game.collisionManager.addPolygonCollider(this.collider);
   }
-
+  getPositionX(){
+    return this.x;
+  }
   moveUp() {
     if(this.y > 10)
     {
@@ -81,7 +83,7 @@ class Car {
   update() {
     var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
     if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds')) {
-      console.log("HITTTTT");
+      //console.log("HITTTTT");
     }
     this.bulletTimer++;
     this.sprite.setPosition(this.x, this.y);
@@ -102,7 +104,7 @@ class Car {
 
   }
   /**
-   * 
+   *
    * @param {*} val The value to clamp
    * @param {*} min The minimum value of val
    * @param {*} max The maximum value of val

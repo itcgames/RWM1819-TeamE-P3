@@ -2,7 +2,7 @@
  * @class MotorCycle
  * inherits from EnemyVehicle base type
  */
-class MotorCycle extends EnemyVehicle
+class SpikeEnemy extends EnemyVehicle
 {
     constructor(x, y)
     {
@@ -10,8 +10,6 @@ class MotorCycle extends EnemyVehicle
         this.savedCount = 0;
         this.saved = false;
         this.count = 50;
-        this.leftHit = false;
-        this.rightHit = false;
         this.x = x;
         this.y = y;
         this.sprite = new Sprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
@@ -40,13 +38,13 @@ class MotorCycle extends EnemyVehicle
 
     }
 
-    update(playerX,scrollSpeed)
+    update()
     {
         //this.sprite.rotate(2);
-        this.move(playerX,scrollSpeed);
+        this.move();
 
     }
-    move(playerX,scrollSpeed)
+    move()
     {
       if(this.saved === true)
       {
@@ -58,37 +56,11 @@ class MotorCycle extends EnemyVehicle
         }
       }
       var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
-      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
-      {
-        this.explode();
-      }
-      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBig), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
-      {
+      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBig), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds')) {
         if(this.saved === false){
         this.xVelocity = this.xVelocity * -1;
         this.saved = true;
       }
-      }
-      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'Player'))
-      {
-        this.saved = true;
-        this.savedCount = -9000; // So can never be saved again.
-        this.count = -9000; //Can never change direction again.
-        if(this.x >= playerX){
-        this.xVelocity = 6;
-        this.yVelocity = scrollSpeed / 3;
-        this.leftHit = true;
-      }else if(this.x < playerX){
-        this.xVelocity = -6;
-        this.yVelocity = scrollSpeed / 3;
-        this.rightHit = true;
-      }
-      }
-      if(this.leftHit == true){
-        this.sprite.rotate(6);
-      }
-      if(this.rightHit == true){
-        this.sprite.rotate(-6);
       }
       this.count = this.count + 1;
       if(this.count >= 50)
@@ -96,20 +68,14 @@ class MotorCycle extends EnemyVehicle
       this.xVelocity = Math.random() * 4 - 2;
       this.yVelocity = Math.random() * 4 - 2;
       this.count = 0;
-    }
+    };
       this.sprite.move(this.xVelocity,this.yVelocity);
       this.collider.shape.move(this.xVelocity,this.yVelocity);
       this.colliderBig.shape.move(this.xVelocity,this.yVelocity);
-      this.x = this.x + this.xVelocity;
-      this.y = this.y + this.yVelocity;
     }
 
     draw()
     {
         this.sprite.draw();
-    }
-    explode()
-    {
-      // James please explode motorbike :)
     }
 }
