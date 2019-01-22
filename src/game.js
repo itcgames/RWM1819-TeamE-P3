@@ -36,12 +36,13 @@ class Game {
     document.body.style.background = "#ffffff";
     this.levelPart1.draw();
     this.levelPart2.draw();
+    gameNs.game.collisionManager.render(gameNs.game.ctx);
     this.car.draw();
     this.motorCycle.draw();
     this.truck.draw();
     this.score_text.drawText();
     this.time_text.drawText();
-    gameNs.game.collisionManager.render(gameNs.game.ctx);
+
     this.motorCycle.draw();
   }
 }
