@@ -27,7 +27,7 @@ class Game {
 
   update(time) {
     this.car.update();
-    this.level.update();
+    this.level.update(this.car.getScrollScalar());
     this.input.update();
 
     this.score_text.addScore(1);

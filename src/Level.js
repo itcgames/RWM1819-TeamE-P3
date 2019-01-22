@@ -2,6 +2,7 @@ class Level
 {
     constructor()
     {
+        this.scrollSpeed = 0;
         this.worldScale = 3;
         this.worldOffsetY = -53000;
         this.worldTile = new WorldTile(0, this.worldOffsetY);
@@ -10,11 +11,12 @@ class Level
         this.initializeColliders();
     }
 
-    update()
+    update(scrollScalar)
     {
-        this.worldTile.update();
+        this.scrollSpeed = 1 / scrollScalar * 20000;
+        this.worldTile.update(this.scrollSpeed);
         //Update collider positions
-        this.updateColliders();
+        this.updateColliders(this.scrollSpeed);
     }
 
     draw()
@@ -22,12 +24,12 @@ class Level
         this.worldTile.draw();
     }
 
-    updateColliders()
+    updateColliders(scrollScalar)
     {
         for(var i = 0; i < this.colliders.length; i++)
         {
             //TODO: move the y position by a function of the player's relative y position
-            this.colliders[i].shape.move(0, 20);
+            this.colliders[i].shape.move(0, scrollScalar);
         }
     }
 

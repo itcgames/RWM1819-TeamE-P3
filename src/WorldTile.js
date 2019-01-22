@@ -22,10 +22,10 @@ class WorldTile
         this.sprite.setScale(3.0, 3.0);
     }
 
-    update()
+    update(scrollScalar)
     {
         //TODO increment y position using a function of the player's velocity.
-        this.y += 20;
+        this.y += scrollScalar;
         this.sprite.setPosition(this.x, this.y);
     }
 

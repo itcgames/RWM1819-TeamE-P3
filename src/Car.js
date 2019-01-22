@@ -22,15 +22,19 @@ class Car {
 	  this.moveLeft = this.moveLeft.bind(this);
 	  this.moveRight = this.moveRight.bind(this);
     this.shoot = this.shoot.bind(this);
+
+    this.upperYLimit = 10;
+    this.lowerYLimit = 800;
+    this.limitOffset = 400;
   }
 
   moveUp() {
-    if(this.y > 10)
+    if(this.y > this.upperYLimit)
       this.y -= 4;
   }
 
   moveDown() {
-    if(this.y < 800)
+    if(this.y < this.lowerYLimit)
       this.y += 4;
   }
 
@@ -44,10 +48,15 @@ class Car {
 
   shoot() {
     if(this.bulletTimer > this.bulletTime) {
-      this.bullets.push(new Bullet(this.x + 11, this.y));
+      this.bullets.push(new Bullet(this.x + this.sprite.getGlobalBounds().width / 2, this.y));
       this.bulletTimer = 0;
     }
 
+  }
+
+  getScrollScalar()
+  {
+    return this.clamp(this.y + this.limitOffset, 800, 1600);
   }
 
   update() {
@@ -68,5 +77,15 @@ class Car {
       element.draw();
     });
 
+  }
+  /**
+   * 
+   * @param {*} val The value to clamp
+   * @param {*} min The minimum value of val
+   * @param {*} max The maximum value of val
+   */
+  clamp(val, min, max)
+  {
+    return Math.max(min, Math.min(max, val));
   }
 }
