@@ -24,7 +24,7 @@ class Truck extends EnemyVehicle
         this.collider =  new PolygonCollider([new Vector2(this.x,this.y),
             new Vector2(this.x + 32,this.y) ,
             new Vector2(this.x + 32,this.y + 64),
-            new Vector2(this.x,this.y + 64)], 
+            new Vector2(this.x,this.y + 64)],
             ["truck"],
             ["truckBig"]);
         gameNs.game.collisionManager.addPolygonCollider(
@@ -70,10 +70,10 @@ class Truck extends EnemyVehicle
         var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
         if (CollisionManager.CollidedWithTag(
             CollisionManager.IndexOfElement(
-                gameNs.game.collisionManager.polygonColliderArray, 
-                this.truckBig), collisionResults, 
+                gameNs.game.collisionManager.polygonColliderArray,
+                this.truckBig), collisionResults,
                 gameNs.game.collisionManager.polygonColliderArray, 'bounds')) {
-            
+
             if(this.xVel > 0) {
                 this.x -= 5;
                 this.y -= 5;
@@ -88,13 +88,13 @@ class Truck extends EnemyVehicle
                 this.collider.shape.move(5, 0);
                 this.truckBig.shape.move(5, 0);
             }
-            
+
             this.xVel = this.xVel * -1;
             this.yVel = this.yVel * -1;
             this. randX = Math.random() * (800 - 200) + 200;
             this. randY = Math.random() * (800 - 100) + 10;
           }
-        
+
         this.x += this.xVel;
         this.y += this.yVel;
         this.sprite.move(this.xVel, this.yVel);
