@@ -24,7 +24,8 @@ class WorldTile
 
     update()
     {
-        this.y++;
+        //TODO increment y position using a function of the player's velocity.
+        this.y += 4;
         this.sprite.setPosition(this.x, this.y);
     }
 
