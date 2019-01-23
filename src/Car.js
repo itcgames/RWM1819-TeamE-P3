@@ -118,7 +118,7 @@ class Car {
     return this.clamp(this.y + this.limitOffset, 800, 1600);
   }
 
-  update(scrollSpeed) {
+  update(scrollSpeed,HelliX,HelliY,HelliAlive) {
     var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
     if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds') && this.alive) {
       this.animation.setLooped(true);
@@ -157,7 +157,7 @@ class Car {
       }
     });
     this.rockets.forEach(function(element) {
-      element.update();
+      element.update(HelliX,HelliY,HelliAlive);
       if(element.dead) {
         that.rockets.splice( that.rockets.indexOf(element), 1 );
       }

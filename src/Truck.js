@@ -55,7 +55,7 @@ class Truck extends EnemyVehicle
         this.animation.setFrameRate(150);
         this.animation.setLooped(true);
         this.spriteAnimation.setAnimation(this.animation);
-        this.spriteAnimation.setScale(2.5,2.5)
+        this.spriteAnimation.setScale(2.5,2.5);
     }
 
     update(scrollSpeed)
@@ -82,7 +82,7 @@ class Truck extends EnemyVehicle
                 this. randX = Math.random() * (600 - 200) + 200;
                 this. randY = Math.random() * (800 - 100) + 10;
             }
-        
+
         if (CollisionManager.CollidedWithTag(
             CollisionManager.IndexOfElement(
                 gameNs.game.collisionManager.polygonColliderArray,
@@ -137,7 +137,7 @@ class Truck extends EnemyVehicle
              this.newCount = 0;
           }
         }
-       
+
         this.sprite.move(this.xVel, this.yVel);
         this.collider.shape.move(this.xVel, this.yVel);
         this.truckBig.shape.move(this.xVel, this.yVel);

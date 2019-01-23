@@ -79,7 +79,7 @@ class NPCManager
     {
         var rand = Math.floor((Math.random() * 100) + 1);
         //Update helicopter
-        this.helicopter.update(car.x, car.y);
+        this.helicopter.update(car.x, car.y,levelScrollSpeed);
 
         if(rand === 10)
         {
@@ -122,6 +122,15 @@ class NPCManager
           }
       }
       return false;
+    }
+    getHeliPositionX(){
+      return this.helicopter.getPositionX();
+    }
+    getHeliPositionY(){
+      return this.helicopter.getPositionY();
+    }
+    getHeliAlive(){
+      return this.helicopter.getHeliAlive();
     }
 
     //Draws all NPC entities

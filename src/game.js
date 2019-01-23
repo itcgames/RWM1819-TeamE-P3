@@ -27,7 +27,7 @@ class Game {
   update(time) {
 
     this.levelPart1.update(this.car.getScrollScalar());
-    this.car.update(this.levelPart1.getScrollSpeed());
+    this.car.update(this.levelPart1.getScrollSpeed(),this.npcManager.getHeliPositionX(),this.npcManager.getHeliPositionY(),this.npcManager.getHeliAlive());
     this.car.powerUp(this.npcManager.checkRocketGot());
 
     if(this.levelPart1.getYPosition() > 1080)
