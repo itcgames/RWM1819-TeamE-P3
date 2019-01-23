@@ -44,7 +44,7 @@ class Game {
     gameNs.game.collisionManager.checkAllColliders();
 
     if(this.car.health <= 0) {
-      this.car.health = 1;
+      this.car.health = 3;
       this.car.reset();
       this.levelPart1.reset(-53000);
       this.score_text.setScore(0);
