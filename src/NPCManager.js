@@ -14,11 +14,13 @@ class NPCManager
         this.motorcycles = [];
         this.spikeCars = [];
         this.projectileCars = [];
-        this.helicopter = new Helicopter(-200, 500);
+        this.helicopter = []
+        this.helicopter.push(new Helicopter(-200, 500));
+        this.helicopterSpawnTicks = 0;
 
         this.maxTrucks = 2;
         this.maxMotorcycles = 2;
-        this.maxSpikeCars = 3;
+        this.maxSpikeCars = 2;
         this.maxProjectileCars = 2;
     }
 
@@ -56,8 +58,7 @@ class NPCManager
             //spawn new spike car
             if(this.spikeCars.length < this.maxSpikeCars)
             {
-                this.motorcycles.push(new SpikeEnemy(xPos, this.y));
-                
+                this.spikeCars.push(new SpikeEnemy(xPos, this.y));
             }
         }
 
@@ -76,8 +77,24 @@ class NPCManager
     update(car, levelScrollSpeed)
     {
         var rand = Math.floor((Math.random() * 100) + 1);
+        
         //Update helicopter
-        this.helicopter.update(car.x, car.y);
+        if(this.helicopter.length === 1)
+        {
+            this.helicopter[0].update(car.x, car.y);
+            
+            //Once the helicopter has completed its cycle, remove from memory
+            if(this.helicopter[0].getPosition().x >= 900)
+            {
+                this.helicopter.pop();
+            }
+        }
+
+        if(this.helicopter.length === 0)
+        {
+            this.helicopterSpawnTicks += 1;
+        }
+
         
         if(rand === 10)
         {
@@ -97,19 +114,26 @@ class NPCManager
 
         for(var i = 0; i < this.spikeCars.length; i++)
         {
-            this.spikeCars[i].update(car.x, car.x, levelScrollSpeed, car.getAlive());
+            this.spikeCars[i].update(car.x, car.y, levelScrollSpeed, car.getAlive());
         }
 
-        for(var i = 0; i < this.projectileCars.length; i++)
+        
+
+        //If there is no helicopter, create a new one.
+        if(this.helicopter.length === 0 && this.helicopterSpawnTicks > 700)
         {
-            
+            this.helicopter.push(new Helicopter(-200, 500));
+            this.helicopterSpawnTicks = 0;
         }
     }
 
     //Draws all NPC entities
     draw()
     {
-        this.helicopter.draw();
+        if(this.helicopter.length === 1)
+        {
+            this.helicopter[0].draw();
+        }
 
         for(var i = 0; i < this.trucks.length; i++)
         {
@@ -130,6 +154,43 @@ class NPCManager
         {
             
         }
+    }
+
+    //function for emptying all containers when the game resets
+    reset()
+    {
+        for(var i = 0; i < this.trucks.length; i++)
+        {
+            gameNs.game.collisionManager.removePolygonCollider(this.trucks[i].collider);
+            gameNs.game.collisionManager.removePolygonCollider(this.trucks[i].truckBig);
+
+         
+        }
+        this.trucks = [];
+        for(var i = 0; i < this.motorcycles.length; i++)
+        {
+            gameNs.game.collisionManager.removePolygonCollider(this.motorcycles[i].collider);
+            gameNs.game.collisionManager.removePolygonCollider(this.motorcycles[i].colliderBig);
+
+           
+        }
+        this.motorcycles = [];
+        for(var i = 0; i < this.spikeCars.length; i++)
+        {
+            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderSpikeLeft);
+            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderSpikeRight);
+            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].collider);
+            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderBig);
+
+            
+        }
+        this.spikeCars = [];
+        if(this.helicopter.length === 1)
+        {
+            this.helicopter = [];
+        }
+
+        this.helicopterSpawnTicks = 0;
     }
 
     

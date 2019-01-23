@@ -5,7 +5,7 @@ class Game {
     this.initWorld();
   }
   initWorld() {
-    this.car = new Car(100, 100);
+    this.car = new Car(300, 600);
     this.levelPart1 = new Level();
 
     this.input = new Input();
@@ -61,9 +61,24 @@ class Game {
     this.score_text.addScore(1);
     this.time_text.minusTime(1);
     gameNs.game.collisionManager.checkAllColliders();
+
+    if(this.car.health <= 0) {
+      this.car.health = 3;
+      this.car.reset();
+      this.levelPart1.reset(-53000);
+      this.score_text.setScore(0);
+      this.time_text.setTime(1000);
+      this.car.explosionTime = false;
+      this.npcManager.reset();
+      gameNs.sceneManager.goToScene(gameNs.endScene.title);
+      
+    }
   }
 
   draw() {
+    if(gameNs.game.ctx.globalAlpha < 1) {
+      gameNs.game.ctx.globalAlpha += 0.01;
+    }
     document.body.style.background = "#ffffff";
     this.levelPart1.draw();
     gameNs.game.collisionManager.render(gameNs.game.ctx);
