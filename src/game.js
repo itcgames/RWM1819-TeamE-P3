@@ -50,6 +50,7 @@ class Game {
       this.score_text.setScore(0);
       this.time_text.setTime(1000);
       this.car.explosionTime = false;
+      this.npcManager.reset();
       gameNs.sceneManager.goToScene(gameNs.endScene.title);
       
     }
