@@ -126,7 +126,7 @@ class Car {
       this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
-      gameNs.game.collisionManager.removePolygonCollider(this.collider);
+      //gameNs.game.collisionManager.removePolygonCollider(this.collider);
     }
     this.bulletTimer++;
     this.sprite.setPosition(this.x, this.y);

@@ -133,7 +133,6 @@ class Truck extends EnemyVehicle
           this.newCount += 1;
           if (this.newCount >= 32) {
              this.explosionTime = false;
-             //this.animation.setLooped(false);
              this.newCount = 0;
           }
         }
