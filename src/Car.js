@@ -121,7 +121,6 @@ class Car {
       this.spriteAnimation.setPosition(this.x - (this.width / 2), this.y - (this.height / 2));
       this.spriteAnimation.playAnimation();
       this.count+= 1;
-      console.log(this.count)
       if (this.count >= 32)
       {
         this.explosionTime = false;
