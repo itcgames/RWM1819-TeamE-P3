@@ -4,7 +4,17 @@ class Level
     //Level2 = -106000;
     constructor(YOffset)
     {
+        this.colliders = [];
+    }
 
+    reset(YOffset) {
+        this.scrollSpeed = 0;
+        this.worldScale = 3;
+        //this.worldOffsetY = -53000;
+        this.worldOffsetY = YOffset;
+        this.worldTile = new WorldTile(0, this.worldOffsetY);
+        
+        this.initializeColliders();
     }
 
     init(YOffset)
@@ -14,7 +24,6 @@ class Level
         //this.worldOffsetY = -53000;
         this.worldOffsetY = YOffset;
         this.worldTile = new WorldTile(0, this.worldOffsetY);
-        this.colliders = [];
 
         this.initializeColliders();
     }
@@ -46,7 +55,16 @@ class Level
     }
 
     initializeColliders()
-    {
+    {   
+        if(this.colliders.length > 0) {
+            for(var i = 0; i < this.colliders.length; i++)
+            {
+                console.log(this.colliders[i]);
+                gameNs.game.collisionManager.removePolygonCollider(this.colliders[i]);
+            }
+        }
+
+       this.colliders = [];
         //L
         this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 18000 * this.worldScale),
                                                  new Vector2(0 * this.worldScale, this.worldOffsetY + 16125 * this.worldScale),

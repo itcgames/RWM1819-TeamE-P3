@@ -32,6 +32,8 @@ class Car {
     this.bulletTimer = 0;
     this.bulletTime = 6;
 
+    this.health = 1;
+
     this.moveUp = this.moveUp.bind(this);
 	  this.moveDown = this.moveDown.bind(this);
 	  this.moveLeft = this.moveLeft.bind(this);
@@ -113,10 +115,12 @@ class Car {
       this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
+      this.health--;
     }else if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'spikeLeft') && this.alive) {
       this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
+      this.health--;
     }else if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'spikeRight') && this.alive) {
       this.animation.setLooped(true);
       this.alive = false;
