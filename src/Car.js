@@ -111,6 +111,11 @@ class Car {
       this.alive = false;
       this.explosionTime = true;
     }
+    if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'missile') && this.alive) {
+      this.animation.setLooped(true);
+      this.alive = false;
+      this.explosionTime = true;
+    }
     this.bulletTimer++;
     this.sprite.setPosition(this.x, this.y);
 

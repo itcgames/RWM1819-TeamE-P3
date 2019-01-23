@@ -10,6 +10,7 @@ class Game {
     this.levelPart2 = new Level();
     this.motorCycle = new MotorCycle(400, 600);
     this.truck = new Truck(400, 100);
+    this.helicopter = new Helicopter(-200, 500);
     this.input = new Input();
     this.input.bind(this.car.moveUp, "ArrowUp");
   	this.input.bind(this.car.moveDown, "ArrowDown");
@@ -45,6 +46,8 @@ class Game {
 
     this.motorCycle.update(this.car.getPositionX(),this.levelPart1.getScrollSpeed());
     this.truck.update();
+
+    this.helicopter.update(this.car.x, this.car.y);
     this.score_text.addScore(1);
     this.time_text.minusTime(1);
     gameNs.game.collisionManager.checkAllColliders();
@@ -62,5 +65,6 @@ class Game {
     this.time_text.drawText();
 
     this.motorCycle.draw();
+    this.helicopter.draw();
   }
 }
