@@ -45,10 +45,14 @@ class Helicopter extends EnemyVehicle
     update(playerX, playerY) {
         this.move(playerX, playerY);
         if(this.missile.length > 0) {
-            this.missile[0].update();
             if(!this.missile[0].alive) {
+                gameNs.game.collisionManager.removePolygonCollider(this.missile[0].collider);
                 this.missile.pop();
             }
+            else {
+                this.missile[0].update();
+            }
+            
         }
     }
 

@@ -32,9 +32,6 @@ class Missile
     }
 
     update(playerX, playerY) {
-        if(!this.alive) {
-            gameNs.game.collisionManager.removePolygonCollider(this.collider);
-        }
         this.move();
         this.counter++;
         if(this.counter > this.timeToBlow && !this.flip) {
