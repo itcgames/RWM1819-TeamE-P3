@@ -45,11 +45,11 @@ class Game {
       this.input.update();
     }
 
-    //this.motorCycle.update(this.car.getPositionX(),this.levelPart1.getScrollSpeed());
-    //this.spikeEnemy.update(this.car.getPositionX(),this.car.getPositionY(),this.levelPart1.getScrollSpeed(),this.car.getAlive());
+    this.motorCycle.update(this.car.getPositionX(),this.levelPart1.getScrollSpeed());
+    this.spikeEnemy.update(this.car.getPositionX(),this.car.getPositionY(),this.levelPart1.getScrollSpeed(),this.car.getAlive());
     this.truck.update(this.levelPart1.getScrollSpeed());
 
-    //this.helicopter.update(this.car.x, this.car.y);
+    this.helicopter.update(this.car.x, this.car.y);
     this.score_text.addScore(1);
     this.time_text.minusTime(1);
     gameNs.game.collisionManager.checkAllColliders();
