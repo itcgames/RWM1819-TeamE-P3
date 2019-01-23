@@ -184,5 +184,9 @@ class Helicopter extends EnemyVehicle
       this.explosionTime = true;
       this.alive = false;
     }
+    getPosition()
+    {
+        return {x: this.x, y: this.y}
+    }
 
   }
