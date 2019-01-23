@@ -9,7 +9,7 @@ class Truck extends EnemyVehicle
         super();
         this.x = x;
         this.y = y;
-        this.health = 2;
+        this.health = 5;
         this.explosionTime = false;
         this.alive = true;
         this.newCount = 0;
@@ -137,7 +137,6 @@ class Truck extends EnemyVehicle
              this.newCount = 0;
           }
         }
-        console.log(this.health)
        
         this.sprite.move(this.xVel, this.yVel);
         this.collider.shape.move(this.xVel, this.yVel);

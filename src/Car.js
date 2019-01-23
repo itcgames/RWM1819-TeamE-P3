@@ -58,6 +58,9 @@ class Car {
   getPositionX(){
     return this.x;
   }
+  getPositionY(){
+    return this.y;
+  }
   moveUp() {
     if(this.y > 10)
     {
@@ -110,6 +113,20 @@ class Car {
       this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
+    }else if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'spikeLeft') && this.alive) {
+      this.animation.setLooped(true);
+      this.alive = false;
+      this.explosionTime = true;
+    }else if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'spikeRight') && this.alive) {
+      this.animation.setLooped(true);
+      this.alive = false;
+      this.explosionTime = true;
+    }
+    if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'missile') && this.alive) {
+      this.animation.setLooped(true);
+      this.alive = false;
+      this.explosionTime = true;
+      gameNs.game.collisionManager.removePolygonCollider(this.collider);
     }
     this.bulletTimer++;
     this.sprite.setPosition(this.x, this.y);
@@ -177,7 +194,7 @@ class Car {
     if(this.oil.length > 0) {
       this.oil[0].draw();
     }
-    
+
   }
   /**
    *

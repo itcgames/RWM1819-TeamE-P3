@@ -110,7 +110,6 @@ class MotorCycle extends EnemyVehicle
         if(this.saved === false){
         if(this.xVelocity < 0)
         {
-          console.log("Left hit");
           this.x += 5;
           this.sprite.move(+5, 0);
           this.collider.shape.move(+5, 0);
@@ -119,7 +118,6 @@ class MotorCycle extends EnemyVehicle
           this.saved = true;
           this.count = 0;  // Wont change straight after
       }else{
-        console.log("Right hit");
         this.x -= 5;
         this.sprite.move(-5, 0);
         this.collider.shape.move(-5, 0);
