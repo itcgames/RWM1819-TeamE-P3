@@ -38,4 +38,9 @@ class WorldTile
     {
         return this.y;
     }
+
+    getXPosition()
+    {
+        return this.x;
+    }
 }

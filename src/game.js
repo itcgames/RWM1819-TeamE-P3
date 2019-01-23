@@ -27,7 +27,8 @@ class Game {
 
     this.levelPart1.update(this.car.getScrollScalar());
     this.car.update(this.levelPart1.getScrollSpeed());
-    this.respawnTruck.update(this.levelPart1.getScrollSpeed())
+    var curY = this.levelPart1.getYPosition() * -1;
+    this.respawnTruck.update(this.levelPart1.getScrollSpeed(), curY)
 
     if(!this.car.getAlive() && this.respawnTruck.getOffscreen())
     {
@@ -73,6 +74,9 @@ class Game {
       gameNs.sceneManager.goToScene(gameNs.endScene.title);
       
     }
+
+    console.log(this.car.getPositionX())
+    
   }
 
   draw() {

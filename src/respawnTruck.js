@@ -7,6 +7,7 @@ class RespawnTruck
     constructor(x, y)
     {
         this.x = x;
+        this.currentX = this.x;
         this.y = y;
         this.health = 5;
         this.offScreen = true;
@@ -45,51 +46,61 @@ class RespawnTruck
   
     }
 
-    update(scrollSpeed)
+    update(scrollSpeed, worldYpos)
     {
         var difY = this.y - this.randY;
         var difX = this.x - this.randX;
 
         var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
 
-    if (CollisionManager.CollidedWithTag(
-        CollisionManager.IndexOfElement(
-            gameNs.game.collisionManager.polygonColliderArray,
-            this.truckBig), collisionResults,
-            gameNs.game.collisionManager.polygonColliderArray, 'bounds')) {
+        if (CollisionManager.CollidedWithTag(
+            CollisionManager.IndexOfElement(
+                gameNs.game.collisionManager.polygonColliderArray,
+                this.truckBig), collisionResults,
+                gameNs.game.collisionManager.polygonColliderArray, 'bounds')) {
 
-        if(this.xVel > 0) {
-            this.x -= 5;
-            this.y -= 5;
-            this.sprite.move(-5, 0);
-            this.collider.shape.move(-5, 0);
-            this.truckBig.shape.move(-5, 0);
-        }
-        else {
-            this.x += 5;
-            this.y += 5;
-            this.sprite.move(5, 0);
-            this.collider.shape.move(5, 0);
-            this.truckBig.shape.move(5, 0);
-        }
+            if(this.xVel > 0) {
+                this.x -= 5;
+                this.y -= 5;
+                this.sprite.move(-5, 0);
+                this.collider.shape.move(-5, 0);
+                this.truckBig.shape.move(-5, 0);
+            }
+            else {
+                this.x += 5;
+                this.y += 5;
+                this.sprite.move(5, 0);
+                this.collider.shape.move(5, 0);
+                this.truckBig.shape.move(5, 0);
+            }
 
-            this.xVel = this.xVel * -1;
-            this.yVel = this.yVel * -1;
-            this. randX = Math.random() * (800 - 200) + 200;
-            this. randY = Math.random() * (800 - 100) + 10;
-          }
+                this.xVel = this.xVel * -1;
+                this.yVel = this.yVel * -1;
+                this. randX = Math.random() * (800 - 200) + 200;
+                this. randY = Math.random() * (800 - 100) + 10;
+        }
           
         this.x += this.xVel;
         this.y += this.yVel;
-        
-
+        if (worldYpos > 35000)
+        {
+            this.x = 500;
+        }
+        else if (worldYpos < 35000 && worldYpos > 26000)
+        {
+            this.x = 700;
+        }
+        else if (worldYpos < 26000 && worldYpos > 18000)
+        {
+            this.x = 220;
+        }
         if (this.y < 0)
         {
             this.reset();
             this.setVelocity(0);
             this.offScreen = true;
         }
-       
+        console.log(worldYpos)
         this.sprite.move(this.xVel, this.yVel);
         this.collider.shape.move(this.xVel, this.yVel);
         this.truckBig.shape.move(this.xVel, this.yVel);
@@ -124,7 +135,7 @@ class RespawnTruck
     }
 
     reset(){
-        this.x = 400;
+        this.x = this.currentX;
         this.y = 1000;
         this.sprite.setPosition(this.x, this.y);
         this.collider.position = new Vector2(this.x, this.y)

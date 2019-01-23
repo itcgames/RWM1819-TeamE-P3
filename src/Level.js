@@ -336,5 +336,9 @@ class Level
     {
         return this.worldTile.getYPosition();
     }
+    getXPosition()
+    {
+        return this.worldTile.getXPosition();
+    }
 
 }
