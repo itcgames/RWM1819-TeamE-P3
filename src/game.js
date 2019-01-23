@@ -15,6 +15,7 @@ class Game {
     this.input.bind(this.car.moveRight, "ArrowRight");
     this.input.bind(this.car.shoot, " ");
     this.input.bind(this.car.spill, "b");
+    this.input.bind(this.car.shootRocket, "v");
     this.score_text = new scoreText(100, 900);
     this.time_text = new timeText(500, 900);
 
@@ -27,6 +28,7 @@ class Game {
 
     this.levelPart1.update(this.car.getScrollScalar());
     this.car.update(this.levelPart1.getScrollSpeed());
+    this.car.powerUp(this.npcManager.checkRocketGot());
 
     if(this.levelPart1.getYPosition() > 1080)
     {

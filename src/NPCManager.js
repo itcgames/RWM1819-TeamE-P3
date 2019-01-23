@@ -113,6 +113,17 @@ class NPCManager
         }
     }
 
+    checkRocketGot(){
+      for(var i = 0; i < this.powerTrucks.length; i++)
+      {
+          if (this.powerTrucks[i].getRocketBool() == true)
+          {
+            return true;
+          }
+      }
+      return false;
+    }
+
     //Draws all NPC entities
     draw()
     {

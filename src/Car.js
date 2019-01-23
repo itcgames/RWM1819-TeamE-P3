@@ -27,10 +27,13 @@ class Car {
     this.height = 44
     this.alive = true;
     this.bullets = [];
+    this.rockets = [];
     this.explosionTime = false;
     this.count = 0;
     this.bulletTimer = 0;
     this.bulletTime = 6;
+
+    this.rocketArmed = false;
 
     this.moveUp = this.moveUp.bind(this);
 	  this.moveDown = this.moveDown.bind(this);
@@ -38,6 +41,7 @@ class Car {
 	  this.moveRight = this.moveRight.bind(this);
     this.shoot = this.shoot.bind(this);
     this.spill = this.spill.bind(this);
+    this.shootRocket = this.shootRocket.bind(this);
 
     this.upperYLimit = 10;
     this.lowerYLimit = 800;
@@ -95,6 +99,13 @@ class Car {
     }
 
   }
+  shootRocket(){
+    if(this.rocketArmed == true)
+    {
+      this.rockets.push(new Rocket(this.x,this.y));
+      this.rocketArmed = false;
+    }
+  }
 
   spill() {
     if(this.oil.length === 0) {
@@ -145,6 +156,12 @@ class Car {
         that.bullets.splice( that.bullets.indexOf(element), 1 );
       }
     });
+    this.rockets.forEach(function(element) {
+      element.update();
+      if(element.dead) {
+        that.rockets.splice( that.rockets.indexOf(element), 1 );
+      }
+    });
 
     if (this.explosionTime){
       this.y += (scrollSpeed / 2);
@@ -174,7 +191,11 @@ class Car {
     this.animation.setLooped(false)
     this.alive = true;
   }
-
+  powerUp(rocketBool){
+    if(rocketBool == true){
+      this.rocketArmed = true;
+    }
+  }
   getAlive(){
     return this.alive;
   }
@@ -189,6 +210,9 @@ class Car {
     }
 
     this.bullets.forEach(function(element) {
+      element.draw();
+    });
+    this.rockets.forEach(function(element) {
       element.draw();
     });
     if(this.oil.length > 0) {
