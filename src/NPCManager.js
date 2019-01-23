@@ -156,5 +156,31 @@ class NPCManager
         }
     }
 
+    //function for emptying all containers when the game resets
+    reset()
+    {
+        for(var i = 0; i < this.trucks.length; i++)
+        {
+            this.trucks.pop();
+        }
+
+        for(var i = 0; i < this.motorcycles.length; i++)
+        {
+            this.motorcycles.pop();
+        }
+
+        for(var i = 0; i < this.spikeCars.length; i++)
+        {
+            this.spikeCars.pop(); 
+        }
+
+        if(this.helicopter.length === 1)
+        {
+            this.helicopter.pop();
+        }
+
+        this.helicopterSpawnTicks = 0;
+    }
+
     
 }
