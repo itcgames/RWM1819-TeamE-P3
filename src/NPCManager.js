@@ -145,13 +145,22 @@ class NPCManager
       return false;
     }
     getHeliPositionX(){
+      if(this.helicopter.length === 1)
+      {
       return this.helicopter[0].getPositionX();
     }
+    }
     getHeliPositionY(){
+      if(this.helicopter.length === 1)
+      {
       return this.helicopter[0].getPositionY();
     }
+    }
     getHeliAlive(){
+      if(this.helicopter.length === 1)
+      {
       return this.helicopter[0].getHeliAlive();
+    }
     }
 
     //Draws all NPC entities
