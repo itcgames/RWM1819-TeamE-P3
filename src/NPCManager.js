@@ -18,7 +18,7 @@ class NPCManager
 
         this.maxTrucks = 2;
         this.maxMotorcycles = 2;
-        this.maxSpikeCars = 3;
+        this.maxSpikeCars = 2;
         this.maxProjectileCars = 2;
     }
 
@@ -56,8 +56,7 @@ class NPCManager
             //spawn new spike car
             if(this.spikeCars.length < this.maxSpikeCars)
             {
-                this.motorcycles.push(new SpikeEnemy(xPos, this.y));
-                
+                this.spikeCars.push(new SpikeEnemy(xPos, this.y));
             }
         }
 
