@@ -19,7 +19,7 @@ class Game {
     this.time_text = new timeText(500, 900);
 
     this.npcManager = new NPCManager(400, 1080);
-
+    this.respawnTruck = new RespawnTruck(400,1000);
     this.levelPart1.init(-53000);
   }
 
@@ -27,7 +27,26 @@ class Game {
 
     this.levelPart1.update(this.car.getScrollScalar());
     this.car.update(this.levelPart1.getScrollSpeed());
+    this.respawnTruck.update(this.levelPart1.getScrollSpeed())
 
+    if(!this.car.getAlive() && this.respawnTruck.getOffscreen())
+    {
+      this.respawnTruck.setVelocity(-4);
+      if (this.respawnTruck.checkPosition()){
+        this.respawnTruck.setVelocity(0);
+        this.car.reset(this.respawnTruck.getX(), this.respawnTruck.getY());
+      }
+    }
+    if (this.car.getAlive()&& !this.car.getState()){
+      this.car.reverseCar(this.respawnTruck.getY());  
+      this.respawnTruck.setOffscreen(false);
+
+      if (this.car.getState())
+      {
+        this.respawnTruck.setVelocity(-6);
+      }
+    }
+   
     if(this.levelPart1.getYPosition() > 1080)
     {
       this.levelPart1.init(-53000);
@@ -35,7 +54,7 @@ class Game {
 
     this.npcManager.update(this.car, this.levelPart1.getScrollSpeed());
 
-    if (this.car.getAlive()){
+    if (this.car.getState()){
       this.input.update();
     }
 
@@ -52,7 +71,7 @@ class Game {
     this.npcManager.draw();
     this.score_text.drawText();
     this.time_text.drawText();
-
+    this.respawnTruck.draw();
     this.score_text.drawText();
     this.time_text.drawText();
   }

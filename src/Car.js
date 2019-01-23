@@ -26,6 +26,7 @@ class Car {
     this.width = 26
     this.height = 44
     this.alive = true;
+    this.ready = true;
     this.bullets = [];
     this.explosionTime = false;
     this.count = 0;
@@ -147,6 +148,7 @@ class Car {
     });
 
     if (this.explosionTime){
+      this.ready = false;
       this.y += (scrollSpeed / 2);
       this.collider.shape.move(0, (scrollSpeed / 2))
       this.spriteAnimation.setPosition(this.x - (this.width / 2), this.y - (this.height / 2));
@@ -159,19 +161,36 @@ class Car {
     }
     if (!this.explosionTime && !this.getAlive())
     {
-      this.reset()
+      this.count = 0;
+      this.animation.setLooped(false)
 
     }
   }
 
-  reset()
+  getState()
   {
-    this.x = 300;
-    this.y = 600;
+    return this.ready;
+  }
+
+  reverseCar(posY) {
+    if (this.y < posY + 100)
+    {
+      this.y += 3;
+    }
+    else 
+    {
+      this.ready = true;
+      this.collider.position = new Vector2(this.x, this.y)
+    }
+
+  }
+
+  reset(xpos, ypos)
+  {
+    this.x = xpos;
+    this.y = ypos;
     this.collider.position = new Vector2(this.x, this.y)
     this.sprite.setPosition(this.x, this.y);
-    this.count = 0;
-    this.animation.setLooped(false)
     this.alive = true;
   }
 
