@@ -8,7 +8,6 @@ class Game {
     this.car = new Car(100, 100);
     this.levelPart1 = new Level();
     this.levelPart2 = new Level();
-    this.motorCycle = new MotorCycle(400, 600);
     //this.truck = new Truck(400, 100);
     this.input = new Input();
     this.input.bind(this.car.moveUp, "ArrowUp");
@@ -19,7 +18,7 @@ class Game {
     this.score_text = new scoreText(100, 900);
     this.time_text = new timeText(500, 900);
 
-    this.npcManager = new NPCManager(400, 700);
+    this.npcManager = new NPCManager(400, 1080);
 
     this.levelPart1.init(-53000);
     //this.levelPart2.init(-106000);
@@ -36,7 +35,7 @@ class Game {
       this.levelPart1.init(-53000);
     }
 
-    this.npcManager.update(this.car.x);
+    this.npcManager.update(this.car, this.levelPart1.getScrollSpeed());
 
     // if(this.levelPart2.getYPosition() > 1080)
     // {
@@ -46,7 +45,6 @@ class Game {
       this.input.update();
     }
 
-    this.motorCycle.update(this.car.getPositionX(),this.levelPart1.getScrollSpeed());
     this.score_text.addScore(1);
     this.time_text.minusTime(1);
     gameNs.game.collisionManager.checkAllColliders();
@@ -59,10 +57,8 @@ class Game {
     gameNs.game.collisionManager.render(gameNs.game.ctx);
     this.car.draw();
     this.npcManager.draw();
-    this.motorCycle.draw();
     this.score_text.drawText();
     this.time_text.drawText();
 
-    this.motorCycle.draw();
   }
 }

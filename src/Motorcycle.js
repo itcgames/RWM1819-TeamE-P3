@@ -43,7 +43,7 @@ class MotorCycle extends EnemyVehicle
     update(playerX,scrollSpeed)
     {
         //this.sprite.rotate(2);
-        this.move(playerX,scrollSpeed);
+      this.move(playerX,scrollSpeed);
 
     }
     move(playerX,scrollSpeed)

@@ -21,6 +21,11 @@ class NPCManager
         this.maxProjectileCars = 2;
     }
 
+    //Spawns a new vehicle if there is room, at the X Position of the player
+    /**
+     * 
+     * @param {*} xPos: x position of the player's object. 
+     */
     spawnVehicle(xPos)
     {
         var rand = Math.floor((Math.random() * 4) + 1);
@@ -55,14 +60,19 @@ class NPCManager
     }
 
     //function that updates all NPC entities and spawns new ones.
-    update(playerX)
+    /**
+     * 
+     * @param {*} car car object
+     * @param {*} levelScrollSpeed scroll speed gotten from the level object
+     */
+    update(car, levelScrollSpeed)
     {
         var rand = Math.floor((Math.random() * 100) + 1);
         
         if(rand === 10)
         {
             console.log("Spawn vehicle");
-            this.spawnVehicle(playerX);
+            this.spawnVehicle(car.x);
         }
         
         for(var i = 0; i < this.trucks.length; i++)
@@ -72,7 +82,7 @@ class NPCManager
 
         for(var i = 0; i < this.motorcycles.length; i++)
         {
-            this.motorcycles[i].update();
+            this.motorcycles[i].update(car.getPositionX(), levelScrollSpeed);
         }
 
         for(var i = 0; i < this.spikeCars.length; i++)
