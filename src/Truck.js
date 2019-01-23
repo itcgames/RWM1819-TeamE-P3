@@ -9,7 +9,10 @@ class Truck extends EnemyVehicle
         super();
         this.x = x;
         this.y = y;
-        this.health = 5;
+        this.health = 2;
+        this.explosionTime = false;
+        this.alive = true;
+        this.newCount = 0;
         this.sprite = new Sprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
                                 32,
                                 64,
@@ -39,35 +42,47 @@ class Truck extends EnemyVehicle
         gameNs.game.collisionManager.addPolygonCollider(
             this.truckBig
             );
+        this.spriteAnimation = new AnimatedSprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
+                                42,
+                                42,
+                                0,
+                                565,
+                                this.x,
+                                this.y,
+                                gameNs.game.ctx);
+
+        this.animation = new Animation("explode", 0, 565, 42, 42, 6);
+        this.animation.setFrameRate(150);
+        this.animation.setLooped(true);
+        this.spriteAnimation.setAnimation(this.animation);
+        this.spriteAnimation.setScale(1.5,1.5)
     }
 
-    update()
+    update(scrollSpeed)
     {
         var difY = this.y - this.randY;
         var difX = this.x - this.randX;
-        if(this.x < this.randX && EnemyVehicle.prototype.mag(difX)) {
-            this.xVel = 3;
-        }
-        else if(EnemyVehicle.prototype.mag(difX)) {
-            this.xVel = -3;
-        }
-        if(this.y < this.randY && EnemyVehicle.prototype.mag(difY)) {
-            this.yVel = 3;
-        }
-        else if (EnemyVehicle.prototype.mag(difY)){
-            this.yVel = -3;
-        }
-        if(EnemyVehicle.prototype.dist(this.x, this.y, this.randX, this.randY) < 30) {
-            this. randX = Math.random() * (600 - 200) + 200;
-            this. randY = Math.random() * (800 - 100) + 10;
-        }
-        if(this.collider.colliding) {
-            this.health--;
-            if(this.health <= 0) {
-                gameNs.game.collisionManager.removePolygonCollider(this.collider);
-            }
-        }
+
         var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
+
+        if (this.alive) {
+            if(this.x < this.randX && EnemyVehicle.prototype.mag(difX)) {
+                this.xVel = 3;
+            }
+            else if(EnemyVehicle.prototype.mag(difX)) {
+                this.xVel = -3;
+            }
+            if(this.y < this.randY && EnemyVehicle.prototype.mag(difY)) {
+                this.yVel = 3;
+            }
+            else if (EnemyVehicle.prototype.mag(difY)){
+                this.yVel = -3;
+            }
+            if(EnemyVehicle.prototype.dist(this.x, this.y, this.randX, this.randY) < 30) {
+                this. randX = Math.random() * (600 - 200) + 200;
+                this. randY = Math.random() * (800 - 100) + 10;
+            }
+        
         if (CollisionManager.CollidedWithTag(
             CollisionManager.IndexOfElement(
                 gameNs.game.collisionManager.polygonColliderArray,
@@ -95,6 +110,31 @@ class Truck extends EnemyVehicle
             this. randY = Math.random() * (800 - 100) + 10;
           }
 
+        }
+        if (CollisionManager.CollidedWithTag( CollisionManager.IndexOfElement
+            (gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults,
+                gameNs.game.collisionManager.polygonColliderArray, 'bullet') && this.alive) {
+                    this.health--;
+                }
+        if (this.health <= 0)
+        {
+            this.explosionTime = true;
+            this.alive = false;
+        }
+
+        if (this.explosionTime)
+        {
+          this.y += (scrollSpeed / 2)
+          this.spriteAnimation.setPosition(this.x, this.y);
+          this.spriteAnimation.playAnimation();
+          this.newCount += 1;
+          if (this.newCount >= 32) {
+             this.explosionTime = false;
+             //this.animation.setLooped(false);
+             this.newCount = 0;
+          }
+        }
+        console.log(this.health)
         this.x += this.xVel;
         this.y += this.yVel;
         this.sprite.move(this.xVel, this.yVel);
@@ -104,7 +144,13 @@ class Truck extends EnemyVehicle
 
     draw()
     {
+        if (this.alive){
         this.sprite.draw();
+        }
+
+        if (this.explosionTime){
+            this.spriteAnimation.draw();
+          }
     }
 
 }

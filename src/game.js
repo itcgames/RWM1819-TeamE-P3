@@ -43,7 +43,7 @@ class Game {
     }
 
     this.motorCycle.update(this.car.getPositionX(),this.levelPart1.getScrollSpeed());
-    this.truck.update();
+    this.truck.update(this.levelPart1.getScrollSpeed());
     this.score_text.addScore(1);
     this.time_text.minusTime(1);
     gameNs.game.collisionManager.checkAllColliders();
