@@ -9,6 +9,7 @@ class Game {
     this.levelPart1 = new Level();
     this.levelPart2 = new Level();
     this.motorCycle = new MotorCycle(400, 600);
+    this.spikeEnemy = new SpikeEnemy(400, 400);
     this.truck = new Truck(400, 100);
     this.input = new Input();
     this.input.bind(this.car.moveUp, "ArrowUp");
@@ -16,6 +17,7 @@ class Game {
   	this.input.bind(this.car.moveLeft, "ArrowLeft");
     this.input.bind(this.car.moveRight, "ArrowRight");
     this.input.bind(this.car.shoot, " ");
+    this.input.bind(this.car.spill, "b");
     this.score_text = new scoreText(100, 900);
     this.time_text = new timeText(500, 900);
 
@@ -25,8 +27,8 @@ class Game {
 
   update(time) {
 
-    this.car.update(this.levelPart1.getScrollSpeed());
     this.levelPart1.update(this.car.getScrollScalar());
+    this.car.update(this.levelPart1.getScrollSpeed());
     //this.levelPart2.update(this.car.getScrollScalar());
 
     if(this.levelPart1.getYPosition() > 1080)
@@ -43,6 +45,7 @@ class Game {
     }
 
     this.motorCycle.update(this.car.getPositionX(),this.levelPart1.getScrollSpeed());
+    this.spikeEnemy.update(this.car.getPositionX(),this.car.getPositionY(),this.levelPart1.getScrollSpeed(),this.car.getAlive());
     this.truck.update();
     this.score_text.addScore(1);
     this.time_text.minusTime(1);
@@ -56,6 +59,7 @@ class Game {
     gameNs.game.collisionManager.render(gameNs.game.ctx);
     this.car.draw();
     this.motorCycle.draw();
+    this.spikeEnemy.draw();
     this.truck.draw();
     this.score_text.drawText();
     this.time_text.drawText();

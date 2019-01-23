@@ -44,6 +44,7 @@ class MotorCycle extends EnemyVehicle
     {
         //this.sprite.rotate(2);
         this.move(playerX,scrollSpeed);
+        this.spill(scrollSpeed);
 
     }
     move(playerX,scrollSpeed)
@@ -67,7 +68,6 @@ class MotorCycle extends EnemyVehicle
         if(this.saved === false){
         if(this.xVelocity < 0)
         {
-          console.log("Left hit");
           this.x += 5;
           this.sprite.move(+5, 0);
           this.collider.shape.move(+5, 0);
@@ -76,7 +76,6 @@ class MotorCycle extends EnemyVehicle
           this.saved = true;
           this.count = 0;  // Wont change straight after
       }else{
-        console.log("Right hit");
         this.x -= 5;
         this.sprite.move(-5, 0);
         this.collider.shape.move(-5, 0);
@@ -101,6 +100,7 @@ class MotorCycle extends EnemyVehicle
         this.yVelocity = scrollSpeed / 3;
         this.rightHit = true;
       }
+      
       }
       if(this.leftHit == true){
         this.sprite.rotate(6);
@@ -130,4 +130,29 @@ class MotorCycle extends EnemyVehicle
     {
       // James please explode motorbike :)
     }
+
+    spill(scrollSpeed) {
+  
+      var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
+      if (CollisionManager.CollidedWithTag(
+        CollisionManager.IndexOfElement(
+          gameNs.game.collisionManager.polygonColliderArray, this.collider), 
+          collisionResults, gameNs.game.collisionManager.polygonColliderArray, 
+          'oil'))
+      {
+        this.saved = true;
+        this.savedCount = -9000; // So can never be saved again.
+        this.count = -9000; //Can never change direction again.
+        if(this.xVelocity > 0){
+        this.xVelocity = 6;
+        this.yVelocity = scrollSpeed / 3;
+        this.leftHit = true;
+      }else if(this.xVelocity < 0){
+        this.xVelocity = -6;
+        this.yVelocity = scrollSpeed / 3;
+        this.rightHit = true;
+      }
+    }
+  }
 }
+
