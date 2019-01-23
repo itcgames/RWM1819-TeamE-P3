@@ -55,6 +55,9 @@ class Car {
   getPositionX(){
     return this.x;
   }
+  getPositionY(){
+    return this.y;
+  }
   moveUp() {
     if(this.y > 10)
     {
@@ -98,7 +101,14 @@ class Car {
   update(scrollSpeed) {
     var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
     if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds') && this.alive) {
-      console.log("HITTTTT");
+      this.animation.setLooped(true);
+      this.alive = false;
+      this.explosionTime = true;
+    }else if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'spikeLeft') && this.alive) {
+      this.animation.setLooped(true);
+      this.alive = false;
+      this.explosionTime = true;
+    }else if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'spikeRight') && this.alive) {
       this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
@@ -121,7 +131,6 @@ class Car {
       this.spriteAnimation.setPosition(this.x - (this.width / 2), this.y - (this.height / 2));
       this.spriteAnimation.playAnimation();
       this.count+= 1;
-      console.log(this.count)
       if (this.count >= 32)
       {
         this.explosionTime = false;
