@@ -9,26 +9,29 @@ class Game {
     this.levelPart1 = new Level();
     this.levelPart2 = new Level();
     //this.truck = new Truck(400, 100);
+    this.motorCycle = new MotorCycle(400, 600);
+    this.spikeEnemy = new SpikeEnemy(400, 400);
+    this.truck = new Truck(400, 100);
+    this.helicopter = new Helicopter(-200, 500);
     this.input = new Input();
     this.input.bind(this.car.moveUp, "ArrowUp");
   	this.input.bind(this.car.moveDown, "ArrowDown");
   	this.input.bind(this.car.moveLeft, "ArrowLeft");
     this.input.bind(this.car.moveRight, "ArrowRight");
     this.input.bind(this.car.shoot, " ");
+    this.input.bind(this.car.spill, "b");
     this.score_text = new scoreText(100, 900);
     this.time_text = new timeText(500, 900);
 
     this.npcManager = new NPCManager(400, 1080);
 
     this.levelPart1.init(-53000);
-    //this.levelPart2.init(-106000);
   }
 
   update(time) {
 
-    this.car.update(this.levelPart1.getScrollSpeed());
     this.levelPart1.update(this.car.getScrollScalar());
-    //this.levelPart2.update(this.car.getScrollScalar());
+    this.car.update(this.levelPart1.getScrollSpeed());
 
     if(this.levelPart1.getYPosition() > 1080)
     {
@@ -36,11 +39,7 @@ class Game {
     }
 
     this.npcManager.update(this.car, this.levelPart1.getScrollSpeed());
-
-    // if(this.levelPart2.getYPosition() > 1080)
-    // {
-    //   this.levelPart2.init(-106000);
-    // }
+    
     if (this.car.getAlive()){
       this.input.update();
     }
@@ -60,5 +59,7 @@ class Game {
     this.score_text.drawText();
     this.time_text.drawText();
 
+    this.score_text.drawText();
+    this.time_text.drawText();
   }
 }
