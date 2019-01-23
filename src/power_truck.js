@@ -11,6 +11,7 @@ class PowerTruck extends EnemyVehicle
         this.moveInfront = false;
         this.givePower = false;
         this.rocket = false;
+        this.powerGiven = false;
         this.savedCount = 0;
         this.saved = false;
         this.count = 50;
@@ -65,7 +66,13 @@ class PowerTruck extends EnemyVehicle
     }
     getRocketBool()
     {
-      return this.rocket;
+      if(this.rocket == true)
+      {
+        this.rocket = false;
+        console.log("Set false");
+        return true;
+      }
+
     }
     move(playerX,playerY,scrollSpeed,alive)
     {
@@ -96,7 +103,12 @@ class PowerTruck extends EnemyVehicle
   if(this.powerTime >= 100)
   {
     this.targetY = - 1000;
+    if(this.powerGiven == false)
+    {
     this.rocket = true;
+    console.log("GIVE");
+    this.powerGiven = true;
+  }
   }
     if(this.saved == false)
     {
