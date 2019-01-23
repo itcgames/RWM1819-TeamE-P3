@@ -47,13 +47,20 @@ class SpikeEnemy extends EnemyVehicle
                                                  ["spikeRight","spikeLeft","spikeEnemyBig"]);
         gameNs.game.collisionManager.addPolygonCollider(this.collider);
 
-        this.colliderBig = new PolygonCollider([new Vector2(this.x - 20, this.y - 20),
+        this.colliderBigRight = new PolygonCollider([new Vector2(this.x + 17.5, this.y - 20),
                                                  new Vector2(this.x + 55, this.y - 20),
                                                  new Vector2(this.x + 55, this.y + 55),
-                                                 new Vector2(this.x - 20, this.y + 55)],
-                                                 ["spikeEnemyBig"],
+                                                 new Vector2(this.x + 17.5, this.y + 55)],
+                                                 ["spikeEnemyBigRight"],
                                                  ["spikeRight","spikeLeft","spikeEnemy"]);
-        gameNs.game.collisionManager.addPolygonCollider(this.colliderBig);
+        gameNs.game.collisionManager.addPolygonCollider(this.colliderBigRight);
+        this.colliderBigLeft = new PolygonCollider([new Vector2(this.x - 20, this.y - 20),
+                                                 new Vector2(this.x + 17.5, this.y - 20),
+                                                 new Vector2(this.x + 17.5, this.y + 55),
+                                                 new Vector2(this.x - 20, this.y + 55)],
+                                                 ["spikeEnemyBigLeft"],
+                                                 ["spikeRight","spikeLeft","spikeEnemy"]);
+        gameNs.game.collisionManager.addPolygonCollider(this.colliderBigLeft);
 
     }
 
@@ -102,7 +109,7 @@ class SpikeEnemy extends EnemyVehicle
       if(this.saved === true)
       {
         this.savedCount = this.savedCount + 1;
-        if(this.savedCount >= 50)
+        if(this.savedCount >= 1)
         {
           this.savedCount = 0;
           this.saved = false;
@@ -113,31 +120,36 @@ class SpikeEnemy extends EnemyVehicle
       {
         this.explode();
       }
-      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBig), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
+      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBigLeft), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
       {
         if(this.saved === false){
-        if(this.xVelocity < 0)
-        {
+
           this.x += 5;
           this.sprite.move(+5, 0);
           this.collider.shape.move(+5, 0);
-          this.colliderBig.shape.move(+5, 0);
+          this.colliderBigLeft.shape.move(+5, 0);
+          this.colliderBigRight.shape.move(+5, 0);
           this.colliderSpikeRight.shape.move(+5, 0);
           this.colliderSpikeLeft.shape.move(+5, 0);
           this.xVelocity = 3;
           this.saved = true;
           this.count = 0;  // Wont change straight after
-      }else{
+      }
+      }
+      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBigRight), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
+      {
+        if(this.saved === false){
+
         this.x -= 5;
         this.sprite.move(-5, 0);
         this.collider.shape.move(-5, 0);
-        this.colliderBig.shape.move(-5, 0);
+        this.colliderBigRight.shape.move(-5, 0);
+        this.colliderBigLeft.shape.move(-5, 0);
         this.colliderSpikeRight.shape.move(-5, 0);
         this.colliderSpikeLeft.shape.move(-5, 0);
         this.xVelocity = -3;
         this.saved = true;
         this.count = 0;  // Wont change straight after
-      }
       }
       }
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'Player'))
@@ -176,7 +188,8 @@ class SpikeEnemy extends EnemyVehicle
     } */
       this.sprite.move(this.xVelocity,this.yVelocity);
       this.collider.shape.move(this.xVelocity,this.yVelocity);
-      this.colliderBig.shape.move(this.xVelocity,this.yVelocity);
+      this.colliderBigLeft.shape.move(this.xVelocity,this.yVelocity);
+      this.colliderBigRight.shape.move(this.xVelocity,this.yVelocity);
       this.colliderSpikeRight.shape.move(this.xVelocity,this.yVelocity);
       this.colliderSpikeLeft.shape.move(this.xVelocity,this.yVelocity);
       this.x = this.x + this.xVelocity;
