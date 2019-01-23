@@ -17,6 +17,7 @@ class Game {
   	this.input.bind(this.car.moveLeft, "ArrowLeft");
     this.input.bind(this.car.moveRight, "ArrowRight");
     this.input.bind(this.car.shoot, " ");
+    this.input.bind(this.car.spill, "b");
     this.score_text = new scoreText(100, 900);
     this.time_text = new timeText(500, 900);
 
@@ -26,8 +27,8 @@ class Game {
 
   update(time) {
 
-    this.car.update(this.levelPart1.getScrollSpeed());
     this.levelPart1.update(this.car.getScrollScalar());
+    this.car.update(this.levelPart1.getScrollSpeed());
     //this.levelPart2.update(this.car.getScrollScalar());
 
     if(this.levelPart1.getYPosition() > 1080)
