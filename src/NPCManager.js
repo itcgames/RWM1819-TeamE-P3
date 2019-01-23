@@ -14,6 +14,7 @@ class NPCManager
         this.motorcycles = [];
         this.spikeCars = [];
         this.projectileCars = [];
+        this.helicopter = new Helicopter(-200, 500);
 
         this.maxTrucks = 2;
         this.maxMotorcycles = 2;
@@ -36,6 +37,7 @@ class NPCManager
             if(this.trucks.length < this.maxTrucks)
             {
                 this.trucks.push(new Truck(xPos, this.y));
+                
             }
         }
 
@@ -45,12 +47,18 @@ class NPCManager
             if(this.motorcycles.length < this.maxMotorcycles)
             {
                 this.motorcycles.push(new MotorCycle(xPos, this.y));
+                
             }
         }
 
         else if (rand === 3)
         {
             //spawn new spike car
+            if(this.spikeCars.length < this.maxSpikeCars)
+            {
+                this.motorcycles.push(new SpikeEnemy(xPos, this.y));
+                
+            }
         }
 
         else if (rand === 4)
@@ -68,6 +76,8 @@ class NPCManager
     update(car, levelScrollSpeed)
     {
         var rand = Math.floor((Math.random() * 100) + 1);
+        //Update helicopter
+        this.helicopter.update(car.x, car.y);
         
         if(rand === 10)
         {
@@ -77,7 +87,7 @@ class NPCManager
         
         for(var i = 0; i < this.trucks.length; i++)
         {
-            this.trucks[i].update();
+            this.trucks[i].update(levelScrollSpeed);
         }
 
         for(var i = 0; i < this.motorcycles.length; i++)
@@ -87,7 +97,7 @@ class NPCManager
 
         for(var i = 0; i < this.spikeCars.length; i++)
         {
-            
+            this.spikeCars[i].update(car.x, car.x, levelScrollSpeed, car.getAlive());
         }
 
         for(var i = 0; i < this.projectileCars.length; i++)
@@ -99,6 +109,8 @@ class NPCManager
     //Draws all NPC entities
     draw()
     {
+        this.helicopter.draw();
+
         for(var i = 0; i < this.trucks.length; i++)
         {
             this.trucks[i].draw();
@@ -111,7 +123,7 @@ class NPCManager
 
         for(var i = 0; i < this.spikeCars.length; i++)
         {
-            
+            this.spikeCars[i].draw();   
         }
 
         for(var i = 0; i < this.projectileCars.length; i++)

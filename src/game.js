@@ -7,12 +7,7 @@ class Game {
   initWorld() {
     this.car = new Car(100, 100);
     this.levelPart1 = new Level();
-    this.levelPart2 = new Level();
-    //this.truck = new Truck(400, 100);
-    this.motorCycle = new MotorCycle(400, 600);
-    this.spikeEnemy = new SpikeEnemy(400, 400);
-    this.truck = new Truck(400, 100);
-    this.helicopter = new Helicopter(-200, 500);
+
     this.input = new Input();
     this.input.bind(this.car.moveUp, "ArrowUp");
   	this.input.bind(this.car.moveDown, "ArrowDown");
@@ -39,7 +34,7 @@ class Game {
     }
 
     this.npcManager.update(this.car, this.levelPart1.getScrollSpeed());
-    
+
     if (this.car.getAlive()){
       this.input.update();
     }
@@ -52,7 +47,6 @@ class Game {
   draw() {
     document.body.style.background = "#ffffff";
     this.levelPart1.draw();
-    //this.levelPart2.draw();
     gameNs.game.collisionManager.render(gameNs.game.ctx);
     this.car.draw();
     this.npcManager.draw();
