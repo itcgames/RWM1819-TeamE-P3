@@ -46,6 +46,7 @@ class TitleScene
 
   ChangeScene()
   {
+    gameNs.game.ctx.clearRect(0, 0, gameNs.game.canvas.width, gameNs.game.canvas.height);
     gameNs.sceneManager.goToScene(gameNs.menuScene.title);
   }
 

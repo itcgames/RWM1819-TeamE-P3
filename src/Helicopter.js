@@ -114,6 +114,11 @@ class Helicopter extends EnemyVehicle
             this.missile[0].draw();
         }
     }
+
+    getPosition()
+    {
+        return {x: this.x, y: this.y}
+    }
     
   }
 
