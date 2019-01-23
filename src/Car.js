@@ -37,6 +37,7 @@ class Car {
 	  this.moveLeft = this.moveLeft.bind(this);
 	  this.moveRight = this.moveRight.bind(this);
     this.shoot = this.shoot.bind(this);
+    this.spill = this.spill.bind(this);
 
     this.upperYLimit = 10;
     this.lowerYLimit = 800;
@@ -50,7 +51,9 @@ class Car {
       ["bullet"]
       );
 
-      gameNs.game.collisionManager.addPolygonCollider(this.collider);
+    gameNs.game.collisionManager.addPolygonCollider(this.collider);
+
+    this.oil = [];
   }
   getPositionX(){
     return this.x;
@@ -90,6 +93,12 @@ class Car {
 
   }
 
+  spill() {
+    if(this.oil.length === 0) {
+      this.oil.push(new OilSpill(this.x, this.y + this.sprite.getGlobalBounds().height));
+    }
+  }
+
   getScrollScalar()
   {
     return this.clamp(this.y + this.limitOffset, 800, 1600);
@@ -98,7 +107,6 @@ class Car {
   update(scrollSpeed) {
     var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
     if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds') && this.alive) {
-      console.log("HITTTTT");
       this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
@@ -106,6 +114,12 @@ class Car {
     this.bulletTimer++;
     this.sprite.setPosition(this.x, this.y);
 
+    if(this.oil.length > 0) {
+      this.oil[0].update(scrollSpeed);
+      if(this.oil[0].dead) {
+        this.oil.pop();
+      }
+    }
 
     var that = this;
     this.bullets.forEach(function(element) {
@@ -160,7 +174,10 @@ class Car {
     this.bullets.forEach(function(element) {
       element.draw();
     });
-
+    if(this.oil.length > 0) {
+      this.oil[0].draw();
+    }
+    
   }
   /**
    *
