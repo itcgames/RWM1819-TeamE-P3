@@ -26,11 +26,15 @@ class Car {
     this.width = 26
     this.height = 44
     this.alive = true;
+    this.ready = true;
     this.bullets = [];
+    this.rockets = [];
     this.explosionTime = false;
     this.count = 0;
     this.bulletTimer = 0;
     this.bulletTime = 6;
+    this.rocketArmed = false;
+    this.health = 3;
 
     this.moveUp = this.moveUp.bind(this);
 	  this.moveDown = this.moveDown.bind(this);
@@ -38,6 +42,7 @@ class Car {
 	  this.moveRight = this.moveRight.bind(this);
     this.shoot = this.shoot.bind(this);
     this.spill = this.spill.bind(this);
+    this.shootRocket = this.shootRocket.bind(this);
 
     this.upperYLimit = 10;
     this.lowerYLimit = 800;
@@ -95,6 +100,13 @@ class Car {
     }
 
   }
+  shootRocket(){
+    if(this.rocketArmed == true)
+    {
+      this.rockets.push(new Rocket(this.x,this.y));
+      this.rocketArmed = false;
+    }
+  }
 
   spill() {
     if(this.oil.length === 0) {
@@ -107,16 +119,18 @@ class Car {
     return this.clamp(this.y + this.limitOffset, 800, 1600);
   }
 
-  update(scrollSpeed) {
+  update(scrollSpeed,HelliX,HelliY,HelliAlive) {
     var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
     if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds') && this.alive) {
       this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
+      this.health--;
     }else if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'spikeLeft') && this.alive) {
       this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
+      this.health--;
     }else if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'spikeRight') && this.alive) {
       this.animation.setLooped(true);
       this.alive = false;
@@ -126,7 +140,7 @@ class Car {
       this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
-      gameNs.game.collisionManager.removePolygonCollider(this.collider);
+      //gameNs.game.collisionManager.removePolygonCollider(this.collider);
     }
     this.bulletTimer++;
     this.sprite.setPosition(this.x, this.y);
@@ -145,8 +159,15 @@ class Car {
         that.bullets.splice( that.bullets.indexOf(element), 1 );
       }
     });
+    this.rockets.forEach(function(element) {
+      element.update(HelliX,HelliY,HelliAlive);
+      if(element.dead) {
+        that.rockets.splice( that.rockets.indexOf(element), 1 );
+      }
+    });
 
     if (this.explosionTime){
+      this.ready = false;
       this.y += (scrollSpeed / 2);
       this.collider.shape.move(0, (scrollSpeed / 2))
       this.spriteAnimation.setPosition(this.x - (this.width / 2), this.y - (this.height / 2));
@@ -159,22 +180,43 @@ class Car {
     }
     if (!this.explosionTime && !this.getAlive())
     {
-      this.reset()
+      this.count = 0;
+      this.animation.setLooped(false)
 
     }
   }
 
-  reset()
+  getState()
   {
-    this.x = 300;
-    this.y = 600;
-    this.collider.position = new Vector2(this.x, this.y)
-    this.sprite.setPosition(this.x, this.y);
-    this.count = 0;
-    this.animation.setLooped(false)
-    this.alive = true;
+    return this.ready;
   }
 
+  reverseCar(posY) {
+    if (this.y < posY + 100)
+    {
+      this.y += 3;
+    }
+    else
+    {
+      this.ready = true;
+      this.collider.position = new Vector2(this.x, this.y)
+    }
+
+  }
+
+  reset(xpos, ypos)
+  {
+    this.x = xpos;
+    this.y = ypos;
+    this.collider.position = new Vector2(this.x, this.y)
+    this.sprite.setPosition(this.x, this.y);
+    this.alive = true;
+  }
+  powerUp(rocketBool){
+    if(rocketBool == true){
+      this.rocketArmed = true;
+    }
+  }
   getAlive(){
     return this.alive;
   }
@@ -189,6 +231,9 @@ class Car {
     }
 
     this.bullets.forEach(function(element) {
+      element.draw();
+    });
+    this.rockets.forEach(function(element) {
       element.draw();
     });
     if(this.oil.length > 0) {
