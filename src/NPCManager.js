@@ -161,22 +161,33 @@ class NPCManager
     {
         for(var i = 0; i < this.trucks.length; i++)
         {
-            this.trucks.pop();
-        }
+            gameNs.game.collisionManager.removePolygonCollider(this.trucks[i].collider);
+            gameNs.game.collisionManager.removePolygonCollider(this.trucks[i].truckBig);
 
+         
+        }
+        this.trucks = [];
         for(var i = 0; i < this.motorcycles.length; i++)
         {
-            this.motorcycles.pop();
-        }
+            gameNs.game.collisionManager.removePolygonCollider(this.motorcycles[i].collider);
+            gameNs.game.collisionManager.removePolygonCollider(this.motorcycles[i].colliderBig);
 
+           
+        }
+        this.motorcycles = [];
         for(var i = 0; i < this.spikeCars.length; i++)
         {
-            this.spikeCars.pop(); 
-        }
+            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderSpikeLeft);
+            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderSpikeRight);
+            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].collider);
+            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderBig);
 
+            
+        }
+        this.spikeCars = [];
         if(this.helicopter.length === 1)
         {
-            this.helicopter.pop();
+            this.helicopter = [];
         }
 
         this.helicopterSpawnTicks = 0;
