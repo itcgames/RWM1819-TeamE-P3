@@ -49,7 +49,7 @@ class Game {
       }
     }
 
-    if(this.levelPart1.getYPosition() > 1080)
+    if(this.levelPart1.getYPosition() > 0)
     {
       this.levelPart1.init(-53000);
     }
