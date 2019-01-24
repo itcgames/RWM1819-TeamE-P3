@@ -46,18 +46,19 @@ class Game {
     gameNs.game.collisionManager.checkAllColliders();
 
     if(this.car.health <= 0) {
-      this.car.health = 2;
+      gameNs.game.score = this.score_text.score;
+      gameNs.game.time = this.time_text.time;
+      this.car.health = 1;
       this.car.reset(300, 600);
       this.levelPart1.reset(-53000);
       this.score_text.setScore(0);
       this.time_text.setTime(1000);
       this.car.explosionTime = false;
       this.npcManager.reset();
-      gameNs.sceneManager.goToScene(gameNs.endScene.title);
       this.car.ready = true;
+      gameNs.sceneManager.goToScene(gameNs.endScene.title);
+      
     }
-
-    console.log(this.car.getPositionX())
     
   }
 
@@ -74,5 +75,6 @@ class Game {
     this.time_text.drawText();
     this.score_text.drawText();
     this.time_text.drawText();
+    
   }
 }
