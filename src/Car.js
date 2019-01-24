@@ -34,7 +34,7 @@ class Car {
     this.bulletTimer = 0;
     this.bulletTime = 6;
     this.rocketArmed = false;
-    this.health = 3;
+    this.health = 2;
 
     this.moveUp = this.moveUp.bind(this);
 	  this.moveDown = this.moveDown.bind(this);
@@ -140,6 +140,14 @@ class Car {
       this.animation.setLooped(true);
       this.alive = false;
       this.explosionTime = true;
+      this.health--;
+      //gameNs.game.collisionManager.removePolygonCollider(this.collider);
+    }
+    if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'truck') && this.alive) {
+      this.animation.setLooped(true);
+      this.alive = false;
+      this.explosionTime = true;
+      this.health--;
       //gameNs.game.collisionManager.removePolygonCollider(this.collider);
     }
     this.bulletTimer++;

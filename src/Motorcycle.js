@@ -90,7 +90,8 @@ class MotorCycle extends EnemyVehicle
         {
           this.explode();
           gameNs.game.collisionManager.removePolygonCollider(this.collider);
-          gameNs.game.collisionManager.removePolygonCollider(this.colliderBig);
+          gameNs.game.collisionManager.removePolygonCollider(this.colliderBigLeft);
+          gameNs.game.collisionManager.removePolygonCollider(this.colliderBigRight);
         }
 
     }
