@@ -9,7 +9,7 @@ class Truck extends EnemyVehicle
         super();
         this.x = x;
         this.y = y;
-        this.health = 5;
+        this.health = 3;
         this.explosionTime = false;
         this.alive = true;
         this.newCount = 0;
@@ -29,7 +29,7 @@ class Truck extends EnemyVehicle
             new Vector2(this.x + 32,this.y + 64),
             new Vector2(this.x,this.y + 64)],
             ["truck"],
-            ["truckBig"]);
+            ["truckBigLeft", "truckBigRight"]);
         gameNs.game.collisionManager.addPolygonCollider(
            this.collider
             );
@@ -111,39 +111,39 @@ class Truck extends EnemyVehicle
 
             }
 
-          this.x += this.xVel;
-          this.y += this.yVel;
-        if (CollisionManager.CollidedWithTag( CollisionManager.IndexOfElement
-            (gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults,
-                gameNs.game.collisionManager.polygonColliderArray, 'bullet') && this.alive) {
-                    this.health--;
-                }
-        if (this.health <= 0)
-        {
-            gameNs.game.collisionManager.removePolygonCollider(this.collider);
-            gameNs.game.collisionManager.removePolygonCollider(this.truckBig);
-            this.explosionTime = true;
-            this.alive = false;
+            this.x += this.xVel;
+            this.y += this.yVel;
+            if (CollisionManager.CollidedWithTag( CollisionManager.IndexOfElement
+                (gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults,
+                    gameNs.game.collisionManager.polygonColliderArray, 'bullet') && this.alive) {
+                        this.health--;
+                    }
+            if (this.health <= 0)
+            {
+                gameNs.game.collisionManager.removePolygonCollider(this.collider);
+                gameNs.game.collisionManager.removePolygonCollider(this.colliderBigLeft);
+                gameNs.game.collisionManager.removePolygonCollider(this.colliderBigRight);
+                this.explosionTime = true;
+                this.alive = false;
+            }
+            
         }
-
-        if (this.explosionTime)
+        if (this.explosionTime) 
         {
-          this.y += (scrollSpeed / 2)
-          this.spriteAnimation.setPosition(this.x, this.y);
-          this.spriteAnimation.playAnimation();
-          this.newCount += 1;
-          if (this.newCount >= 32) {
-             this.explosionTime = false;
-             this.newCount = 0;
-          }
+            this.y += (scrollSpeed / 2)
+            this.spriteAnimation.setPosition(this.x, this.y);
+            this.spriteAnimation.playAnimation();
+            this.newCount += 1;
+            if (this.newCount >= 32) {
+                //this.explosionTime = false;
+                this.newCount = 0;
+            }
         }
-
         this.sprite.move(this.xVel, this.yVel);
-        this.collider.shape.move(this.xVel, this.yVel);
-        this.colliderBigLeft.shape.move(this.xVel, this.yVel);
-        this.colliderBigRight.shape.move(this.xVel, this.yVel);
+            this.collider.shape.move(this.xVel, this.yVel);
+            this.colliderBigLeft.shape.move(this.xVel, this.yVel);
+            this.colliderBigRight.shape.move(this.xVel, this.yVel);
     }
-  }
 
     draw()
     {
@@ -153,7 +153,7 @@ class Truck extends EnemyVehicle
 
         if (this.explosionTime){
             this.spriteAnimation.draw();
-          }
+        }
     }
 
 }

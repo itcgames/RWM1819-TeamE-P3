@@ -19,10 +19,18 @@ class Game {
     this.score_text = new scoreText(100, 900);
     this.time_text = new timeText(500, 900);
     this.npcManager = new NPCManager(400, 1080);
-    this.respawnTruck = new RespawnTruck(400,1000);
     this.levelPart1.init(-53000);
 
     
+  }
+  
+  is_touch_device(){
+    var generalTouchEnabled = "ontouchstart" in document.createElement("div");
+ 
+    if (generalTouchEnabled) {
+        return true;
+    }
+    return false;
   }
 
   update(time) {
@@ -31,42 +39,27 @@ class Game {
     this.car.update(this.levelPart1.getScrollSpeed(),this.npcManager.getHeliPositionX(),this.npcManager.getHeliPositionY(),this.npcManager.getHeliAlive());
     var curY = this.levelPart1.getYPosition() * -1;
     this.car.powerUp(this.npcManager.checkRocketGot());
-    this.respawnTruck.update(this.levelPart1.getScrollSpeed(), curY)
 
-    if(!this.car.getAlive() && this.respawnTruck.getOffscreen() && this.respawnTruck.getSpawning())
-    {
-      this.respawnTruck.setVelocity(-4);
-      if (this.respawnTruck.checkPosition()){
-        this.respawnTruck.setVelocity(0);
-        this.car.reset(this.respawnTruck.getX(), this.respawnTruck.getY());
-      }
-    }
-    if (this.car.getAlive()&& !this.car.getState()){
-      this.car.reverseCar(this.respawnTruck.getY());
-      this.respawnTruck.setOffscreen(false);
-
-      if (this.car.getState())
-      {
-        this.respawnTruck.setVelocity(-6);
-      }
-    }
-
-    if(this.levelPart1.getYPosition() > 1080)
+    if(this.levelPart1.getYPosition() > 0)
     {
       this.levelPart1.init(-53000);
     }
 
-    this.npcManager.update(this.car, this.levelPart1.getScrollSpeed());
+    this.npcManager.update(this.car, this.levelPart1.getScrollSpeed(), curY);
 
     if (this.car.getState()){
       this.input.update();
     }
+    if (this.is_touch_device()){
     this.gsManager.update(this.car);
+    }
     this.score_text.addScore(1);
     this.time_text.minusTime(1);
     gameNs.game.collisionManager.checkAllColliders();
 
     if(this.car.health <= 0) {
+      gameNs.game.score = this.score_text.score;
+      gameNs.game.time = this.time_text.time;
       this.car.health = 3;
       this.car.reset(300, 600);
       this.levelPart1.reset(-53000);
@@ -74,11 +67,11 @@ class Game {
       this.time_text.setTime(1000);
       this.car.explosionTime = false;
       this.npcManager.reset();
+      this.car.ready = true;
       gameNs.game.ctx.clearRect(0, 0, gameNs.game.canvas.width, gameNs.game.canvas.height);
       gameNs.sceneManager.goToScene(gameNs.endScene.title);
-
+      
     }
-
     
   }
 
@@ -88,14 +81,17 @@ class Game {
     }
     document.body.style.background = "#ffffff";
     this.levelPart1.draw();
-    gameNs.game.collisionManager.render(gameNs.game.ctx);
+    //gameNs.game.collisionManager.render(gameNs.game.ctx);
     this.car.draw();
     this.npcManager.draw();
     this.score_text.drawText();
     this.time_text.drawText();
-    this.respawnTruck.draw();
     this.score_text.drawText();
     this.time_text.drawText();
-    this.gsManager.draw();
+    if (this.is_touch_device())
+    {
+      this.gsManager.draw();
+    }
+    
   }
 }

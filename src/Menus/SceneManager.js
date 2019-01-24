@@ -78,7 +78,7 @@ class SceneManager
       this.index = 0;
     }
     this.currentScene = this.dictionary[this.index];
-    //console.log(  this.currentScene )
+  
   }
 
 
