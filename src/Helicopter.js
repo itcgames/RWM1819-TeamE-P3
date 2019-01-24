@@ -112,6 +112,7 @@ class Helicopter extends EnemyVehicle
 
     move(playerX, playerY,scrollSpeed) {
 
+        this.rotorSprite.rotate(15);
         var difY = this.y - this.randY;
         var difX = this.x - this.randX;
         if(this.x < this.randX && EnemyVehicle.prototype.mag(difX)) {
