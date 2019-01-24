@@ -12,6 +12,7 @@ class NPCManager
         this.y = y;
         this.trucks = [];
         this.powerTrucks = [];
+        this.respawnTrucks = [];
         this.motorcycles = [];
         this.spikeCars = [];
         this.projectileCars = [];
@@ -20,11 +21,14 @@ class NPCManager
         this.trucks.push(new Truck(300,400));
         this.helicopterSpawnTicks = 0;
 
+        
         this.maxPowerTrucks = 1;
         this.maxTrucks = 2;
         this.maxMotorcycles = 2;
         this.maxSpikeCars = 2;
         this.maxProjectileCars = 2;
+
+        this.respawnTrucks.push(new RespawnTruck(400,1000));
     }
 
     //Spawns a new vehicle if there is room, at the X Position of the player
@@ -81,7 +85,7 @@ class NPCManager
      * @param {*} car car object
      * @param {*} levelScrollSpeed scroll speed gotten from the level object
      */
-    update(car, levelScrollSpeed)
+    update(car, levelScrollSpeed, curY)
     {
         var rand = Math.floor((Math.random() * 100) + 1);
 
@@ -93,6 +97,7 @@ class NPCManager
             //Once the helicopter has completed its cycle, remove from memory
             if(this.helicopter[0].getPosition().x >= 900)
             {
+                gameNs.game.collisionManager.removePolygonCollider(this.helicopter[0].collider);
                 this.helicopter.pop();
             }
         }
@@ -116,6 +121,28 @@ class NPCManager
             {
                 this.trucks.splice(i, 1);
             }
+        }
+        for(var i = 0; i < this.respawnTrucks.length; i++)
+        {
+            this.respawnTrucks[i].update(levelScrollSpeed, curY);
+            if(!car.getAlive() && this.respawnTrucks[i].getOffscreen() && this.respawnTrucks[i].getSpawning())
+            {
+                this.respawnTrucks[i].setVelocity(-4);
+                if (this.respawnTrucks[i].checkPosition()){
+                    this.respawnTrucks[i].setVelocity(0);
+                    car.reset(this.respawnTrucks[i].getX(), this.respawnTrucks[i].getY());
+                }
+            }
+
+            if (car.getAlive()&& !car.getState()){
+                car.reverseCar(this.respawnTrucks[i].getY());
+                this.respawnTrucks[i].setOffscreen(false);
+          
+                if (car.getState())
+                {
+                  this.respawnTrucks[i].setVelocity(-6);
+                }
+              }
         }
 
         for(var i = 0; i < this.motorcycles.length; i++)
@@ -141,7 +168,11 @@ class NPCManager
             this.powerTrucks[i].update(car.x, car.y, levelScrollSpeed, car.getAlive());
             if(this.powerTrucks[i].getDead())
             {
-              this.powerTrucks.splice(i,1);
+                gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].collider);
+                gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].colliderBigLeft);
+                gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].colliderBigRight);
+                gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].colliderTruck);
+                this.powerTrucks.splice(i,1);
             }
         }
 
@@ -213,9 +244,9 @@ class NPCManager
             this.powerTrucks[i].draw();
         }
 
-        for(var i = 0; i < this.projectileCars.length; i++)
+        for(var i = 0; i < this.respawnTrucks.length; i++)
         {
-
+            this.respawnTrucks[i].draw();
         }
     }
 
@@ -225,8 +256,8 @@ class NPCManager
         for(var i = 0; i < this.trucks.length; i++)
         {
             gameNs.game.collisionManager.removePolygonCollider(this.trucks[i].collider);
-            gameNs.game.collisionManager.removePolygonCollider(this.trucks[i].truckBig);
-
+            gameNs.game.collisionManager.removePolygonCollider(this.trucks[i].colliderBigLeft);
+            gameNs.game.collisionManager.removePolygonCollider(this.trucks[i].colliderBigRight);
 
         }
         this.trucks = [];
@@ -257,12 +288,18 @@ class NPCManager
         for(var i = 0; i < this.powerTrucks.length; i++)
         {
             gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].collider);
-            gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].colliderBig);
+            gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].colliderBigLeft);
+            gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].colliderBigRight);
             gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].colliderTruck);
         }
         this.powerTrucks = [];
-
-        
+        for(var i = 0; i < this.respawnTrucks.length; i++)
+        {
+            gameNs.game.collisionManager.removePolygonCollider(this.respawnTrucks[i].collider);
+            gameNs.game.collisionManager.removePolygonCollider(this.respawnTrucks[i].truckBig);
+        }
+        this.respawnTrucks = [];
+        this.respawnTrucks.push(new RespawnTruck(400,1000));
     }
 
 

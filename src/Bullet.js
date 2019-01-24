@@ -16,7 +16,9 @@ class Bullet {
       new Vector2(this.x + 4,this.y) ,
       new Vector2(this.x + 4,this.y + 8),
       new Vector2(this.x,this.y + 8)
-    ], ["bullet"], ["Player", "motorCycleBig" , "truckBig"]);
+    ], ["bullet"], 
+    ["Player", "motorCycleBigLeft", "motorCycleBigRight", 
+    "truckBigLeft", "truckBigRight", "spikeEnemyBigRight", "spikeEnemyBigLeft"]);
     gameNs.game.collisionManager.addPolygonCollider(
       this.collider 
      );

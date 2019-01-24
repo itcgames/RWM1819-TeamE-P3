@@ -20,7 +20,6 @@ class Game {
     this.time_text = new timeText(500, 900);
 
     this.npcManager = new NPCManager(400, 1080);
-    this.respawnTruck = new RespawnTruck(400,1000);
     this.levelPart1.init(-53000);
   }
 
@@ -30,32 +29,13 @@ class Game {
     this.car.update(this.levelPart1.getScrollSpeed(),this.npcManager.getHeliPositionX(),this.npcManager.getHeliPositionY(),this.npcManager.getHeliAlive());
     var curY = this.levelPart1.getYPosition() * -1;
     this.car.powerUp(this.npcManager.checkRocketGot());
-    this.respawnTruck.update(this.levelPart1.getScrollSpeed(), curY)
-
-    if(!this.car.getAlive() && this.respawnTruck.getOffscreen() && this.respawnTruck.getSpawning())
-    {
-      this.respawnTruck.setVelocity(-4);
-      if (this.respawnTruck.checkPosition()){
-        this.respawnTruck.setVelocity(0);
-        this.car.reset(this.respawnTruck.getX(), this.respawnTruck.getY());
-      }
-    }
-    if (this.car.getAlive()&& !this.car.getState()){
-      this.car.reverseCar(this.respawnTruck.getY());
-      this.respawnTruck.setOffscreen(false);
-
-      if (this.car.getState())
-      {
-        this.respawnTruck.setVelocity(-6);
-      }
-    }
 
     if(this.levelPart1.getYPosition() > 0)
     {
       this.levelPart1.init(-53000);
     }
 
-    this.npcManager.update(this.car, this.levelPart1.getScrollSpeed());
+    this.npcManager.update(this.car, this.levelPart1.getScrollSpeed(), curY);
 
     if (this.car.getState()){
       this.input.update();
@@ -66,18 +46,19 @@ class Game {
     gameNs.game.collisionManager.checkAllColliders();
 
     if(this.car.health <= 0) {
-      this.car.health = 3;
+      gameNs.game.score = this.score_text.score;
+      gameNs.game.time = this.time_text.time;
+      this.car.health = 1;
       this.car.reset(300, 600);
       this.levelPart1.reset(-53000);
       this.score_text.setScore(0);
       this.time_text.setTime(1000);
       this.car.explosionTime = false;
       this.npcManager.reset();
+      this.car.ready = true;
       gameNs.sceneManager.goToScene(gameNs.endScene.title);
-
+      
     }
-
-    console.log(this.car.getPositionX())
     
   }
 
@@ -92,8 +73,8 @@ class Game {
     this.npcManager.draw();
     this.score_text.drawText();
     this.time_text.drawText();
-    this.respawnTruck.draw();
     this.score_text.drawText();
     this.time_text.drawText();
+    
   }
 }
