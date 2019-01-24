@@ -20,6 +20,7 @@ function main() {
   gameNs.game.assetManager.queueDownload("../assets/SpyHunterArea01.png");
   gameNs.game.assetManager.queueDownload("../assets/spyHunterSplash.jpg");
   gameNs.game.assetManager.queueDownload("../assets/bullet.png");
+  gameNs.game.assetManager.queueDownload("../assets/touchpad.png");
   gameNs.game.assetManager.downloadAll(function()
   {
     initCanvas();
@@ -48,10 +49,11 @@ function main() {
          gameNs.game.update(timestep);
          delta -= timestep;
          if (++numUpdateSteps >= 240) {
-             
+
              break;
          }
      }
+
      gameNs.game.update(timestep);
      gameNs.game.draw();
      requestAnimationFrame(mainLoop);

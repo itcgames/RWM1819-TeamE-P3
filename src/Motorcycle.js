@@ -81,7 +81,7 @@ class MotorCycle extends EnemyVehicle
           this.spriteAnimation.playAnimation();
           this.newCount += 1;
           if (this.newCount >= 32) {
-             this.explosionTime = false;
+             //this.explosionTime = false;
              this.newCount = 0;
           }
         }
@@ -90,7 +90,8 @@ class MotorCycle extends EnemyVehicle
         {
           this.explode();
           gameNs.game.collisionManager.removePolygonCollider(this.collider);
-          gameNs.game.collisionManager.removePolygonCollider(this.colliderBig);
+          gameNs.game.collisionManager.removePolygonCollider(this.colliderBigLeft);
+          gameNs.game.collisionManager.removePolygonCollider(this.colliderBigRight);
         }
 
     }
