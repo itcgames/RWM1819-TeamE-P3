@@ -90,7 +90,6 @@ class PowerTruck extends EnemyVehicle
       if(this.rocket == true)
       {
         this.rocket = false;
-        console.log("Set false");
         return true;
       }
 
@@ -131,7 +130,6 @@ class PowerTruck extends EnemyVehicle
     if(this.powerGiven == false)
     {
     this.rocket = true;
-    console.log("GIVE");
     this.powerGiven = true;
   }
   }

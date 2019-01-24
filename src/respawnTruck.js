@@ -27,7 +27,7 @@ class RespawnTruck
             new Vector2(this.x + 32,this.y) ,
             new Vector2(this.x + 32,this.y + 64),
             new Vector2(this.x,this.y + 64)],
-            ["truck"],
+            ["respawnTruck"],
             ["truckBig"]);
         gameNs.game.collisionManager.addPolygonCollider(
            this.collider

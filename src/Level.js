@@ -59,7 +59,6 @@ class Level
         if(this.colliders.length > 0) {
             for(var i = 0; i < this.colliders.length; i++)
             {
-                console.log(this.colliders[i]);
                 gameNs.game.collisionManager.removePolygonCollider(this.colliders[i]);
             }
         }
@@ -304,27 +303,43 @@ class Level
                             ["bounds"]));
 
         //L
-        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
-                            new Vector2(0 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
-                            new Vector2(45 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
-                            new Vector2(45 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)],
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 1800 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 1200 * this.worldScale),
+                            new Vector2(45 * this.worldScale, this.worldOffsetY + 1200 * this.worldScale),
+                            new Vector2(45 * this.worldScale, this.worldOffsetY + 1800  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
 
         //R
-        this.colliders.push(new PolygonCollider([new Vector2(210 * this.worldScale, this.worldOffsetY + 1807 * this.worldScale),
-                            new Vector2(210 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
-                            new Vector2(256 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)],
+        this.colliders.push(new PolygonCollider([new Vector2(210 * this.worldScale, this.worldOffsetY + 1800 * this.worldScale),
+                            new Vector2(210 * this.worldScale, this.worldOffsetY + 1200 * this.worldScale),
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 1200 * this.worldScale),
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 1800  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //FORK
-        this.colliders.push(new PolygonCollider([new Vector2(97 * this.worldScale, this.worldOffsetY + 1807 * this.worldScale),
-                            new Vector2(97 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
-                            new Vector2(157 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
-                            new Vector2(157 * this.worldScale, this.worldOffsetY + 1807  * this.worldScale)],
+        this.colliders.push(new PolygonCollider([new Vector2(97 * this.worldScale, this.worldOffsetY + 1800 * this.worldScale),
+                            new Vector2(97 * this.worldScale, this.worldOffsetY + 1225 * this.worldScale),
+                            new Vector2(157 * this.worldScale, this.worldOffsetY + 1225 * this.worldScale),
+                            new Vector2(157 * this.worldScale, this.worldOffsetY + 1800  * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
+        //L
+        this.colliders.push(new PolygonCollider([new Vector2(0 * this.worldScale, this.worldOffsetY + 1225 * this.worldScale),
+                            new Vector2(0 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(30 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(30 * this.worldScale, this.worldOffsetY + 1225  * this.worldScale)],
+                            ["bounds"],
+                            ["bounds"]));
+
+        //R
+        this.colliders.push(new PolygonCollider([new Vector2(225 * this.worldScale, this.worldOffsetY + 1225 * this.worldScale),
+                            new Vector2(225 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 0 * this.worldScale),
+                            new Vector2(256 * this.worldScale, this.worldOffsetY + 1225  * this.worldScale)],
+                            ["bounds"],
+                            ["bounds"]));
+    
 
         for(var i = 0; i < this.colliders.length; i++)
         {

@@ -14,6 +14,8 @@ class Tutorial {
 
     this.arrowsMade = false;
 
+    this.end = false;
+
     this.spawnedPowerUp = false;
     this.heliSpawned = false;
 
@@ -45,6 +47,7 @@ class Tutorial {
     this.respawnTruck = new RespawnTruck(400,1000);
     this.levelPart1.init(-53000);
 
+    this.goToMenu = this.goToMenu.bind(this);
     this.input.bind(this.goToMenu, "3");
 
     this.upPressed = false;
@@ -103,12 +106,31 @@ class Tutorial {
   }
 
   goToMenu(){
+    gameNs.game.score = this.score_text.score;
+    gameNs.game.time = this.time_text.time;
+    this.car.health = 3;
+    this.car.reset(300, 600);
+    this.levelPart1.reset(-53000);
+    this.score_text.setScore(0);
+    this.time_text.setTime(1000);
+    this.car.explosionTime = false;
+    this.npcManager.reset();
+    this.car.ready = true;
     gameNs.game.ctx.clearRect(0, 0, gameNs.game.canvas.width, gameNs.game.canvas.height);
     gameNs.sceneManager.goToScene(gameNs.menuScene.title);
   }
 
 
   update(time) {
+    if(this.carTime2 == true)
+    {
+      if(this.npcManager.getSpikeLength() == 0 && this.end == false)
+      {
+        this.end = true;
+        this.tutorialText6 = new tutorialText("Congratulations!, Press 3 to return to the Main Menu.",10,100);
+        this.diamondAchievement = new DiamondAchievement("Tutorial Complete!");
+      }
+    }
     if(this.heliTime === true && this.car.getArmed() === false && this.carTime2 === false)
     {
       if(this.carTime === false)
@@ -256,10 +278,15 @@ class Tutorial {
   {
     this.tutorialText4.drawText();
   }
-  if(this.carTime2 === true)
+  if(this.carTime2 === true && this.end === false)
   {
     this.tutorialText5.drawText();
     this.keyprompt.drawImage();
+  }
+  if(this.end === true)
+  {
+    this.tutorialText6.drawText();
+    this.diamondAchievement.drawImage();
   }
     //this.diamondAchievement.drawImage();
     //this.arrow.drawImage();

@@ -13,6 +13,9 @@ class SpikeEnemy extends EnemyVehicle
         this.count = 50;
         this.leftHit = false;
         this.rightHit = false;
+        this.explosionTime = false;
+        this.alive = true;
+        this.newCount = 0;
         this.x = x;
         this.y = y;
         this.sprite = new Sprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
@@ -61,13 +64,52 @@ class SpikeEnemy extends EnemyVehicle
                                                  ["spikeEnemyBigLeft"],
                                                  ["spikeRight","spikeLeft","spikeEnemy"]);
         gameNs.game.collisionManager.addPolygonCollider(this.colliderBigLeft);
+        
+        this.spriteAnimation = new AnimatedSprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
+        42,
+        42,
+        0,
+        565,
+        this.x,
+        this.y,
+        gameNs.game.ctx);
 
+        this.animation = new Animation("explode", 0, 565, 42, 42, 6);
+        this.animation.setFrameRate(150);
+        this.animation.setLooped(true);
+        this.spriteAnimation.setAnimation(this.animation);
+        this.spriteAnimation.setScale(1.5,1.5)
     }
 
     update(playerX,playerY,scrollSpeed,alive)
     {
+        var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
         //this.sprite.rotate(2);
-        this.move(playerX,playerY,scrollSpeed,alive);
+        if(this.alive) {
+          this.move(playerX,playerY,scrollSpeed,alive);
+          this.spill(scrollSpeed);
+        }
+
+        if (this.explosionTime)
+        {
+          this.y += (scrollSpeed / 2)
+          this.spriteAnimation.setPosition(this.x, this.y);
+          this.spriteAnimation.playAnimation();
+          this.newCount += 1;
+          if (this.newCount >= 32) {
+             //this.explosionTime = false;
+             this.newCount = 0;
+          }
+        }
+        if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bullet') && this.alive)
+        {
+          this.explode();
+          gameNs.game.collisionManager.removePolygonCollider(this.collider);
+          gameNs.game.collisionManager.removePolygonCollider(this.colliderBigLeft);
+          gameNs.game.collisionManager.removePolygonCollider(this.colliderBigRight);
+          gameNs.game.collisionManager.removePolygonCollider(this.colliderSpikeRight);
+          gameNs.game.collisionManager.removePolygonCollider(this.colliderSpikeLeft);
+        }
 
     }
     move(playerX,playerY,scrollSpeed,alive)
@@ -119,6 +161,11 @@ class SpikeEnemy extends EnemyVehicle
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
       {
         this.explode();
+        gameNs.game.collisionManager.removePolygonCollider(this.collider);
+        gameNs.game.collisionManager.removePolygonCollider(this.colliderBigLeft);
+        gameNs.game.collisionManager.removePolygonCollider(this.colliderBigRight);
+        gameNs.game.collisionManager.removePolygonCollider(this.colliderSpikeRight);
+        gameNs.game.collisionManager.removePolygonCollider(this.colliderSpikeLeft);
       }
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBigLeft), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
       {
@@ -196,12 +243,43 @@ class SpikeEnemy extends EnemyVehicle
       this.y = this.y + this.yVelocity;
     }
 
+    spill(scrollSpeed) {
+
+      var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
+      if (CollisionManager.CollidedWithTag(
+        CollisionManager.IndexOfElement(
+          gameNs.game.collisionManager.polygonColliderArray, this.collider),
+          collisionResults, gameNs.game.collisionManager.polygonColliderArray,
+          'oil'))
+      {
+        this.saved = true;
+        this.savedCount = -9000; // So can never be saved again.
+        this.count = -9000; //Can never change direction again.
+        if(this.xVelocity > 0){
+        this.xVelocity = 6;
+        this.yVelocity = scrollSpeed / 3;
+        this.leftHit = true;
+      }else if(this.xVelocity < 0){
+        this.xVelocity = -6;
+        this.yVelocity = scrollSpeed / 3;
+        this.rightHit = true;
+      }
+    }
+  }
+
     draw()
     {
-        this.sprite.draw();
+        if (this.alive){
+          this.sprite.draw();
+        }
+
+        if (this.explosionTime){
+          this.spriteAnimation.draw();
+        }
     }
     explode()
     {
-      // James please explode motorbike :)
+        this.explosionTime = true;
+        this.alive = false
     }
 }
