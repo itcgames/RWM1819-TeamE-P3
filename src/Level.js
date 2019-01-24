@@ -59,7 +59,6 @@ class Level
         if(this.colliders.length > 0) {
             for(var i = 0; i < this.colliders.length; i++)
             {
-                console.log(this.colliders[i]);
                 gameNs.game.collisionManager.removePolygonCollider(this.colliders[i]);
             }
         }

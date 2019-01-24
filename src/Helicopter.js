@@ -79,7 +79,7 @@ class Helicopter extends EnemyVehicle
         this.spriteAnimation.playAnimation();
         this.newCount += 1;
         if (this.newCount >= 32) {
-           this.explosionTime = false;
+           //this.explosionTime = false;
            //this.animation.setLooped(false);
            this.newCount = 0;
         }
@@ -136,7 +136,7 @@ class Helicopter extends EnemyVehicle
                 this.attackPlayer = false;
             }
             else {
-                console.log(playerX);
+                
                 this.randX = playerX;
                 this.randY = playerY - 150;
                 this.attackPlayer = true;

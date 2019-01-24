@@ -39,10 +39,11 @@ class NPCManager
     spawnVehicle(xPos)
     {
         var rand = Math.floor((Math.random() * 20) + 1);
-
-        if(rand > 1 && rand <= 5)
+        
+        if(rand >= 1 && rand <= 5)
         {
             //Spawn new truck if there is room
+
             if(this.trucks.length < this.maxTrucks)
             {
                 this.trucks.push(new Truck(xPos, this.y));
@@ -50,7 +51,7 @@ class NPCManager
             }
         }
 
-        else if (rand > 5 && rand <= 10)
+        else if (rand >= 5 && rand <= 10)
         {
             //spawn new motorcycle is there is room
             if(this.motorcycles.length < this.maxMotorcycles)
@@ -60,7 +61,7 @@ class NPCManager
             }
         }
 
-        else if (rand > 10 && rand <= 13)
+        else if (rand >= 10 && rand <= 13)
         {
             //spawn new spike car
             if(this.spikeCars.length < this.maxSpikeCars)
@@ -87,7 +88,7 @@ class NPCManager
      */
     update(car, levelScrollSpeed, curY)
     {
-        var rand = Math.floor((Math.random() * 60) + 1);
+        var rand = Math.floor((Math.random() * 30) + 1);
 
         //Update helicopter
         if(this.helicopter.length === 1)
@@ -95,7 +96,7 @@ class NPCManager
             this.helicopter[0].update(car.x, car.y,levelScrollSpeed);
 
             //Once the helicopter has completed its cycle, remove from memory
-            if(this.helicopter[0].getPosition().x >= 900)
+            if(this.helicopter[0].getPosition().y >= 1080)
             {
                 gameNs.game.collisionManager.removePolygonCollider(this.helicopter[0].collider);
                 this.helicopter.pop();
@@ -110,15 +111,15 @@ class NPCManager
 
         if(rand === 10)
         {
-            console.log("Spawn vehicle");
             this.spawnVehicle(car.x);
         }
 
         for(var i = 0; i < this.trucks.length; i++)
         {
             this.trucks[i].update(levelScrollSpeed);
-            if(!this.trucks[i].alive && this.trucks[i].y > 1080)
+            if(!this.trucks[i].alive && this.trucks[i].y > 900)
             {
+                console.log("REMOVING TRUCK");
                 this.trucks.splice(i, 1);
             }
         }
@@ -148,8 +149,9 @@ class NPCManager
         for(var i = 0; i < this.motorcycles.length; i++)
         {
             this.motorcycles[i].update(car.getPositionX(), levelScrollSpeed);
-            if(!this.motorcycles[i].alive && this.motorcycles[i].y > 1080)
+            if(!this.motorcycles[i].alive && this.motorcycles[i].y > 900)
             {
+                console.log("REMOVING MOTORCYCLE");
                 this.motorcycles.splice(i, 1);
             }
         }
@@ -157,8 +159,10 @@ class NPCManager
         for(var i = 0; i < this.spikeCars.length; i++)
         {
             this.spikeCars[i].update(car.x, car.y, levelScrollSpeed, car.getAlive());
-            if(!this.spikeCars[i].alive && this.spikeCars[i].y > 1080)
+            console.log(this.spikeCars[i].y);
+            if(!this.spikeCars[i].alive && this.spikeCars[i].y > 900)
             {
+                console.log("REMOVING SPIKE");
                 this.spikeCars.splice(i, 1);
             }
         }

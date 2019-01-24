@@ -97,7 +97,7 @@ class SpikeEnemy extends EnemyVehicle
           this.spriteAnimation.playAnimation();
           this.newCount += 1;
           if (this.newCount >= 32) {
-             this.explosionTime = false;
+             //this.explosionTime = false;
              this.newCount = 0;
           }
         }
