@@ -49,10 +49,11 @@ function main() {
          gameNs.game.update(timestep);
          delta -= timestep;
          if (++numUpdateSteps >= 240) {
-             
+
              break;
          }
      }
+
      gameNs.game.update(timestep);
      gameNs.game.draw();
      requestAnimationFrame(mainLoop);

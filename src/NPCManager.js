@@ -17,11 +17,11 @@ class NPCManager
         this.spikeCars = [];
         this.projectileCars = [];
         this.helicopter = []
-        this.helicopter.push(new Helicopter(-200, 500));
-        this.trucks.push(new Truck(300,400));
+        //this.helicopter.push(new Helicopter(-200, 500));
+        //this.trucks.push(new Truck(300,400));
         this.helicopterSpawnTicks = 0;
 
-        
+
         this.maxPowerTrucks = 1;
         this.maxTrucks = 2;
         this.maxMotorcycles = 2;
@@ -29,6 +29,36 @@ class NPCManager
         this.maxProjectileCars = 2;
 
         this.respawnTrucks.push(new RespawnTruck(400,1000));
+    }
+
+    // Spawn functions for the tutorial.
+    spawnPowerTruck(xPos)
+    {
+      this.powerTrucks.push(new PowerTruck(xPos, this.y));
+    }
+    spawnHelicopter()
+    {
+      this.helicopter.push(new Helicopter(-200, 500));
+    }
+
+    spawnSpikeCar(x,y)
+    {
+      this.spikeCars.push(new SpikeEnemy(x, y));
+    }
+
+    // Position functions for the tutorial.
+
+    getPowerTruckX(){
+      if(this.powerTrucks.length > 0)
+      {
+      return this.powerTrucks[0].getPositionX();
+    }
+    }
+    getPowerTruckY(){
+      if(this.powerTrucks.length > 0)
+      {
+      return this.powerTrucks[0].getPositionY();
+    }
     }
 
     //Spawns a new vehicle if there is room, at the X Position of the player
@@ -39,7 +69,7 @@ class NPCManager
     spawnVehicle(xPos)
     {
         var rand = Math.floor((Math.random() * 20) + 1);
-        
+
         if(rand >= 1 && rand <= 5)
         {
             //Spawn new truck if there is room
@@ -109,7 +139,7 @@ class NPCManager
         }
 
 
-        if(rand === 10)
+        if(rand === 10 && gameNs.tutorial === false)
         {
             this.spawnVehicle(car.x);
         }
@@ -138,7 +168,7 @@ class NPCManager
             if (car.getAlive()&& !car.getState()){
                 car.reverseCar(this.respawnTrucks[i].getY());
                 this.respawnTrucks[i].setOffscreen(false);
-          
+
                 if (car.getState())
                 {
                   this.respawnTrucks[i].setVelocity(-6);
@@ -183,13 +213,16 @@ class NPCManager
 
 
         //If there is no helicopter, create a new one.
+        if(gameNs.tutorial === false)
+        {
         if(this.helicopter.length === 0 && this.helicopterSpawnTicks > 700)
         {
             this.helicopter.push(new Helicopter(-200, 500));
             this.helicopterSpawnTicks = 0;
         }
-        
+
     }
+  }
 
     checkRocketGot(){
       for(var i = 0; i < this.powerTrucks.length; i++)
@@ -219,6 +252,11 @@ class NPCManager
       return this.helicopter[0].getHeliAlive();
     }
     }
+    getSpikeLength()
+    {
+      return this.spikeCars.length;
+    }
+
 
     //Draws all NPC entities
     draw()

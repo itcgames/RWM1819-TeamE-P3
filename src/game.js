@@ -2,9 +2,11 @@ class Game {
   constructor(title)
   {
     this.title = title;
-    this.initWorld();
+    this.made = false;
   }
   initWorld() {
+    gameNs.tutorial = false;
+    console.log("CALLED GAME INIT");
     this.car = new Car(300, 600);
     this.levelPart1 = new Level();
     this.gsManager = new GSHANDLER();
@@ -21,12 +23,12 @@ class Game {
     this.npcManager = new NPCManager(400, 1080);
     this.levelPart1.init(-53000);
 
-    
+
   }
-  
+
   is_touch_device(){
     var generalTouchEnabled = "ontouchstart" in document.createElement("div");
- 
+
     if (generalTouchEnabled) {
         return true;
     }
@@ -70,12 +72,16 @@ class Game {
       this.car.ready = true;
       gameNs.game.ctx.clearRect(0, 0, gameNs.game.canvas.width, gameNs.game.canvas.height);
       gameNs.sceneManager.goToScene(gameNs.endScene.title);
-      
+
     }
-    
+
   }
 
   draw() {
+    if(this.made === false){
+    this.initWorld();
+    this.made = true;
+  }
     if(gameNs.game.ctx.globalAlpha < 1) {
       gameNs.game.ctx.globalAlpha += 0.01;
     }
@@ -91,6 +97,6 @@ class Game {
     {
       this.gsManager.draw();
     }
-    
+
   }
 }

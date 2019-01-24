@@ -1,5 +1,5 @@
 /**
- * @class RespawnTruck 
+ * @class RespawnTruck
  * inherits from EnemyVehicle base type
  */
 class RespawnTruck
@@ -43,7 +43,7 @@ class RespawnTruck
             );
             this.yVel = 0;
             this.xVel = 0;
-  
+
     }
 
     update(scrollSpeed, worldYpos)
@@ -79,7 +79,7 @@ class RespawnTruck
                 this. randX = Math.random() * (800 - 200) + 200;
                 this. randY = Math.random() * (800 - 100) + 10;
         }
-          
+
         this.x += this.xVel;
         this.y += this.yVel;
         if (worldYpos > 37000)
@@ -118,7 +118,7 @@ class RespawnTruck
             this.x = 200;
             this.canRespawn = true;
         }
-       
+
         if (this.y < 0)
         {
             this.reset();
@@ -176,7 +176,7 @@ class RespawnTruck
 
     draw()
     {
-        this.sprite.draw();   
+        this.sprite.draw();
     }
 
 }
