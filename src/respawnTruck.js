@@ -125,7 +125,6 @@ class RespawnTruck
             this.setVelocity(0);
             this.offScreen = true;
         }
-        console.log(worldYpos)
         this.sprite.move(this.xVel, this.yVel);
         this.sprite.setPosition(this.x, this.y);
         this.collider.position = new Vector2(this.x, this.y)

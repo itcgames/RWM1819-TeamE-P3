@@ -7,7 +7,7 @@ class Game {
   initWorld() {
     this.car = new Car(300, 600);
     this.levelPart1 = new Level();
-
+    this.gsManager = new GSHANDLER();
     this.input = new Input();
     this.input.bind(this.car.moveUp, "ArrowUp");
   	this.input.bind(this.car.moveDown, "ArrowDown");
@@ -18,10 +18,11 @@ class Game {
     this.input.bind(this.car.shootRocket, "v");
     this.score_text = new scoreText(100, 900);
     this.time_text = new timeText(500, 900);
-
     this.npcManager = new NPCManager(400, 1080);
     this.respawnTruck = new RespawnTruck(400,1000);
     this.levelPart1.init(-53000);
+
+    
   }
 
   update(time) {
@@ -60,7 +61,7 @@ class Game {
     if (this.car.getState()){
       this.input.update();
     }
-
+    this.gsManager.update(this.car);
     this.score_text.addScore(1);
     this.time_text.minusTime(1);
     gameNs.game.collisionManager.checkAllColliders();
@@ -73,11 +74,11 @@ class Game {
       this.time_text.setTime(1000);
       this.car.explosionTime = false;
       this.npcManager.reset();
+      gameNs.game.ctx.clearRect(0, 0, gameNs.game.canvas.width, gameNs.game.canvas.height);
       gameNs.sceneManager.goToScene(gameNs.endScene.title);
 
     }
 
-    console.log(this.car.getPositionX())
     
   }
 
@@ -95,5 +96,6 @@ class Game {
     this.respawnTruck.draw();
     this.score_text.drawText();
     this.time_text.drawText();
+    this.gsManager.draw();
   }
 }
