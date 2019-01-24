@@ -33,15 +33,21 @@ class Truck extends EnemyVehicle
         gameNs.game.collisionManager.addPolygonCollider(
            this.collider
             );
-        this.truckBig = new PolygonCollider([new Vector2(this.x - 20, this.y - 20),
-            new Vector2(this.x + 52, this.y - 20),
-            new Vector2(this.x + 52, this.y + 84),
-            new Vector2(this.x - 20, this.y + 84)],
-            ["truckBig"],
-            ["truck"]);
-        gameNs.game.collisionManager.addPolygonCollider(
-            this.truckBig
-            );
+            this.colliderBigLeft = new PolygonCollider([new Vector2(this.x - 20, this.y - 20),
+                                                     new Vector2(this.x + 16, this.y - 20),
+                                                     new Vector2(this.x + 16, this.y + 84),
+                                                     new Vector2(this.x - 20, this.y + 84)],
+                                                     ["truckBigLeft"],
+                                                     ["truck","truckBigRight"]);
+            gameNs.game.collisionManager.addPolygonCollider(this.colliderBigLeft);
+
+            this.colliderBigRight = new PolygonCollider([new Vector2(this.x + 16, this.y - 20),
+                                                     new Vector2(this.x + 52, this.y - 20),
+                                                     new Vector2(this.x + 52, this.y + 84),
+                                                     new Vector2(this.x + 16, this.y + 84)],
+                                                     ["truckBigRight"],
+                                                     ["truck","truckBigLeft"]);
+            gameNs.game.collisionManager.addPolygonCollider(this.colliderBigRight);
         this.spriteAnimation = new AnimatedSprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
                                 42,
                                 42,
@@ -83,35 +89,30 @@ class Truck extends EnemyVehicle
                 this. randY = Math.random() * (800 - 100) + 10;
             }
 
-        if (CollisionManager.CollidedWithTag(
-            CollisionManager.IndexOfElement(
-                gameNs.game.collisionManager.polygonColliderArray,
-                this.truckBig), collisionResults,
-                gameNs.game.collisionManager.polygonColliderArray, 'bounds')) {
-
-            if(this.xVel > 0) {
-                this.x -= 5;
-                this.y -= 5;
-                this.sprite.move(-5, 0);
-                this.collider.shape.move(-5, 0);
-                this.truckBig.shape.move(-5, 0);
-            }
-            else {
+            if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBigLeft), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
+            {
                 this.x += 5;
-                this.y += 5;
-                this.sprite.move(5, 0);
-                this.collider.shape.move(5, 0);
-                this.truckBig.shape.move(5, 0);
+                this.sprite.move(+5, 0);
+                this.collider.shape.move(+5,0);
+                this.colliderBigLeft.shape.move(+5, 0);
+                this.colliderBigRight.shape.move(+5, 0);
+                this.xVel = 3;
+                this. randX = Math.random() * (600 - 200) + 200;
+            }
+            if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBigRight), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
+            {
+              this.x -= 5;
+              this.sprite.move(-5, 0);
+              this.collider.shape.move(-5, 0);
+              this.colliderBigRight.shape.move(-5, 0);
+              this.colliderBigLeft.shape.move(-5, 0);
+              this.xVel = -3;
+              this. randX = Math.random() * (200 - 200) + 200;
+
             }
 
-            this.xVel = this.xVel * -1;
-            this.yVel = this.yVel * -1;
-            this. randX = Math.random() * (800 - 200) + 200;
-            this. randY = Math.random() * (800 - 100) + 10;
-          }
           this.x += this.xVel;
           this.y += this.yVel;
-        }
         if (CollisionManager.CollidedWithTag( CollisionManager.IndexOfElement
             (gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults,
                 gameNs.game.collisionManager.polygonColliderArray, 'bullet') && this.alive) {
@@ -139,8 +140,10 @@ class Truck extends EnemyVehicle
 
         this.sprite.move(this.xVel, this.yVel);
         this.collider.shape.move(this.xVel, this.yVel);
-        this.truckBig.shape.move(this.xVel, this.yVel);
+        this.colliderBigLeft.shape.move(this.xVel, this.yVel);
+        this.colliderBigRight.shape.move(this.xVel, this.yVel);
     }
+  }
 
     draw()
     {
