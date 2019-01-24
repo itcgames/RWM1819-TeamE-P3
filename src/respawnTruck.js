@@ -87,11 +87,11 @@ class RespawnTruck
             this.x = 400;
             this.canRespawn = true;
         }
-        else if (worldYpos < 37000 && worldYpos > 32000)
+        else if (worldYpos < 37000 && worldYpos > 34000)
         {
             this.x = 450;
         }
-        else if (worldYpos < 32000 && worldYpos > 26000)
+        else if (worldYpos < 34000 && worldYpos > 26000)
         {
             this.canRespawn = false;
         }

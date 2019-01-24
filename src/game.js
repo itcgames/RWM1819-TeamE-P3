@@ -45,7 +45,7 @@ class Game {
       this.levelPart1.init(-53000);
     }
 
-    this.npcManager.update(this.car, this.levelPart1.getScrollSpeed(), curY);
+    this.npcManager.update(this.car, this.levelPart1.getScrollSpeed(), curY, this.car.getState());
 
     if (this.car.getState()){
       this.input.update();
@@ -81,7 +81,6 @@ class Game {
     }
     document.body.style.background = "#ffffff";
     this.levelPart1.draw();
-    //gameNs.game.collisionManager.render(gameNs.game.ctx);
     this.car.draw();
     this.npcManager.draw();
     this.score_text.drawText();
