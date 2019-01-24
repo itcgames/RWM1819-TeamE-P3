@@ -26,6 +26,8 @@ class Tutorial {
 
     this.carCount = 0;
 
+    this.oilText = false;
+
     this.rightPressed = this.rightPressed.bind(this);
     this.leftPressed = this.leftPressed.bind(this);
     this.downPressed = this.downPressed.bind(this);
@@ -127,7 +129,8 @@ class Tutorial {
       if(this.npcManager.getSpikeLength() == 0 && this.end == false)
       {
         this.end = true;
-        this.tutorialText6 = new tutorialText("Congratulations!, Press 3 to return to the Main Menu.",10,100);
+        this.tutorialText6 = new tutorialText("Congratulations, Press 3 to return to the Main Menu.",10,100);
+        this.keyprompt8 = new KeyPrompt(380,140,"3");
         this.diamondAchievement = new DiamondAchievement("Tutorial Complete!");
       }
     }
@@ -135,7 +138,7 @@ class Tutorial {
     {
       if(this.carTime === false)
       {
-      this.tutorialText4 = new tutorialText("Watch out for those spikes!",100,100);
+      this.tutorialText4 = new tutorialText("Watch out for those spikes!",200,100);
       this.npcManager.spawnSpikeCar(this.car.getPositionX(),0);
       this.carTime = true;
     }
@@ -143,11 +146,17 @@ class Tutorial {
     {
       this.carCount = this.carCount + 1;
     }
-    if(this.carCount >= 100 && this.carTime2 === false)
+    if(this.carCount >= 70 && this.oilText === false)
+    {
+      this.tutorialText7 = new tutorialText("Press B to release oil and hit enemies behind you!",10,100);
+      this.keyprompt7 = new KeyPrompt(380,140,"b");
+      this.oilText = true;
+    }
+    if(this.carCount >= 140 && this.carTime2 === false)
     {
       this.carTime = false;
-      this.tutorialText5 = new tutorialText("Use space to shoot or ram them safely!",50,100);
-      this.keyprompt = new KeyPrompt(50,300,"Space");
+      this.tutorialText5 = new tutorialText("Press space to shoot, or ram them safely!",50,100);
+      this.keyprompt = new KeyPrompt(330,200,"Space");
       this.carTime2 = true;
     }
     }
@@ -157,7 +166,7 @@ class Tutorial {
       {
       this.npcManager.spawnPowerTruck(this.car.getPositionX());
       this.spawnedPowerUp = true;
-      this.tutorialText2 = new tutorialText("Enter the back of a truck to receive a power up!",30,100);
+      this.tutorialText2 = new tutorialText("Enter the back of the truck to receive a power up!",30,100);
       this.arrow = new Arrow(this.npcManager.getPowerTruckX() + 14,this.npcManager.getPowerTruckY() + 70,"up");
     }
     this.arrow.updatePositionX(this.npcManager.getPowerTruckX() + 14);
@@ -169,6 +178,7 @@ class Tutorial {
       {
         this.npcManager.spawnHelicopter();
         this.tutorialText3 = new tutorialText("Press V to use your rocket on the Heli!",100,100);
+        this.keyprompt6 = new KeyPrompt(380,140,"v");
         this.highlight = new Highlight(this.npcManager.getHeliPositionX() + 20,this.npcManager.getHeliPositionY() + 25
         ,200,200);
         this.heliSpawned = true;
@@ -270,22 +280,32 @@ class Tutorial {
   {
     console.log(this.carTime2);
     this.tutorialText3.drawText();
+    this.keyprompt6.drawImage();
     this.highlight.drawImage();
     this.highlight.updatePositionX(this.npcManager.getHeliPositionX() + 20);
     this.highlight.updatePositionY(this.npcManager.getHeliPositionY() + 25);
   }
   if(this.carTime === true)
   {
+    if(this.oilText == false)
+    {
     this.tutorialText4.drawText();
+  }else if(this.oilText == true)
+  {
+    this.tutorialText7.drawText();
+    this.keyprompt7.drawImage();
+  }
   }
   if(this.carTime2 === true && this.end === false)
   {
     this.tutorialText5.drawText();
+    this.keyprompt7.drawImage();
     this.keyprompt.drawImage();
   }
   if(this.end === true)
   {
     this.tutorialText6.drawText();
+    this.keyprompt8.drawImage();
     this.diamondAchievement.drawImage();
   }
     //this.diamondAchievement.drawImage();
