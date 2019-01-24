@@ -28,10 +28,11 @@ class Game {
 
     this.levelPart1.update(this.car.getScrollScalar());
     this.car.update(this.levelPart1.getScrollSpeed(),this.npcManager.getHeliPositionX(),this.npcManager.getHeliPositionY(),this.npcManager.getHeliAlive());
+    var curY = this.levelPart1.getYPosition() * -1;
     this.car.powerUp(this.npcManager.checkRocketGot());
-    this.respawnTruck.update(this.levelPart1.getScrollSpeed())
+    this.respawnTruck.update(this.levelPart1.getScrollSpeed(), curY)
 
-    if(!this.car.getAlive() && this.respawnTruck.getOffscreen())
+    if(!this.car.getAlive() && this.respawnTruck.getOffscreen() && this.respawnTruck.getSpawning())
     {
       this.respawnTruck.setVelocity(-4);
       if (this.respawnTruck.checkPosition()){
@@ -75,6 +76,9 @@ class Game {
       gameNs.sceneManager.goToScene(gameNs.endScene.title);
 
     }
+
+    console.log(this.car.getPositionX())
+    
   }
 
   draw() {
