@@ -30,7 +30,7 @@ class Game {
     var curY = this.levelPart1.getYPosition() * -1;
     this.car.powerUp(this.npcManager.checkRocketGot());
 
-    if(this.levelPart1.getYPosition() > 1080)
+    if(this.levelPart1.getYPosition() > 0)
     {
       this.levelPart1.init(-53000);
     }
