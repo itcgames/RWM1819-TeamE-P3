@@ -11,7 +11,7 @@ class RespawnTruck
         this.y = y;
         this.health = 5;
         this.offScreen = true;
-
+        this.canRespawn = true;
         this.sprite = new Sprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
                                 40,
                                 70,
@@ -82,18 +82,43 @@ class RespawnTruck
           
         this.x += this.xVel;
         this.y += this.yVel;
-        if (worldYpos > 35000)
+        if (worldYpos > 37000)
         {
-            this.x = 500;
+            this.x = 400;
+            this.canRespawn = true;
         }
-        else if (worldYpos < 35000 && worldYpos > 26000)
+        else if (worldYpos < 37000 && worldYpos > 32000)
         {
-            this.x = 700;
+            this.x = 450;
         }
-        else if (worldYpos < 26000 && worldYpos > 18000)
+        else if (worldYpos < 32000 && worldYpos > 26000)
         {
-            this.x = 220;
+            this.canRespawn = false;
         }
+        else if (worldYpos < 26000 && worldYpos > 20000)
+        {
+            this.x = 245;
+            this.canRespawn = true;
+        }
+        else if (worldYpos < 20000 && worldYpos > 17000)
+        {
+            this.canRespawn = false;
+        }
+        else if (worldYpos < 17000 && worldYpos > 15000)
+        {
+            this.x = 280;
+            this.canRespawn = true;
+        }
+        else if (worldYpos < 15000 && worldYpos > 9000)
+        {
+            this.canRespawn = false;
+        }
+        else if (worldYpos < 9000)
+        {
+            this.x = 200;
+            this.canRespawn = true;
+        }
+       
         if (this.y < 0)
         {
             this.reset();
@@ -102,6 +127,9 @@ class RespawnTruck
         }
         console.log(worldYpos)
         this.sprite.move(this.xVel, this.yVel);
+        this.sprite.setPosition(this.x, this.y);
+        this.collider.position = new Vector2(this.x, this.y)
+        this.truckBig.position = new Vector2(this.x - 20, this.y - 20);
         this.collider.shape.move(this.xVel, this.yVel);
         this.truckBig.shape.move(this.xVel, this.yVel);
     }
@@ -132,6 +160,11 @@ class RespawnTruck
     }
     setOffscreen(detect){
         this.offScreen = detect
+    }
+
+    getSpawning()
+    {
+        return this.canRespawn;
     }
 
     reset(){

@@ -30,7 +30,7 @@ class Game {
     var curY = this.levelPart1.getYPosition() * -1;
     this.respawnTruck.update(this.levelPart1.getScrollSpeed(), curY)
 
-    if(!this.car.getAlive() && this.respawnTruck.getOffscreen())
+    if(!this.car.getAlive() && this.respawnTruck.getOffscreen() && this.respawnTruck.getSpawning())
     {
       this.respawnTruck.setVelocity(-4);
       if (this.respawnTruck.checkPosition()){
@@ -53,7 +53,7 @@ class Game {
       this.levelPart1.init(-53000);
     }
 
-    this.npcManager.update(this.car, this.levelPart1.getScrollSpeed());
+   // this.npcManager.update(this.car, this.levelPart1.getScrollSpeed());
 
     if (this.car.getState()){
       this.input.update();
