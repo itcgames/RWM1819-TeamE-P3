@@ -15,11 +15,12 @@ class NPCManager
         this.motorcycles = [];
         this.spikeCars = [];
         this.projectileCars = [];
-        this.powerTrucks.push(new PowerTruck(200,300));
         this.helicopter = []
         this.helicopter.push(new Helicopter(-200, 500));
+        this.trucks.push(new Truck(300,400));
         this.helicopterSpawnTicks = 0;
 
+        this.maxPowerTrucks = 1;
         this.maxTrucks = 2;
         this.maxMotorcycles = 2;
         this.maxSpikeCars = 2;
@@ -67,6 +68,10 @@ class NPCManager
         else if (rand === 4)
         {
             //spawn new projectle car
+            if(this.powerTrucks.length < this.maxPowerTrucks)
+            {
+                this.powerTrucks.push(new PowerTruck(xPos, this.y));
+            }
         }
     }
 
@@ -122,6 +127,10 @@ class NPCManager
         for(var i = 0; i < this.powerTrucks.length; i++)
         {
             this.powerTrucks[i].update(car.x, car.y, levelScrollSpeed, car.getAlive());
+            if(this.powerTrucks[i].getDead())
+            {
+              this.powerTrucks.splice(i,1);
+            }
         }
 
 

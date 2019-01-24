@@ -16,7 +16,7 @@ class Rocket {
       new Vector2(this.x + 13,this.y) ,
       new Vector2(this.x + 13,this.y + 31),
       new Vector2(this.x,this.y + 31)
-    ], ["rocket"], ["Player","motorCycleBig" ,"truckBig","bounds"]);
+    ], ["rocket"], ["Player","motorCycleBigLeft","motorCycleBigRight","powerTruckBigLeft","powerTruckBigRight" ,"truckBig","bounds"]);
     gameNs.game.collisionManager.addPolygonCollider(
       this.collider
      );
@@ -45,10 +45,6 @@ class Rocket {
     this.y = this.y + this.yVelocity;
     this.sprite.setPosition(this.x, this.y);
     this.collider.shape.move(this.xVelocity, this.yVelocity);
-    if(this.y < 0 || this.collider.colliding) {
-      this.dead = true;
-      gameNs.game.collisionManager.removePolygonCollider(this.collider);
-    }
   }
   get state()
   {

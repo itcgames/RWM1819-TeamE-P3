@@ -14,6 +14,7 @@ class PowerTruck extends EnemyVehicle
         this.powerGiven = false;
         this.savedCount = 0;
         this.saved = false;
+        this.dead = false;
         this.count = 50;
         this.speedX = 2;
         this.speedY = 2;
@@ -37,23 +38,31 @@ class PowerTruck extends EnemyVehicle
                                                  new Vector2(this.x + 32, this.y + 90),
                                                  new Vector2(this.x, this.y + 90)],
                                                  ["powerTruckBack"],
-                                                 ["powerTruckBig","powerTruck"]);
+                                                 ["powerTruckBigLeft","powerTruckBigRight","powerTruck"]);
         gameNs.game.collisionManager.addPolygonCollider(this.collider);
 
-        this.colliderBig = new PolygonCollider([new Vector2(this.x - 20, this.y - 20),
+        this.colliderBigLeft = new PolygonCollider([new Vector2(this.x - 20, this.y - 20),
+                                                 new Vector2(this.x + 16, this.y - 20),
+                                                 new Vector2(this.x + 16, this.y + 84),
+                                                 new Vector2(this.x - 20, this.y + 84)],
+                                                 ["powerTruckBigLeft"],
+                                                 ["powerTruckBack","powerTruck","powerTruckBigRight"]);
+        gameNs.game.collisionManager.addPolygonCollider(this.colliderBigLeft);
+
+        this.colliderBigRight = new PolygonCollider([new Vector2(this.x + 16, this.y - 20),
                                                  new Vector2(this.x + 52, this.y - 20),
                                                  new Vector2(this.x + 52, this.y + 84),
-                                                 new Vector2(this.x - 20, this.y + 84)],
-                                                 ["powerTruckBig"],
-                                                 ["powerTruckBack","powerTruck"]);
-        gameNs.game.collisionManager.addPolygonCollider(this.colliderBig);
+                                                 new Vector2(this.x + 16, this.y + 84)],
+                                                 ["powerTruckBigRight"],
+                                                 ["powerTruckBack","powerTruck","powerTruckBigLeft"]);
+        gameNs.game.collisionManager.addPolygonCollider(this.colliderBigRight);
 
         this.colliderTruck = new PolygonCollider([new Vector2(this.x, this.y),
                                                  new Vector2(this.x + 32, this.y),
                                                  new Vector2(this.x + 32, this.y + 64),
                                                  new Vector2(this.x , this.y + 64)],
                                                  ["powerTruck"],
-                                                 ["powerTruckBack","powerTruckBig"]);
+                                                 ["powerTruckBack","powerTruckBigLeft","powerTruckBigRight"]);
         gameNs.game.collisionManager.addPolygonCollider(this.colliderTruck);
 
     }
@@ -63,6 +72,10 @@ class PowerTruck extends EnemyVehicle
         //this.sprite.rotate(2);
         this.move(playerX,playerY,scrollSpeed,alive);
 
+    }
+    getDead()
+    {
+      return this.dead;
     }
     getRocketBool()
     {
@@ -76,6 +89,10 @@ class PowerTruck extends EnemyVehicle
     }
     move(playerX,playerY,scrollSpeed,alive)
     {
+      if(this.y < -100)
+      {
+        this.dead = true;
+      }
       if(this.givePower == false)
       {
         if(playerX >= this.x && this.moveInfront == false){
@@ -129,7 +146,7 @@ class PowerTruck extends EnemyVehicle
       if(this.saved === true)
       {
         this.savedCount = this.savedCount + 1;
-        if(this.savedCount >= 50)
+        if(this.savedCount >= 1)
         {
           this.savedCount = 0;
           this.saved = false;
@@ -140,68 +157,47 @@ class PowerTruck extends EnemyVehicle
       {
         this.explode();
       }
-      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBig), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
+      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBigLeft), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
       {
         if(this.saved === false){
-        if(this.xVelocity < 0)
-        {
+
           this.x += 5;
           this.sprite.move(+5, 0);
-          this.collider.shape.move(+5, 0);
-          this.colliderBig.shape.move(+5, 0);
           this.colliderTruck.shape.move(+5, 0);
+          this.collider.shape.move(+5,0);
+          this.colliderBigLeft.shape.move(+5, 0);
+          this.colliderBigRight.shape.move(+5, 0);
           this.xVelocity = 3;
           this.saved = true;
           this.count = 0;  // Wont change straight after
-      }else{
+      }
+      }
+      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBigRight), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
+      {
+        if(this.saved === false){
+
         this.x -= 5;
         this.sprite.move(-5, 0);
         this.collider.shape.move(-5, 0);
-        this.colliderBig.shape.move(-5, 0);
         this.colliderTruck.shape.move(-5, 0);
+        this.colliderBigRight.shape.move(-5, 0);
+        this.colliderBigLeft.shape.move(-5, 0);
         this.xVelocity = -3;
         this.saved = true;
         this.count = 0;  // Wont change straight after
       }
       }
-      }
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'Player'))
       {
         this.givePower = true;
-        /*
-        if(alive === true)
-        {
-          this.saved = true;
-          this.savedCount = -9000; // So can never be saved again.
-          this.count = -9000; //Can never change direction again.
-          if(this.x >= playerX){
-            this.xVelocity = 6;
-            this.yVelocity = scrollSpeed / 3;
-            this.leftHit = true;
-        }else if(this.x < playerX){
-            this.xVelocity = -6;
-            this.yVelocity = scrollSpeed / 3;
-            this.rightHit = true;
-          }
-        }*/
+
       }
-      if(this.leftHit == true){
-        this.sprite.rotate(6);
-      }
-      if(this.rightHit == true){
-        this.sprite.rotate(-6);
-      }
-      /*
-      this.count = this.count + 1;
-      if(this.count >= 50)
-      {
-      this.xVelocity = Math.random() * 6 - 3;
-      this.yVelocity = Math.random() * 6 - 3;
-      this.count = 0;
-    } */
+
+
       this.sprite.move(this.xVelocity,this.yVelocity);
       this.collider.shape.move(this.xVelocity,this.yVelocity);
-      this.colliderBig.shape.move(this.xVelocity,this.yVelocity);
+      this.colliderBigLeft.shape.move(this.xVelocity,this.yVelocity);
+      this.colliderBigRight.shape.move(this.xVelocity,this.yVelocity);
       this.colliderTruck.shape.move(this.xVelocity,this.yVelocity);
       this.x = this.x + this.xVelocity;
       this.y = this.y + this.yVelocity;
@@ -213,6 +209,6 @@ class PowerTruck extends EnemyVehicle
     }
     explode()
     {
-      // James please explode motorbike :)
+      this.dead = true;
     }
 }
