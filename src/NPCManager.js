@@ -211,8 +211,8 @@ class NPCManager
         for(var i = 0; i < this.motorcycles.length; i++)
         {
             gameNs.game.collisionManager.removePolygonCollider(this.motorcycles[i].collider);
-            gameNs.game.collisionManager.removePolygonCollider(this.motorcycles[i].colliderBig);
-
+            gameNs.game.collisionManager.removePolygonCollider(this.motorcycles[i].colliderBigLeft);
+            gameNs.game.collisionManager.removePolygonCollider(this.motorcycles[i].colliderBigRight);
 
         }
         this.motorcycles = [];
@@ -221,17 +221,26 @@ class NPCManager
             gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderSpikeLeft);
             gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderSpikeRight);
             gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].collider);
-            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderBig);
-
+            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderBigRight);
+            gameNs.game.collisionManager.removePolygonCollider(this.spikeCars[i].colliderBigLeft);
 
         }
         this.spikeCars = [];
         if(this.helicopter.length === 1)
         {
+            gameNs.game.collisionManager.removePolygonCollider(this.helicopter[0].collider);
             this.helicopter = [];
         }
-
         this.helicopterSpawnTicks = 0;
+        for(var i = 0; i < this.powerTrucks.length; i++)
+        {
+            gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].collider);
+            gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].colliderBig);
+            gameNs.game.collisionManager.removePolygonCollider(this.powerTrucks[i].colliderTruck);
+        }
+        this.powerTrucks = [];
+
+        
     }
 
 
