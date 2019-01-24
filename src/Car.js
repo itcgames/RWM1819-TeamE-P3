@@ -34,7 +34,7 @@ class Car {
     this.bulletTimer = 0;
     this.bulletTime = 6;
     this.rocketArmed = false;
-    this.health = 1;
+    this.health = 3;
 
     this.moveUp = this.moveUp.bind(this);
 	  this.moveDown = this.moveDown.bind(this);

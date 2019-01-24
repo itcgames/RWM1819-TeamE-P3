@@ -87,7 +87,7 @@ class NPCManager
      */
     update(car, levelScrollSpeed, curY)
     {
-        var rand = Math.floor((Math.random() * 100) + 1);
+        var rand = Math.floor((Math.random() * 60) + 1);
 
         //Update helicopter
         if(this.helicopter.length === 1)
@@ -117,7 +117,7 @@ class NPCManager
         for(var i = 0; i < this.trucks.length; i++)
         {
             this.trucks[i].update(levelScrollSpeed);
-            if(!this.trucks[i].alive)
+            if(!this.trucks[i].alive && this.trucks[i].y > 1080)
             {
                 this.trucks.splice(i, 1);
             }
@@ -148,7 +148,7 @@ class NPCManager
         for(var i = 0; i < this.motorcycles.length; i++)
         {
             this.motorcycles[i].update(car.getPositionX(), levelScrollSpeed);
-            if(!this.motorcycles[i].alive)
+            if(!this.motorcycles[i].alive && this.motorcycles[i].y > 1080)
             {
                 this.motorcycles.splice(i, 1);
             }
@@ -157,7 +157,7 @@ class NPCManager
         for(var i = 0; i < this.spikeCars.length; i++)
         {
             this.spikeCars[i].update(car.x, car.y, levelScrollSpeed, car.getAlive());
-            if(!this.spikeCars[i].alive)
+            if(!this.spikeCars[i].alive && this.spikeCars[i].y > 1080)
             {
                 this.spikeCars.splice(i, 1);
             }

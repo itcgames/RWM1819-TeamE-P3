@@ -161,6 +161,11 @@ class SpikeEnemy extends EnemyVehicle
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
       {
         this.explode();
+        gameNs.game.collisionManager.removePolygonCollider(this.collider);
+        gameNs.game.collisionManager.removePolygonCollider(this.colliderBigLeft);
+        gameNs.game.collisionManager.removePolygonCollider(this.colliderBigRight);
+        gameNs.game.collisionManager.removePolygonCollider(this.colliderSpikeRight);
+        gameNs.game.collisionManager.removePolygonCollider(this.colliderSpikeLeft);
       }
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBigLeft), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
       {

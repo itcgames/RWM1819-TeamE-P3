@@ -48,7 +48,7 @@ class Game {
     if(this.car.health <= 0) {
       gameNs.game.score = this.score_text.score;
       gameNs.game.time = this.time_text.time;
-      this.car.health = 1;
+      this.car.health = 3;
       this.car.reset(300, 600);
       this.levelPart1.reset(-53000);
       this.score_text.setScore(0);
