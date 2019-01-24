@@ -15,6 +15,7 @@ class Game {
     this.input.bind(this.car.moveRight, "ArrowRight");
     this.input.bind(this.car.shoot, " ");
     this.input.bind(this.car.spill, "b");
+    this.input.bind(this.car.shootRocket, "v");
     this.score_text = new scoreText(100, 900);
     this.time_text = new timeText(500, 900);
 
@@ -26,8 +27,9 @@ class Game {
   update(time) {
 
     this.levelPart1.update(this.car.getScrollScalar());
-    this.car.update(this.levelPart1.getScrollSpeed());
+    this.car.update(this.levelPart1.getScrollSpeed(),this.npcManager.getHeliPositionX(),this.npcManager.getHeliPositionY(),this.npcManager.getHeliAlive());
     var curY = this.levelPart1.getYPosition() * -1;
+    this.car.powerUp(this.npcManager.checkRocketGot());
     this.respawnTruck.update(this.levelPart1.getScrollSpeed(), curY)
 
     if(!this.car.getAlive() && this.respawnTruck.getOffscreen() && this.respawnTruck.getSpawning())
@@ -39,7 +41,7 @@ class Game {
       }
     }
     if (this.car.getAlive()&& !this.car.getState()){
-      this.car.reverseCar(this.respawnTruck.getY());  
+      this.car.reverseCar(this.respawnTruck.getY());
       this.respawnTruck.setOffscreen(false);
 
       if (this.car.getState())
@@ -47,13 +49,13 @@ class Game {
         this.respawnTruck.setVelocity(-6);
       }
     }
-   
+
     if(this.levelPart1.getYPosition() > 1080)
     {
       this.levelPart1.init(-53000);
     }
 
-   // this.npcManager.update(this.car, this.levelPart1.getScrollSpeed());
+    this.npcManager.update(this.car, this.levelPart1.getScrollSpeed());
 
     if (this.car.getState()){
       this.input.update();
@@ -72,7 +74,7 @@ class Game {
       this.car.explosionTime = false;
       this.npcManager.reset();
       gameNs.sceneManager.goToScene(gameNs.endScene.title);
-      
+
     }
 
     console.log(this.car.getPositionX())

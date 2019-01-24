@@ -28,11 +28,12 @@ class Car {
     this.alive = true;
     this.ready = true;
     this.bullets = [];
+    this.rockets = [];
     this.explosionTime = false;
     this.count = 0;
     this.bulletTimer = 0;
     this.bulletTime = 6;
-
+    this.rocketArmed = false;
     this.health = 3;
 
     this.moveUp = this.moveUp.bind(this);
@@ -41,6 +42,7 @@ class Car {
 	  this.moveRight = this.moveRight.bind(this);
     this.shoot = this.shoot.bind(this);
     this.spill = this.spill.bind(this);
+    this.shootRocket = this.shootRocket.bind(this);
 
     this.upperYLimit = 10;
     this.lowerYLimit = 800;
@@ -98,6 +100,13 @@ class Car {
     }
 
   }
+  shootRocket(){
+    if(this.rocketArmed == true)
+    {
+      this.rockets.push(new Rocket(this.x,this.y));
+      this.rocketArmed = false;
+    }
+  }
 
   spill() {
     if(this.oil.length === 0) {
@@ -110,7 +119,7 @@ class Car {
     return this.clamp(this.y + this.limitOffset, 800, 1600);
   }
 
-  update(scrollSpeed) {
+  update(scrollSpeed,HelliX,HelliY,HelliAlive) {
     var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
     if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds') && this.alive) {
       this.animation.setLooped(true);
@@ -150,6 +159,12 @@ class Car {
         that.bullets.splice( that.bullets.indexOf(element), 1 );
       }
     });
+    this.rockets.forEach(function(element) {
+      element.update(HelliX,HelliY,HelliAlive);
+      if(element.dead) {
+        that.rockets.splice( that.rockets.indexOf(element), 1 );
+      }
+    });
 
     if (this.explosionTime){
       this.ready = false;
@@ -181,7 +196,7 @@ class Car {
     {
       this.y += 3;
     }
-    else 
+    else
     {
       this.ready = true;
       this.collider.position = new Vector2(this.x, this.y)
@@ -197,7 +212,11 @@ class Car {
     this.sprite.setPosition(this.x, this.y);
     this.alive = true;
   }
-
+  powerUp(rocketBool){
+    if(rocketBool == true){
+      this.rocketArmed = true;
+    }
+  }
   getAlive(){
     return this.alive;
   }
@@ -212,6 +231,9 @@ class Car {
     }
 
     this.bullets.forEach(function(element) {
+      element.draw();
+    });
+    this.rockets.forEach(function(element) {
       element.draw();
     });
     if(this.oil.length > 0) {

@@ -9,12 +9,14 @@ class MotorCycle extends EnemyVehicle
         super();
         this.savedCount = 0;
         this.saved = false;
-        this.count = 50;
+        this.count = 0;
         this.leftHit = false;
         this.rightHit = false;
         this.explosionTime = false;
         this.newCount = 0;
         this.alive = true;
+        this.xVelocity = 0;
+        this.yVelocity = 0;
         this.x = x;
         this.y = y;
         this.sprite = new Sprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
@@ -33,13 +35,21 @@ class MotorCycle extends EnemyVehicle
                                                  ["motorCycleBig"]);
         gameNs.game.collisionManager.addPolygonCollider(this.collider);
 
-        this.colliderBig = new PolygonCollider([new Vector2(this.x - 20, this.y - 20),
+        this.colliderBigLeft = new PolygonCollider([new Vector2(this.x - 20, this.y - 20),
+                                                 new Vector2(this.x + 10, this.y - 20),
+                                                 new Vector2(this.x + 10, this.y + 55),
+                                                 new Vector2(this.x - 20, this.y + 55)],
+                                                 ["motorCycleBigLeft"],
+                                                 ["motorCycle","motorCycleBigRight"]);
+        gameNs.game.collisionManager.addPolygonCollider(this.colliderBigLeft);
+        this.colliderBigRight = new PolygonCollider([new Vector2(this.x + 10, this.y - 20),
                                                  new Vector2(this.x + 40, this.y - 20),
                                                  new Vector2(this.x + 40, this.y + 55),
-                                                 new Vector2(this.x - 20, this.y + 55)],
-                                                 ["motorCycleBig"],
-                                                 ["motorCycle"]);
-        
+                                                 new Vector2(this.x + 10, this.y + 55)],
+                                                 ["motorCycleBigRight"],
+                                                 ["motorCycle","motorCycleBigLeft"]);
+        gameNs.game.collisionManager.addPolygonCollider(this.colliderBigRight);
+
         this.spriteAnimation = new AnimatedSprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
                                                  42,
                                                  42,
@@ -53,8 +63,7 @@ class MotorCycle extends EnemyVehicle
         this.animation.setLooped(true);
         this.spriteAnimation.setAnimation(this.animation);
         this.spriteAnimation.setScale(1.5,1.5)
-        
-        gameNs.game.collisionManager.addPolygonCollider(this.colliderBig);
+
 
     }
 
@@ -90,41 +99,47 @@ class MotorCycle extends EnemyVehicle
       if(this.saved === true)
       {
         this.savedCount = this.savedCount + 1;
-        if(this.savedCount >= 50)
+        if(this.savedCount >= 1)
         {
           this.savedCount = 0;
           this.saved = false;
         }
       }
-      
+
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds') && this.alive)
       {
         this.explode();
         gameNs.game.collisionManager.removePolygonCollider(this.collider);
-        gameNs.game.collisionManager.removePolygonCollider(this.colliderBig);
+        gameNs.game.collisionManager.removePolygonCollider(this.colliderBigLeft);
+        gameNs.game.collisionManager.removePolygonCollider(this.colliderBigRight);
       }
-     
-      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBig), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
+
+      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBigLeft), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
       {
         if(this.saved === false){
-        if(this.xVelocity < 0)
-        {
+
           this.x += 5;
           this.sprite.move(+5, 0);
           this.collider.shape.move(+5, 0);
-          this.colliderBig.shape.move(+5, 0);
+          this.colliderBigLeft.shape.move(+5, 0);
+          this.colliderBigRight.shape.move(+5, 0);
           this.xVelocity = 3;
           this.saved = true;
           this.count = 0;  // Wont change straight after
-      }else{
+      }
+      }
+      if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.colliderBigRight), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'bounds'))
+      {
+        if(this.saved === false){
+
         this.x -= 5;
         this.sprite.move(-5, 0);
         this.collider.shape.move(-5, 0);
-        this.colliderBig.shape.move(-5, 0);
+        this.colliderBigRight.shape.move(-5, 0);
+        this.colliderBigLeft.shape.move(-5, 0);
         this.xVelocity = -3;
         this.saved = true;
         this.count = 0;  // Wont change straight after
-      }
       }
       }
       if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'Player'))
@@ -141,7 +156,7 @@ class MotorCycle extends EnemyVehicle
         this.yVelocity = scrollSpeed / 3;
         this.rightHit = true;
       }
-      
+
       }
       if(this.leftHit == true){
         this.sprite.rotate(6);
@@ -153,12 +168,13 @@ class MotorCycle extends EnemyVehicle
       if(this.count >= 50)
       {
       this.xVelocity = Math.random() * 6 - 3;
-      this.yVelocity = Math.random() * 6 - 3;
+      this.yVelocity = Math.random() * 3 - 3;
       this.count = 0;
     }
       this.sprite.move(this.xVelocity,this.yVelocity);
       this.collider.shape.move(this.xVelocity,this.yVelocity);
-      this.colliderBig.shape.move(this.xVelocity,this.yVelocity);
+      this.colliderBigLeft.shape.move(this.xVelocity,this.yVelocity);
+      this.colliderBigRight.shape.move(this.xVelocity,this.yVelocity);
       this.x = this.x + this.xVelocity;
       this.y = this.y + this.yVelocity;
     }
@@ -181,12 +197,12 @@ class MotorCycle extends EnemyVehicle
     }
 
     spill(scrollSpeed) {
-  
+
       var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
       if (CollisionManager.CollidedWithTag(
         CollisionManager.IndexOfElement(
-          gameNs.game.collisionManager.polygonColliderArray, this.collider), 
-          collisionResults, gameNs.game.collisionManager.polygonColliderArray, 
+          gameNs.game.collisionManager.polygonColliderArray, this.collider),
+          collisionResults, gameNs.game.collisionManager.polygonColliderArray,
           'oil'))
       {
         this.saved = true;
@@ -204,4 +220,3 @@ class MotorCycle extends EnemyVehicle
     }
   }
 }
-
