@@ -88,7 +88,7 @@ class NPCManager
      */
     update(car, levelScrollSpeed, curY)
     {
-        var rand = Math.floor((Math.random() * 30) + 1);
+        var rand = Math.floor((Math.random() * 60) + 1);
 
         //Update helicopter
         if(this.helicopter.length === 1)
