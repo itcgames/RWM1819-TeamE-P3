@@ -16,8 +16,8 @@ class NPCManager
         this.spikeCars = [];
         this.projectileCars = [];
         this.helicopter = []
-        this.helicopter.push(new Helicopter(-200, 500));
-        this.trucks.push(new Truck(300,400));
+        //this.helicopter.push(new Helicopter(-200, 500));
+        //this.trucks.push(new Truck(300,400));
         this.helicopterSpawnTicks = 0;
 
         this.maxPowerTrucks = 1;
@@ -25,6 +25,36 @@ class NPCManager
         this.maxMotorcycles = 2;
         this.maxSpikeCars = 2;
         this.maxProjectileCars = 2;
+    }
+
+    // Spawn functions for the tutorial.
+    spawnPowerTruck(xPos)
+    {
+      this.powerTrucks.push(new PowerTruck(xPos, this.y));
+    }
+    spawnHelicopter()
+    {
+      this.helicopter.push(new Helicopter(-200, 500));
+    }
+
+    spawnSpikeCar(x,y)
+    {
+      this.spikeCars.push(new SpikeEnemy(x, y));
+    }
+
+    // Position functions for the tutorial.
+
+    getPowerTruckX(){
+      if(this.powerTrucks.length > 0)
+      {
+      return this.powerTrucks[0].getPositionX();
+    }
+    }
+    getPowerTruckY(){
+      if(this.powerTrucks.length > 0)
+      {
+      return this.powerTrucks[0].getPositionY();
+    }
     }
 
     //Spawns a new vehicle if there is room, at the X Position of the player
@@ -103,7 +133,7 @@ class NPCManager
         }
 
 
-        if(rand === 10)
+        if(rand === 10 && gameNs.tutorial === false)
         {
             console.log("Spawn vehicle");
             this.spawnVehicle(car.x);
@@ -136,11 +166,14 @@ class NPCManager
 
 
         //If there is no helicopter, create a new one.
+        if(gameNs.tutorial === false)
+        {
         if(this.helicopter.length === 0 && this.helicopterSpawnTicks > 700)
         {
             this.helicopter.push(new Helicopter(-200, 500));
             this.helicopterSpawnTicks = 0;
         }
+      }
     }
 
     checkRocketGot(){
@@ -249,7 +282,7 @@ class NPCManager
         }
         this.powerTrucks = [];
 
-        
+
     }
 
 

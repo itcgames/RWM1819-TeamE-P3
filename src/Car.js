@@ -60,6 +60,9 @@ class Car {
 
     this.oil = [];
   }
+  getArmed(){
+    return this.rocketArmed;
+  }
   getPositionX(){
     return this.x;
   }

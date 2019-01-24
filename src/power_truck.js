@@ -77,6 +77,14 @@ class PowerTruck extends EnemyVehicle
     {
       return this.dead;
     }
+    getPositionX()
+    {
+      return this.x;
+    }
+    getPositionY()
+    {
+      return this.y;
+    }
     getRocketBool()
     {
       if(this.rocket == true)

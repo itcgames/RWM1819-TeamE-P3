@@ -2,9 +2,11 @@ class Game {
   constructor(title)
   {
     this.title = title;
-    this.initWorld();
+    this.made = false;
   }
   initWorld() {
+    gameNs.tutorial = false;
+    console.log("CALLED GAME INIT");
     this.car = new Car(300, 600);
     this.levelPart1 = new Level();
 
@@ -77,11 +79,14 @@ class Game {
 
     }
 
-    console.log(this.car.getPositionX())
-    
+
   }
 
   draw() {
+    if(this.made === false){
+    this.initWorld();
+    this.made = true;
+  }
     if(gameNs.game.ctx.globalAlpha < 1) {
       gameNs.game.ctx.globalAlpha += 0.01;
     }

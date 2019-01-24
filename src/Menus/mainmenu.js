@@ -13,8 +13,10 @@ class MenuScene
   {
     this.title = title;
     this.startText = "0 Start Game"
+    this.tutorialText = "1 Tutorial"
     this.input = new Input();
     this.input.bind(this.changeScene, "0");
+    this.input.bind(this.changeScene2, "1");
   }
   update()
   {
@@ -25,6 +27,13 @@ class MenuScene
   {
     gameNs.game.ctx.clearRect(0, 0, gameNs.game.canvas.width, gameNs.game.canvas.height);
     gameNs.sceneManager.goToScene(gameNs.gameScene.title);
+    //gameNs.game.ctx.clearRect(0, 0, 1000, 1000);
+  }
+  changeScene2()
+  {
+    gameNs.tutorial = true;
+    gameNs.game.ctx.clearRect(0, 0, gameNs.game.canvas.width, gameNs.game.canvas.height);
+    gameNs.sceneManager.goToScene(gameNs.tutorialScene.title);
     //gameNs.game.ctx.clearRect(0, 0, 1000, 1000);
   }
 /**
@@ -43,7 +52,9 @@ class MenuScene
     gameNs.game.ctx.font = '80px Spy Hunter'; //48
     gameNs.game.ctx.globalAlpha = 0.02;
     gameNs.game.ctx.fillStyle = "yellow"
-    gameNs.game.ctx.fillText(this.startText, 400, 500);
+    gameNs.game.ctx.fillText(this.startText, 400, 400);
+    gameNs.game.ctx.fillStyle = "green"
+    gameNs.game.ctx.fillText(this.tutorialText, 400, 700);
 
 
 }
