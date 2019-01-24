@@ -34,9 +34,9 @@ class NPCManager
      */
     spawnVehicle(xPos)
     {
-        var rand = Math.floor((Math.random() * 4) + 1);
+        var rand = Math.floor((Math.random() * 20) + 1);
 
-        if(rand === 1)
+        if(rand > 1 && rand <= 5)
         {
             //Spawn new truck if there is room
             if(this.trucks.length < this.maxTrucks)
@@ -46,7 +46,7 @@ class NPCManager
             }
         }
 
-        else if (rand === 2)
+        else if (rand > 5 && rand <= 10)
         {
             //spawn new motorcycle is there is room
             if(this.motorcycles.length < this.maxMotorcycles)
@@ -56,7 +56,7 @@ class NPCManager
             }
         }
 
-        else if (rand === 3)
+        else if (rand > 10 && rand <= 13)
         {
             //spawn new spike car
             if(this.spikeCars.length < this.maxSpikeCars)
@@ -65,7 +65,7 @@ class NPCManager
             }
         }
 
-        else if (rand === 4)
+        else if (rand === 15)
         {
             //spawn new projectle car
             if(this.powerTrucks.length < this.maxPowerTrucks)
@@ -112,16 +112,28 @@ class NPCManager
         for(var i = 0; i < this.trucks.length; i++)
         {
             this.trucks[i].update(levelScrollSpeed);
+            if(!this.trucks[i].alive)
+            {
+                this.trucks.splice(i, 1);
+            }
         }
 
         for(var i = 0; i < this.motorcycles.length; i++)
         {
             this.motorcycles[i].update(car.getPositionX(), levelScrollSpeed);
+            if(!this.motorcycles[i].alive)
+            {
+                this.motorcycles.splice(i, 1);
+            }
         }
 
         for(var i = 0; i < this.spikeCars.length; i++)
         {
             this.spikeCars[i].update(car.x, car.y, levelScrollSpeed, car.getAlive());
+            if(!this.spikeCars[i].alive)
+            {
+                this.spikeCars.splice(i, 1);
+            }
         }
 
         for(var i = 0; i < this.powerTrucks.length; i++)
@@ -141,6 +153,7 @@ class NPCManager
             this.helicopter.push(new Helicopter(-200, 500));
             this.helicopterSpawnTicks = 0;
         }
+        
     }
 
     checkRocketGot(){
