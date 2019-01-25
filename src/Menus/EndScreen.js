@@ -3,14 +3,34 @@ class End
   constructor(title)
   {
     this.title = title;
-    this.startText = "R To Restart Game"
+    this.gs = new GestureManager();
+    this.gs.init();
+    if (this.is_touch_device()){
+      this.startText = "Touch To Restart Game"
+    }
+    else {
+      this.startText = "R To Restart Game"
+    }
+    
     this.input = new Input();
     this.input.bind(this.changeScene, "r");
+  }
+
+  is_touch_device(){
+    var generalTouchEnabled = "ontouchstart" in document.createElement("div");
+
+    if (generalTouchEnabled) {
+        return true;
+    }
+    return false;
   }
 
   update()
   {
     this.input.update();
+    if (this.gs.touchColl(250, 400, 1000 , 100)) {
+      this.changeScene();
+    }
   }
 
   changeScene()

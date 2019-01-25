@@ -16,11 +16,11 @@ class GSHANDLER
         this.RightArrow = new Image();
         this.RightArrow.src = "../assets/rightArrow.png";
         this.shootBtn = new Image();
-        this.shootBtn.src = "../assets/actionbtn.png";
+        this.shootBtn.src = "../assets/shootbtn.png";
         this.oilBtn = new Image();
-        this.oilBtn.src = "../assets/actionbtn.png";
+        this.oilBtn.src = "../assets/oilbtn.png";
         this.missileButton = new Image();
-        this.missileButton.src = "../assets/actionbtn.png";
+        this.missileButton.src = "../assets/missilebtn.png";
     }
 
     update(car)  {

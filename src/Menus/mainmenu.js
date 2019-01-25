@@ -11,6 +11,8 @@ class MenuScene
   */
   constructor(title)
   {
+    this.gs = new GestureManager();
+    this.gs.init()
     this.title = title;
     this.startText = "0 Start Game"
     this.tutorialText = "1 Tutorial"
@@ -21,6 +23,22 @@ class MenuScene
   update()
   {
     this.input.update();
+    if (this.gs.touchColl(400, 300, 500, 100)){
+      this.changeScene();
+    }
+
+    if (this.gs.touchColl(400, 600, 500, 100)){
+      
+    }
+  }
+
+  is_touch_device(){
+    var generalTouchEnabled = "ontouchstart" in document.createElement("div");
+
+    if (generalTouchEnabled) {
+        return true;
+    }
+    return false;
   }
 
   changeScene()
@@ -53,9 +71,10 @@ class MenuScene
     gameNs.game.ctx.globalAlpha = 0.02;
     gameNs.game.ctx.fillStyle = "yellow"
     gameNs.game.ctx.fillText(this.startText, 400, 400);
-    gameNs.game.ctx.fillStyle = "green"
-    gameNs.game.ctx.fillText(this.tutorialText, 400, 700);
-
+    if (!this.is_touch_device()){
+      gameNs.game.ctx.fillStyle = "green"
+      gameNs.game.ctx.fillText(this.tutorialText, 400, 700);
+    }
 
 }
 
