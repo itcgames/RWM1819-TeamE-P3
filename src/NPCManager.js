@@ -38,7 +38,8 @@ class NPCManager
     }
     spawnHelicopter()
     {
-      this.helicopter.push(new Helicopter(-200, 600));
+      this.helicopter.push(new Helicopter(-200, 500));
+      this.helicopterSpawnTicks = 0;
     }
 
     spawnSpikeCar(x,y)
@@ -189,7 +190,6 @@ class NPCManager
         for(var i = 0; i < this.spikeCars.length; i++)
         {
             this.spikeCars[i].update(car.x, car.y, levelScrollSpeed, car.getAlive());
-            console.log(this.spikeCars[i].y);
             if(!this.spikeCars[i].alive && this.spikeCars[i].y > 900)
             {
                 console.log("REMOVING SPIKE");
