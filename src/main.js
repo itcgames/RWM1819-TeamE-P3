@@ -17,7 +17,7 @@ function main() {
   gameNs.game.collisionManager = new CollisionManager();
   gameNs.game.assetManager = new AssetManager();
   gameNs.game.assetManager.queueDownload("../assets/spyhuntersheet.png");
-  gameNs.game.assetManager.queueDownload("../assets/SpyHunterArea01.png");
+  gameNs.game.assetManager.queueDownload("../assets/level.png");
   gameNs.game.assetManager.queueDownload("../assets/spyHunterSplash.jpg");
   gameNs.game.assetManager.queueDownload("../assets/bullet.png");
   gameNs.game.assetManager.queueDownload("../assets/touchpad.png");
