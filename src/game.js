@@ -22,7 +22,8 @@ class Game {
     this.time_text = new timeText(500, 900);
     this.npcManager = new NPCManager(400, 1080);
     this.levelPart1.init(-53000);
-
+    gameNs.game.startDate = new Date();
+    gameNs.game.timePassed = new Date();
 
   }
 
@@ -36,7 +37,8 @@ class Game {
   }
 
   update(time) {
-
+    var currentDate = new Date();
+    gameNs.game.timePassed = this.format((currentDate - gameNs.game.startDate) / 1000);
     this.levelPart1.update(this.car.getScrollScalar());
     this.car.update(this.levelPart1.getScrollSpeed(),this.npcManager.getHeliPositionX(),this.npcManager.getHeliPositionY(),this.npcManager.getHeliAlive());
     var curY = this.levelPart1.getYPosition() * -1;
@@ -56,17 +58,16 @@ class Game {
     this.gsManager.update(this.car);
     }
     this.score_text.addScore(1);
-    this.time_text.minusTime(1);
     gameNs.game.collisionManager.checkAllColliders();
 
     if(this.car.health <= 0) {
       gameNs.game.score = this.score_text.score;
-      gameNs.game.time = this.time_text.time;
+      gameNs.game.time = this.format(gameNs.game.timePassed / 1000);
       this.car.health = 3;
       this.car.reset(300, 600);
       this.levelPart1.reset(-53000);
       this.score_text.setScore(0);
-      this.time_text.setTime(1000);
+      this.time_text.setTime(0);
       this.car.explosionTime = false;
       this.npcManager.reset();
       this.car.ready = true;
@@ -75,6 +76,16 @@ class Game {
 
     }
 
+  }
+
+  format(seconds)
+  {
+    var numhours = parseInt(Math.floor(((seconds % 31536000) % 86400) / 3600),10);
+    var numminutes = parseInt(Math.floor((((seconds % 31536000) % 86400) % 3600) / 60),10);
+    var numseconds = parseInt((((seconds % 31536000) % 86400) % 3600) % 60,10);
+        return ((numhours<10) ? "0" + numhours : numhours)
+        + ":" + ((numminutes<10) ? "0" + numminutes : numminutes)
+        + ":" + ((numseconds<10) ? "0" + numseconds : numseconds);
   }
 
   draw() {
