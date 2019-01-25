@@ -13,7 +13,7 @@ class Tutorial {
     this.input = new Input();
 
     this.arrowsMade = false;
-
+    this.time_text = new timeText(500, 900);
     this.end = false;
 
     this.spawnedPowerUp = false;
@@ -43,7 +43,7 @@ class Tutorial {
     this.input.bind(this.car.spill, "b");
     this.input.bind(this.car.shootRocket, "v");
     this.score_text = new scoreText(100, 900);
-    this.time_text = new timeText(500, 900);
+    this.score_text.setScore(0);
 
     this.npcManager = new NPCManager(400, 1080);
     this.levelPart1.init(-53000);
@@ -56,20 +56,8 @@ class Tutorial {
     this.rightPressed = false;
     this.leftPressed = false;
 
-    //this.achievement = new Achievement("Tutorial Complete");
-    //this.tutorialText = new tutorialText("Helloooooooooooooooooooooooo",100,100);
-    //this.diamondAchievement = new DiamondAchievement("Diamond Got");
-    //this.keyprompt = new KeyPrompt(100,600,"Space");
-    //this.keyprompt2 = new KeyPrompt(300,567,"ArrowUp");
-    //this.keyprompt3 = new KeyPrompt(300,600,"ArrowDown");
-    //this.keyprompt4 = new KeyPrompt(267,600,"ArrowLeft");
-    //this.keyprompt5 = new KeyPrompt(333,600,"ArrowRight");
-    //this.arrow = new Arrow(1000,400,"right");
-    //this.arrow2 = new Arrow(1000,400,"down");
-    //this.arrow3 = new Arrow(1000,400,"left");
-    //this.arrow4 = new Arrow(1000,400,"up");
-    //this.highlight = new Highlight(300,400,400,300);
-    //this.prompt = new Prompt(750,50,"rightClick");
+    gameNs.game.startDate = new Date();
+    gameNs.game.timePassed = new Date();
     this.useArrowKeys();
   }
   useArrowKeys(){
@@ -112,7 +100,6 @@ class Tutorial {
     this.car.health = 3;
     this.car.reset(300, 600);
     this.levelPart1.reset(-53000);
-    this.score_text.setScore(0);
     this.time_text.setTime(1000);
     this.car.explosionTime = false;
     this.npcManager.reset();
@@ -121,8 +108,20 @@ class Tutorial {
     gameNs.sceneManager.goToScene(gameNs.menuScene.title);
   }
 
+  format(seconds)
+  {
+    var numhours = parseInt(Math.floor(((seconds % 31536000) % 86400) / 3600),10);
+    var numminutes = parseInt(Math.floor((((seconds % 31536000) % 86400) % 3600) / 60),10);
+    var numseconds = parseInt((((seconds % 31536000) % 86400) % 3600) % 60,10);
+        return ((numhours<10) ? "0" + numhours : numhours)
+        + ":" + ((numminutes<10) ? "0" + numminutes : numminutes)
+        + ":" + ((numseconds<10) ? "0" + numseconds : numseconds);
+  }
+
 
   update(time) {
+    var currentDate = new Date();
+    gameNs.game.timePassed = this.format((currentDate - gameNs.game.startDate) / 1000);
     if(this.carTime2 == true)
     {
       if(this.npcManager.getSpikeLength() == 0 && this.end == false)
@@ -208,9 +207,10 @@ class Tutorial {
     if(this.car.health <= 0) {
       this.car.health = 3;
       this.car.reset(300, 600);
+      gameNs.game.time = this.format(gameNs.game.timePassed / 1000);
       this.levelPart1.reset(-53000);
       this.score_text.setScore(0);
-      this.time_text.setTime(1000);
+      this.time_text.setTime(0);
       this.car.explosionTime = false;
       this.npcManager.reset();
       gameNs.sceneManager.goToScene(gameNs.endScene.title);
@@ -286,13 +286,5 @@ class Tutorial {
     this.keyprompt8.drawImage();
     this.diamondAchievement.drawImage();
   }
-    //this.diamondAchievement.drawImage();
-    //this.arrow.drawImage();
-    //this.arrow2.drawImage();
-    //this.arrow3.drawImage();
-    //this.arrow4.drawImage();
-    //this.highlight.drawImage();
-    //this.prompt.drawImage();
-    //this.keyprompt5.drawImage();
   }
 }
