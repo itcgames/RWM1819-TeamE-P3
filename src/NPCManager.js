@@ -38,7 +38,7 @@ class NPCManager
     }
     spawnHelicopter()
     {
-      this.helicopter.push(new Helicopter(-200, 500));
+      this.helicopter.push(new Helicopter(-200, 600));
     }
 
     spawnSpikeCar(x,y)
@@ -116,14 +116,14 @@ class NPCManager
      * @param {*} car car object
      * @param {*} levelScrollSpeed scroll speed gotten from the level object
      */
-    update(car, levelScrollSpeed, curY)
+    update(car, levelScrollSpeed, curY, ready)
     {
         var rand = Math.floor((Math.random() * 60) + 1);
 
         //Update helicopter
         if(this.helicopter.length === 1)
         {
-            this.helicopter[0].update(car.x, car.y,levelScrollSpeed);
+            this.helicopter[0].update(car.x, car.y,levelScrollSpeed, ready);
 
             //Once the helicopter has completed its cycle, remove from memory
             if(this.helicopter[0].getPosition().y >= 1080)
