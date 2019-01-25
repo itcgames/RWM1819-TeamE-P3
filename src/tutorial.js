@@ -257,7 +257,6 @@ class Tutorial {
   }
   if(this.heliTime === true && this.carTime === false && this.carTime2 === false)
   {
-    console.log(this.carTime2);
     this.tutorialText3.drawText();
     this.keyprompt6.drawImage();
     this.highlight.drawImage();

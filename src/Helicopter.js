@@ -97,7 +97,7 @@ class Helicopter extends EnemyVehicle
 
         }
         var collisionResults = gameNs.game.collisionManager.checkPolygonColliderArray();
-        if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'rocket') && this.alive && ready)
+        if (CollisionManager.CollidedWithTag(CollisionManager.IndexOfElement(gameNs.game.collisionManager.polygonColliderArray, this.collider), collisionResults, gameNs.game.collisionManager.polygonColliderArray, 'rocket') && this.alive)
         {
           gameNs.game.collisionManager.removePolygonCollider(this.collider);
           this.explode();
@@ -136,7 +136,7 @@ class Helicopter extends EnemyVehicle
                 this.attackPlayer = false;
             }
             else {
-                
+
                 this.randX = playerX;
                 this.randY = playerY - 150;
                 this.attackPlayer = true;
