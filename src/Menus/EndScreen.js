@@ -16,6 +16,7 @@ class End
   changeScene()
   {
     gameNs.game.ctx.clearRect(0, 0, gameNs.game.canvas.width, gameNs.game.canvas.height);
+    gameNs.game.startDate = new Date();
     gameNs.sceneManager.goToScene(gameNs.gameScene.title);
     //gameNs.game.ctx.clearRect(0, 0, 1000, 1000);
   }
@@ -26,7 +27,7 @@ class End
   */
   draw() {
     this.scoreText = "Score: " + gameNs.game.score;
-    this.timeText = "Time: " + gameNs.game.time;
+    this.timeText = "Time: " + gameNs.game.timePassed;
     document.body.style.background = "#000000";
     gameNs.game.ctx.font = '120px Spy Hunter'; //48
     gameNs.game.ctx.fillStyle = "white"
