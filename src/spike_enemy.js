@@ -64,7 +64,7 @@ class SpikeEnemy extends EnemyVehicle
                                                  ["spikeEnemyBigLeft"],
                                                  ["spikeRight","spikeLeft","spikeEnemy"]);
         gameNs.game.collisionManager.addPolygonCollider(this.colliderBigLeft);
-        
+
         this.spriteAnimation = new AnimatedSprite(gameNs.game.assetManager.getAsset("../assets/spyhuntersheet.png"),
         42,
         42,
@@ -130,15 +130,15 @@ class SpikeEnemy extends EnemyVehicle
     {
       if(this.x < this.targetX)
       {
-        this.xVelocity = 1;
+        this.xVelocity = 2;
       }else{
-        this.xVelocity = -1;
+        this.xVelocity = -2;
       }
       if(this.y < this.targetY)
       {
-        this.yVelocity = 1;
+        this.yVelocity = 2;
       }else{
-        this.yVelocity = -1;
+        this.yVelocity = -2;
       }
     }
     if((this.y - this.targetY) >= -10 && (this.y - this.targetY) <= 10)
