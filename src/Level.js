@@ -279,11 +279,11 @@ class Level
                             ["bounds"],
                             ["bounds"]));
         //FORK
-        this.colliders.push(new PolygonCollider([new Vector2(111 * this.worldScale, this.worldOffsetY + 3150 * this.worldScale),
+        this.colliders.push(new PolygonCollider([new Vector2(111 * this.worldScale, this.worldOffsetY + 2622 * this.worldScale),
                             new Vector2(111 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
                             new Vector2(143 * this.worldScale, this.worldOffsetY + 1810 * this.worldScale),
-                            new Vector2(143 * this.worldScale, this.worldOffsetY + 3150 * this.worldScale),
-                            new Vector2(127 * this.worldScale, this.worldOffsetY + 3300 * this.worldScale)],
+                            new Vector2(143 * this.worldScale, this.worldOffsetY + 2622 * this.worldScale),
+                            new Vector2(127 * this.worldScale, this.worldOffsetY + 2622 * this.worldScale)],
                             ["bounds"],
                             ["bounds"]));
         //L
