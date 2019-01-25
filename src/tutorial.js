@@ -230,7 +230,6 @@ class Tutorial {
     }
     document.body.style.background = "#ffffff";
     this.levelPart1.draw();
-    gameNs.game.collisionManager.render(gameNs.game.ctx);
     this.car.draw();
     this.npcManager.draw();
     this.score_text.drawText();
