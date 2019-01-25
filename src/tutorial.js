@@ -46,7 +46,6 @@ class Tutorial {
     this.time_text = new timeText(500, 900);
 
     this.npcManager = new NPCManager(400, 1080);
-    this.respawnTruck = new RespawnTruck(400,1000);
     this.levelPart1.init(-53000);
 
     this.goToMenu = this.goToMenu.bind(this);
@@ -190,25 +189,6 @@ class Tutorial {
     this.car.update(this.levelPart1.getScrollSpeed(),this.npcManager.getHeliPositionX(),this.npcManager.getHeliPositionY(),this.npcManager.getHeliAlive());
     var curY = this.levelPart1.getYPosition() * -1;
     this.car.powerUp(this.npcManager.checkRocketGot());
-    this.respawnTruck.update(this.levelPart1.getScrollSpeed(), curY)
-
-    if(!this.car.getAlive() && this.respawnTruck.getOffscreen() && this.respawnTruck.getSpawning())
-    {
-      this.respawnTruck.setVelocity(-4);
-      if (this.respawnTruck.checkPosition()){
-        this.respawnTruck.setVelocity(0);
-        this.car.reset(this.respawnTruck.getX(), this.respawnTruck.getY());
-      }
-    }
-    if (this.car.getAlive()&& !this.car.getState()){
-      this.car.reverseCar(this.respawnTruck.getY());
-      this.respawnTruck.setOffscreen(false);
-
-      if (this.car.getState())
-      {
-        this.respawnTruck.setVelocity(-6);
-      }
-    }
 
     if(this.levelPart1.getYPosition() > 1080)
     {
@@ -255,7 +235,6 @@ class Tutorial {
     this.npcManager.draw();
     this.score_text.drawText();
     this.time_text.drawText();
-    this.respawnTruck.draw();
     this.score_text.drawText();
     this.time_text.drawText();
 

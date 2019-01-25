@@ -38,7 +38,7 @@ class NPCManager
     }
     spawnHelicopter()
     {
-      this.helicopter.push(new Helicopter(-200, 500));
+      this.helicopter.push(new Helicopter(-200, 600));
     }
 
     spawnSpikeCar(x,y)
