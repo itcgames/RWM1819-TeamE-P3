@@ -7,11 +7,12 @@ class timeText
   constructor(textX, textY) {
     var that = this;
     var ctx = document.getElementById("canvas").getContext("2d");
-    this.time = 1000;
+    this.time = 0;
     this.textString = this.time;
     this.textX = textX;
     this.textY = textY;
     this.i = 0;
+    
   }
 
   render(){}
@@ -25,7 +26,7 @@ class timeText
   ctx.textAlign = "left";
   var length = this.textString.length;
 
-  ctx.fillText(this.textString, this.textX, this.textY);
+  ctx.fillText(gameNs.game.timePassed, this.textX, this.textY);
   ctx.fillStyle = "#ffffff";
   ctx.fillText("TIME", this.textX, this.textY - 30);
   //ctx.globalCompositeOperation = "source-in";

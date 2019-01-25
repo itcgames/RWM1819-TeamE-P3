@@ -10,7 +10,7 @@ class WorldTile
         this.x = x;
         this.y = y;
 
-        this.sprite = new Sprite(gameNs.game.assetManager.getAsset("../assets/SpyHunterArea01.png"),
+        this.sprite = new Sprite(gameNs.game.assetManager.getAsset("../assets/level.png"),
                                 768,
                                 18049,
                                 0,
